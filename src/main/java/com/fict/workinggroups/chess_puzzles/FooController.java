@@ -10,4 +10,6 @@ public class FooController {
     public String fooMethod() {
         return "foo";
     }
+
+
 }
