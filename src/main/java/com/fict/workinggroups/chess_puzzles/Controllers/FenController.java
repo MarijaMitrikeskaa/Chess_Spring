@@ -5,10 +5,7 @@ import com.fict.workinggroups.chess_puzzles.Service.FenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class FenController {
@@ -35,7 +32,7 @@ public class FenController {
         return "redirect:/";
     }
 
-    @GetMapping("/updateForm/{id}")
+    @GetMapping("/updateForm/{id}") //putMapping
     public String UpdateForm(@PathVariable(value = "id") long id, Model model) {
         FenModel fenModel = fenSrevice.getFenById(id);
         model.addAttribute("fenModel", fenModel);
@@ -43,6 +40,7 @@ public class FenController {
     }
 
     @GetMapping("/deleteFenID/{id}")
+    //@DeleteMapping("/deleteFenID/{id}") todo
     public String deleteFenID(@PathVariable(value = "id") long id) {
         this.fenSrevice.deleteFen(id);
         return "redirect:/";
