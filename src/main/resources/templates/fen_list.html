@@ -13,22 +13,25 @@
 <body>
 <div align="center" class="container my-2">
     <h1>FEN Chess List</h1>
-    <a th:href = "@{/newFenForm}" class="btn btn-primary btn-sm mb-3"> Add FEN </a>
+    <a th:href="@{/newFenForm}" class="btn btn-primary btn-sm mb-3"> Add FEN </a>
 
     <table border="1" class="table table-striped table-responsive-md">
         <thead>
         <tr>
             <th>FEN Combinations</th>
             <th>Description</th>
-            <th> Actions </th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="fen : ${FenList}">
-            <td th:text = "${fen.Fen}"></td>
-            <td th:text = "${fen.description}"></td>
-            <td><a th:href = "@{/UpdateForm/{Id}(Id=${fen.Id})}" class="btn btn-primary">Update</a>
-                <a th:href = "@{/deleteFenID/{Id}(Id=${fen.Id})}" class="btn btn-danger">Delete</a>
+        <tr th:each="fenModel : ${fenList}">
+            <td th:text="${fenModel.fen}"></td>
+            <td th:text="${fenModel.description}"></td>
+            <td>
+                <a th:href="@{/updateForm/{id}(Id=${fenModel.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/deleteFenID/{id}(Id=${fenModel.id})}" class="btn btn-danger">Delete</a>
+
+                <a th:href="@{/deleteFenID/123}" class="btn btn-danger">123</a>
             </td>
         </tr>
         </tbody>

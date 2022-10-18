@@ -14,14 +14,14 @@
     <hr>
     <h2> Save FEN Chess </h2>
 
-    <form action="#" th:action="@{/saveFen}" th:object="${fen}" method="POST">
-        <input type="text" th:field = "*{Fen}"
+    <form action="#" th:action="@{/saveFen}" th:object="${fenModel}" method="POST">
+        <input type="text" th:field="*{fen}"
                placeholder="Enter Valid FEN" class="form-control mb-4 col-4">
 
-        <input type="text" th:field = "*{description}"
+        <input type="text" th:field="*{description}"
                placeholder="Enter a Description" class="form-control mb-4 col-4">
 
-        <button type="submit" class="btn btn-info col-2"> Save FEN </button>
+        <button type="submit" class="btn btn-info col-2"> Save FEN</button>
     </form>
 
 </div>

@@ -3,35 +3,36 @@ package com.fict.workinggroups.chess_puzzles.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "fens")
-public class Fen {
+@Table(name = "fens")
+public class FenModel {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     @Column(name = "TheFens")
-    private String Fen;
+    private String fen;
 
     @Column(name = "TheDescription")
     private String description;
 
-    public Fen() {
+    public FenModel() {
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getFen() {
-        return Fen;
+        return fen;
     }
 
     public void setFen(String fen) {
-        Fen = fen;
+        this.fen = fen;
     }
 
     public String getDescription() {

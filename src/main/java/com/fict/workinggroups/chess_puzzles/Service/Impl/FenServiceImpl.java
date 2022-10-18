@@ -1,41 +1,41 @@
 package com.fict.workinggroups.chess_puzzles.Service.Impl;
-import com.fict.workinggroups.chess_puzzles.Entity.Fen;
+
+import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.Service.FenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import javax.management.relation.RelationServiceNotRegisteredException;
 import java.util.List;
 import java.util.Optional;
+
 @Service
-public class FenServiceImpl  implements FenService {
+public class FenServiceImpl implements FenService {
 
     @Autowired
     private FenRepository fenRepo;
 
     @Override
-    public List<Fen> getAllFens() {
+    public List<FenModel> getAllFens() {
         return fenRepo.findAll();
     }
 
     @Override
-    public void saveFen(Fen fen) {
-        this.fenRepo.save(fen);
+    public void saveFen(FenModel fenModel) {
+        this.fenRepo.save(fenModel);
     }
 
     @Override
-    public Fen getFenById(long Id) {
-        Optional<Fen> optional = fenRepo.findById(Id);
-        Fen fen = null;
+    public FenModel getFenById(long Id) {
+        Optional<FenModel> optional = fenRepo.findById(Id);
+        FenModel fenModel;
         if (optional.isPresent()) {
-            fen = optional.get();
-        }else {
-            throw  new RuntimeException(" This FEN is not found with id : " + Id);
+            fenModel = optional.get();
+        } else {
+            throw new RuntimeException("This FEN is not found with id: " + Id);
         }
-        return fen;
-
+        return fenModel;
     }
 
     @Override
