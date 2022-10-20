@@ -27,20 +27,20 @@ public class FenServiceImpl implements FenService {
     }
 
     @Override
-    public FenModel getFenById(long Id) {
-        Optional<FenModel> optional = fenRepo.findById(Id);
+    public FenModel getFenById(long id) {
+        Optional<FenModel> optional = fenRepo.findById(id);
         FenModel fenModel;
         if (optional.isPresent()) {
             fenModel = optional.get();
         } else {
-            throw new RuntimeException("This FEN is not found with id: " + Id);
+            throw new RuntimeException("This FEN is not found with id: " + id);
         }
         return fenModel;
     }
 
     @Override
-    public void deleteFen(long Id) {
-        this.fenRepo.deleteById(Id);
+    public void deleteFen(long id) {
+        this.fenRepo.deleteById(id);
     }
 }
 

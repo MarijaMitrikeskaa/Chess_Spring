@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface FenService {
     List<FenModel> getAllFens();
+
     void saveFen(FenModel fenModel);
-    FenModel getFenById(long Id);
-    void deleteFen (long Id);
+
+    FenModel getFenById(long id);
+
+    void deleteFen(long id);
 }

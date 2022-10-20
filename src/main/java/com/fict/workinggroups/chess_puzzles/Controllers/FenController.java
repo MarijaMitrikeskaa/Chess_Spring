@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class FenController {
     @Autowired
-    private FenService fenSrevice;
+    private FenService fenService;
 
     // pokazuva lista na FENS
     @GetMapping("/")
     public String viewHomePage(Model model) {
-        model.addAttribute("fenList", fenSrevice.getAllFens());
+        model.addAttribute("fenList", fenService.getAllFens());
         return "fen_list";
     }
 
@@ -28,13 +28,13 @@ public class FenController {
 
     @PostMapping("/saveFen")
     public String saveFen(@ModelAttribute("fenModel") FenModel fenModel) {
-        fenSrevice.saveFen(fenModel);
+        fenService.saveFen(fenModel);
         return "redirect:/";
     }
 
     @GetMapping("/updateForm/{id}") //putMapping
     public String UpdateForm(@PathVariable(value = "id") long id, Model model) {
-        FenModel fenModel = fenSrevice.getFenById(id);
+        FenModel fenModel = fenService.getFenById(id);
         model.addAttribute("fenModel", fenModel);
         return "update_fen";
     }
@@ -42,7 +42,7 @@ public class FenController {
     @GetMapping("/deleteFenID/{id}")
     //@DeleteMapping("/deleteFenID/{id}") todo
     public String deleteFenID(@PathVariable(value = "id") long id) {
-        this.fenSrevice.deleteFen(id);
+        this.fenService.deleteFen(id);
         return "redirect:/";
     }
 }

@@ -11,3 +11,4 @@ public class ChessPuzzlesApplication {
 	}
 
 }
+//todo add mock data with command line runner

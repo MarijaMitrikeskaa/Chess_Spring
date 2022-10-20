@@ -28,8 +28,8 @@
             <td th:text="${fenModel.fen}"></td>
             <td th:text="${fenModel.description}"></td>
             <td>
-                <a th:href="@{/updateForm/{id}(Id=${fenModel.id})}" class="btn btn-primary">Update</a>
-                <a th:href="@{/deleteFenID/{id}(Id=${fenModel.id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/updateForm/{id}(id=${fenModel.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/deleteFenID/{id}(id=${fenModel.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
