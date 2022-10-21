@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "fens")
-public class FenModel {
+public class FenModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,8 +16,17 @@ public class FenModel {
     @Column(name = "TheDescription")
     private String description;
 
-    public FenModel() {
+
+
+    public FenModel(String fen, String description) {
+        this.fen = fen;
+        this.description = description;
     }
+
+    public FenModel() {
+
+    }
+
 
     public long getId() {
         return id;

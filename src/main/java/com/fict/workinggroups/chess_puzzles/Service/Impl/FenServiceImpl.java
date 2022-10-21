@@ -3,6 +3,7 @@ package com.fict.workinggroups.chess_puzzles.Service.Impl;
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.Service.FenService;
+import com.fict.workinggroups.chess_puzzles.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +38,21 @@ public class FenServiceImpl implements FenService {
         }
         return fenModel;
     }
+    @Override
+    public Optional<FenModel>findById(Long id){
+        return this.fenRepo.findById(id);
+    }
+    @Override
+    public Optional<FenModel> edit(Long id, String fen, String description) {
+        FenModel fenModel=this.fenRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException(id));
+        fenModel.setFen(fen);
+        fenModel.setDescription(description);
+        return Optional.of(this.fenRepo.save(fenModel));
+
+    }
 
     @Override
     public void deleteFen(long id) {
         this.fenRepo.deleteById(id);
     }
 }
-
