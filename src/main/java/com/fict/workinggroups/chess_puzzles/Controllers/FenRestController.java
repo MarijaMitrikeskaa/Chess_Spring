@@ -1,67 +1,53 @@
-package com.fict.workinggroups.chess_puzzles.RestControllers;
+package com.fict.workinggroups.chess_puzzles.Controllers;
 
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
-import com.fict.workinggroups.chess_puzzles.Service.FenService;
 import com.fict.workinggroups.chess_puzzles.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Access;
 import java.util.List;
 
 
-@RequestMapping("/api/fen")
+@RequestMapping("/api")
 @RestController
 public class FenRestController {
 @Autowired
     private FenRepository fenRepository;
-
-@GetMapping
+// site fens
+@GetMapping("/fens")
     public List<FenModel> getAllFens(){
     return fenRepository.findAll();
 }
-
+// kreiranje nov fen
 @PostMapping("/add")
-    public FenModel saveFen(@ModelAttribute FenModel fenModel)
-{
+public FenModel createFen(@RequestBody FenModel fenModel){
     return fenRepository.save(fenModel);
 }
-
-@GetMapping("/{id}")
-    public ResponseEntity<FenModel> getFenById(@PathVariable long id)
-{
-    FenModel fenModel= fenRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException(id));
-            return ResponseEntity.ok(fenModel);
-
+//zemi fen spored id
+@GetMapping("/fens/{id}")
+    public ResponseEntity<FenModel> getFenById(@PathVariable long id) throws ResourceNotFoundException {
+    {
+        FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN is not found"));
+        return ResponseEntity.ok().body(fenModel);
+    }
 }
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<FenModel> updateFen(@PathVariable long id,@ModelAttribute FenModel fenModel) {
-        FenModel updateFenmodel = fenRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
-
-        updateFenmodel.setFen((fenModel.getFen()));
-        updateFenmodel.setDescription((fenModel.getDescription()));
-
-
-        fenRepository.save(updateFenmodel);
-
-        return ResponseEntity.ok(updateFenmodel);
+    @PutMapping("/fens/{id}")
+    public ResponseEntity<FenModel> updateFen(@PathVariable long id, @RequestBody FenModel fenDetails)  throws ResourceNotFoundException {
+    FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN is not found"));
+    fenModel.setFen(fenDetails.getFen());
+    fenModel.setDescription(fenDetails.getDescription());
+    fenRepository.save(fenModel);
+    return ResponseEntity.ok().body(fenModel);
     }
 
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteFen(@PathVariable long id){
-
-       FenModel fenModel = fenRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
-
-        fenRepository.delete(fenModel);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/fens/{id}")
+    public ResponseEntity<Object> deleteFen(@PathVariable long id) throws ResourceNotFoundException{
+    FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN is not found"));
+    fenRepository.deleteById(id);
+    return ResponseEntity.ok().build();
 
     }
 

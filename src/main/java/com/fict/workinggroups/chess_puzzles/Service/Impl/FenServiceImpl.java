@@ -29,30 +29,21 @@ public class FenServiceImpl implements FenService {
 
     @Override
     public FenModel getFenById(long id) {
-        Optional<FenModel> optional = fenRepo.findById(id);
-        FenModel fenModel;
-        if (optional.isPresent()) {
-            fenModel = optional.get();
-        } else {
-            throw new RuntimeException("This FEN is not found with id: " + id);
-        }
-        return fenModel;
+        return null;
     }
+
     @Override
     public Optional<FenModel>findById(Long id){
         return this.fenRepo.findById(id);
-    }
-    @Override
-    public Optional<FenModel> edit(Long id, String fen, String description) {
-        FenModel fenModel=this.fenRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException(id));
-        fenModel.setFen(fen);
-        fenModel.setDescription(description);
-        return Optional.of(this.fenRepo.save(fenModel));
-
     }
 
     @Override
     public void deleteFen(long id) {
         this.fenRepo.deleteById(id);
+    }
+
+    @Override
+    public Optional<FenModel> edit(Long id, String fen, String description) {
+        return Optional.empty();
     }
 }
