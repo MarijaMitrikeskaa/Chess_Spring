@@ -16,8 +16,6 @@ public class FenModel{
     @Column(name = "TheDescription")
     private String description;
 
-
-
     public FenModel(String fen, String description) {
         this.fen = fen;
         this.description = description;
