@@ -10,31 +10,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RequestMapping("/api")
+@RequestMapping("/api/fens")
 @RestController
 public class FenRestController {
 @Autowired
     private FenRepository fenRepository;
 // site fens
-@GetMapping("/fens")
+@GetMapping
     public List<FenModel> getAllFens(){
     return fenRepository.findAll();
 }
-// kreiranje nov fen
+
 @PostMapping("/add")
-public FenModel createFen(@RequestBody FenModel fenModel){
+public FenModel createFen(@ModelAttribute FenModel fenModel){
     return fenRepository.save(fenModel);
 }
-//zemi fen spored id
-@GetMapping("/fens/{id}")
+
+@GetMapping("/{id}")
     public ResponseEntity<FenModel> getFenById(@PathVariable long id) throws ResourceNotFoundException {
     {
         FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN is not found"));
         return ResponseEntity.ok().body(fenModel);
     }
 }
-    @PutMapping("/fens/{id}")
-    public ResponseEntity<FenModel> updateFen(@PathVariable long id, @RequestBody FenModel fenDetails)  throws ResourceNotFoundException {
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<FenModel> updateFen(@PathVariable long id, @ModelAttribute FenModel fenDetails)  throws ResourceNotFoundException {
     FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN is not found"));
     fenModel.setFen(fenDetails.getFen());
     fenModel.setDescription(fenDetails.getDescription());
@@ -43,7 +43,7 @@ public FenModel createFen(@RequestBody FenModel fenModel){
     }
 
 
-    @DeleteMapping("/fens/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteFen(@PathVariable long id) throws ResourceNotFoundException{
     FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN is not found"));
     fenRepository.deleteById(id);
