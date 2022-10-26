@@ -27,7 +27,7 @@ public class ChessPuzzlesApplication implements CommandLineRunner {
         FenModel fenModel1 = new FenModel();
         fenModel1.setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
         fenModel1.setDescription("Description 1");
-        fenModel1.setValidAnswer("A1", "B2")
+        //fenModel1.setValidAnswer("A1", "B2")
         fenRepository.save(fenModel1);
 
         FenModel fenModel2 = new FenModel();
