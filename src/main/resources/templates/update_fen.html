@@ -14,7 +14,7 @@
     <hr>
     <h2> Update FEN Chess </h2>
 
-    <form action="#" th:action="@{/saveFen}" th:object="${fenModel}" method="POST">
+    <form action="#" th:action="@{/saveFen}" th:object="${fen}" method="POST">
 
         <input type="hidden" th:field="*{id}" />
         <input type="text" th:field = "*{Fen}"

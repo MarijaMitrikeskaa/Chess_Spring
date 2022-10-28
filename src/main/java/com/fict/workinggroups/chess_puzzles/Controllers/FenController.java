@@ -12,7 +12,6 @@ public class FenController {
     @Autowired
     private FenService fenService;
 
-    // pokazuva lista na FENS
     @GetMapping("/")
     public String viewHomePage(Model model) {
         model.addAttribute("fenList", fenService.getAllFens());
@@ -32,16 +31,17 @@ public class FenController {
         return "redirect:/";
     }
 
-    @GetMapping("/updateForm/{id}") //putMapping
-    public String UpdateForm(@PathVariable(value = "id") long id, Model model) {
-        FenModel fenModel = fenService.getFenById(id);
-        model.addAttribute("fenModel", fenModel);
-        return "update_fen";
-    }
 
-    @GetMapping("/deleteFenID/{id}")
-    //@DeleteMapping("/deleteFenID/{id}") todo
-    public String deleteFenID(@PathVariable(value = "id") long id) {
+    @PutMapping("/updateForm/{id}")
+  public String UpdateForm(@PathVariable(value = "id") String id, Model model){
+        FenModel fenModel = fenService.findById(id).get();
+              model.addAttribute("fen", fenModel);
+              return "update_fen";
+           }
+
+
+    @DeleteMapping("/deleteFenID/{id}")
+    public String deleteFenID(@PathVariable(value = "id") String id) {
         this.fenService.deleteFen(id);
         return "redirect:/";
     }

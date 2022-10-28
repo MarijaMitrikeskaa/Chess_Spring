@@ -28,22 +28,22 @@ public class FenServiceImpl implements FenService {
     }
 
     @Override
-    public FenModel getFenById(long id) {
+    public FenModel getFenById(String id) {
         return null;
     }
 
     @Override
-    public Optional<FenModel>findById(Long id){
+    public Optional<FenModel>findById(String id){
         return this.fenRepo.findById(id);
     }
 
     @Override
-    public void deleteFen(long id) {
+    public void deleteFen(String id) {
         this.fenRepo.deleteById(id);
     }
 
     @Override
-    public Optional<FenModel> edit(Long id, String fen, String description) {
+    public Optional<FenModel> edit(String id, String fen, String description) {
         return Optional.empty();
     }
 }

@@ -1,14 +1,16 @@
 package com.fict.workinggroups.chess_puzzles.Entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "fens")
+@Table(name = "Fen")
 public class FenModel{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
 
     @Column(name = "TheFens")
     private String fen;
@@ -19,6 +21,7 @@ public class FenModel{
     public FenModel(String fen, String description) {
         this.fen = fen;
         this.description = description;
+
     }
 
     public FenModel() {
@@ -26,11 +29,13 @@ public class FenModel{
     }
 
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+
+
+    public void setId(String id) {
         this.id = id;
     }
 

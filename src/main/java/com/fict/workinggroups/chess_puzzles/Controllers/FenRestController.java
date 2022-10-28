@@ -31,16 +31,16 @@ public class FenRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FenModel> getFenById(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<FenModel> getFenById(@PathVariable String id) throws ResourceNotFoundException {
         {
-            FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN is not found"));
+            FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN %id is not found", id ));
             return ResponseEntity.ok().body(fenModel);
         }
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<FenModel> updateFen(@PathVariable long id, @ModelAttribute FenModel fenDetails) throws ResourceNotFoundException {
-        FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN is not found"));
+    public ResponseEntity<FenModel> updateFen(@PathVariable String id, @ModelAttribute FenModel fenDetails) throws ResourceNotFoundException {
+        FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN %id is not found" , id) );
         fenModel.setFen(fenDetails.getFen());
         fenModel.setDescription(fenDetails.getDescription());
         fenRepository.save(fenModel);
@@ -48,7 +48,7 @@ public class FenRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteFen(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Object> deleteFen(@PathVariable String id)  {
         fenRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }

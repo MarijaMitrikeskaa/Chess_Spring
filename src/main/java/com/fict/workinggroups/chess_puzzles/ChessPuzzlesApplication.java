@@ -2,6 +2,7 @@ package com.fict.workinggroups.chess_puzzles;
 
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
+import org.alcibiade.chess.model.ChessBoardModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +17,15 @@ import java.util.List;
 public class ChessPuzzlesApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
+
         SpringApplication.run(ChessPuzzlesApplication.class, args);
+
+        ChessBoardModel board = new ChessBoardModel();
+
+        board.setInitialPosition();
+
+        System.out.println("Current position is:");
+        System.out.println(board);
     }
 
     @Autowired

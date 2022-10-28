@@ -11,10 +11,10 @@ public interface FenService {
 
     void saveFen(FenModel fenModel);
 
-    FenModel getFenById(long id);
+    FenModel getFenById(String id);
 
-    void deleteFen(long id);
-    Optional<FenModel> edit(Long id, String fen, String description);
+    void deleteFen(String id);
+    Optional<FenModel> edit(String id, String fen, String description);
 
-    Optional<FenModel> findById(Long id);
+    Optional<FenModel> findById(String id);
 }
