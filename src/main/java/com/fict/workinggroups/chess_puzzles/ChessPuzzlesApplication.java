@@ -3,6 +3,7 @@ package com.fict.workinggroups.chess_puzzles;
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
 import org.alcibiade.chess.model.ChessBoardModel;
+import org.alcibiade.chess.model.ChessPosition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,10 +23,34 @@ public class ChessPuzzlesApplication implements CommandLineRunner {
 
         ChessBoardModel board = new ChessBoardModel();
 
-        board.setInitialPosition();
 
+
+        board.setInitialPosition();
         System.out.println("Current position is:");
         System.out.println(board);
+
+        //todo setup board from FEN position
+        //HITS ***might*** be needed conversion from FEN to PGN and back
+
+        //dali mozime da printame validni potezi?
+        //dali e mate?
+
+
+        //move practicing code in separate class
+
+        //check for valid FEN
+        //https://www.chess.com/analysis
+        //rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+        //https://www.chess.com/forum/view/general/how-do-i-know-if-a-position-is-legal
+        //
+        //board.setPosition();
+        //dali so ovaj nacin ke ni frli exception ako FEN e nevaliden?
+        //t.e dali voopsto prima fen?
+
+        //maybe!!!!>>>>????
+        //use another lib
+        //https://github.com/bhlangonijr/chesslib
+
     }
 
     @Autowired
