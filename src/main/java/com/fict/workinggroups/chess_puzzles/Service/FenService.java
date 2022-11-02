@@ -17,4 +17,5 @@ public interface FenService {
     Optional<FenModel> edit(String id, String fen, String description);
 
     Optional<FenModel> findById(String id);
+    boolean isValidFen(String fen);
 }

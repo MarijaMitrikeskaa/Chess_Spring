@@ -1,18 +1,16 @@
 package com.fict.workinggroups.chess_puzzles;
 
+import com.fict.workinggroups.chess_puzzles.BoardMoves.TestMoves;
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
-import org.alcibiade.chess.model.ChessBoardModel;
-import org.alcibiade.chess.model.ChessPosition;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 @SpringBootApplication
 public class ChessPuzzlesApplication implements CommandLineRunner {
@@ -21,13 +19,12 @@ public class ChessPuzzlesApplication implements CommandLineRunner {
 
         SpringApplication.run(ChessPuzzlesApplication.class, args);
 
-        ChessBoardModel board = new ChessBoardModel();
+        TestMoves testMoves = new TestMoves();
+
+        System.out.println(testMoves.getBoardModel());
 
 
 
-        board.setInitialPosition();
-        System.out.println("Current position is:");
-        System.out.println(board);
 
         //todo setup board from FEN position
         //HITS ***might*** be needed conversion from FEN to PGN and back
@@ -52,6 +49,10 @@ public class ChessPuzzlesApplication implements CommandLineRunner {
         //https://github.com/bhlangonijr/chesslib
 
     }
+
+
+
+
 
     @Autowired
     private FenRepository fenRepository;

@@ -27,6 +27,7 @@ public class FenRestController {
 
     @PostMapping("/add")
     public FenModel createFen(@ModelAttribute FenModel fenModel) {
+
         return fenRepository.save(fenModel);
     }
 
