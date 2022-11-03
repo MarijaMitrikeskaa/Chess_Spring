@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.context.annotation.Bean;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 
 @SpringBootApplication
@@ -22,6 +23,14 @@ public class ChessPuzzlesApplication implements CommandLineRunner {
         TestMoves testMoves = new TestMoves();
 
         System.out.println(testMoves.getBoardModel());
+
+        @Bean
+        public LocalValidatorFactoryBean validator(MessageSource messageSource) {
+            LocalValidatorFactoryBean validatorFactoryBean = new LocalValidatorFactoryBean();
+            validatorFactoryBean.setValidationMessageSource(messageSource);
+            return validatorFactoryBean;
+        }
+
 
 
 

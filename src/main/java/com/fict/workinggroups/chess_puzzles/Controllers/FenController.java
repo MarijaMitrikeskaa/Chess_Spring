@@ -2,10 +2,14 @@ package com.fict.workinggroups.chess_puzzles.Controllers;
 
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Service.FenService;
+import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @Controller
 public class FenController {
@@ -26,9 +30,20 @@ public class FenController {
     }
 
     @PostMapping("/saveFen")
-    public String saveFen(@ModelAttribute("fenModel") FenModel fenModel) {
-        fenService.saveFen(fenModel);
-        return "redirect:/";
+    public String saveFen(@ModelAttribute("fenModel") FenModel fenModel, Model model) {
+
+        try{
+            fenService.isValidFen(fenModel.getFen());
+            fenService.saveFen(fenModel);
+            return "redirect:/";
+
+        }
+        catch (InvalidFenException exception) {
+            model.addAttribute("hasError", true);
+            model.addAttribute("error", exception.getMessage());
+            return "redirect:/fenModel?error=FenModelNotValid";
+        }
+
     }
 
 

@@ -3,7 +3,7 @@ package com.fict.workinggroups.chess_puzzles.Service.Impl;
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.Service.FenService;
-import com.fict.workinggroups.chess_puzzles.exception.ResourceNotFoundException;
+import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +26,9 @@ public class FenServiceImpl implements FenService {
 
     @Override
     public void saveFen(FenModel fenModel) {
-
-
         if (isValidFen(fenModel.getFen()))
             this.fenRepo.save(fenModel);
         else System.out.println("Invalid fen");
-
-
-
 
     }
 

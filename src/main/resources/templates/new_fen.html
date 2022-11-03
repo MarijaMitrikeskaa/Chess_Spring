@@ -20,7 +20,7 @@
 
         <input type="text" th:field="*{description}"
                placeholder="Enter a Description" class="form-control mb-4 col-4">
-
+       <div th:text="${param.error}" class="text-danger"></div>
         <button type="submit" class="btn btn-info col-2"> Save FEN</button>
     </form>
 

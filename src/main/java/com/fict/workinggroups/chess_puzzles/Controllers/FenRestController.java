@@ -2,11 +2,14 @@ package com.fict.workinggroups.chess_puzzles.Controllers;
 
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
+import com.fict.workinggroups.chess_puzzles.Service.FenService;
+import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 //localhost:55505/api/fens/ - to get all fens GET
@@ -19,6 +22,8 @@ import java.util.List;
 public class FenRestController {
     @Autowired
     private FenRepository fenRepository;
+    @Autowired
+    private FenService fenService;
 
     @GetMapping
     public List<FenModel> getAllFens() {
@@ -26,9 +31,15 @@ public class FenRestController {
     }
 
     @PostMapping("/add")
-    public FenModel createFen(@ModelAttribute FenModel fenModel) {
+    public FenModel createFen(@ModelAttribute @Valid FenModel fenModel) throws InvalidFenException {
 
-        return fenRepository.save(fenModel);
+
+      if(fenService.isValidFen(fenModel.getFen())) {
+          return fenRepository.save(fenModel);
+      }
+      else throw  new InvalidFenException();
+
+
     }
 
     @GetMapping("/{id}")
@@ -41,7 +52,9 @@ public class FenRestController {
 
     @PutMapping("/edit/{id}")
     public ResponseEntity<FenModel> updateFen(@PathVariable String id, @ModelAttribute FenModel fenDetails) throws ResourceNotFoundException {
-        FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN %id is not found" , id) );
+
+
+                FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN %id is not found" , id) );
         fenModel.setFen(fenDetails.getFen());
         fenModel.setDescription(fenDetails.getDescription());
         fenRepository.save(fenModel);
