@@ -24,12 +24,7 @@ public class ChessPuzzlesApplication implements CommandLineRunner {
 
         System.out.println(testMoves.getBoardModel());
 
-        @Bean
-        public LocalValidatorFactoryBean validator(MessageSource messageSource) {
-            LocalValidatorFactoryBean validatorFactoryBean = new LocalValidatorFactoryBean();
-            validatorFactoryBean.setValidationMessageSource(messageSource);
-            return validatorFactoryBean;
-        }
+
 
 
 

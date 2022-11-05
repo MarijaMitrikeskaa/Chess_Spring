@@ -30,19 +30,20 @@ public class FenController {
     }
 
     @PostMapping("/saveFen")
-    public String saveFen(@ModelAttribute("fenModel") FenModel fenModel, Model model) {
+    public String saveFen(@ModelAttribute("fenModel") FenModel fenModel, Model model)  {
 
         try{
-            fenService.isValidFen(fenModel.getFen());
             fenService.saveFen(fenModel);
             return "redirect:/";
 
         }
-        catch (InvalidFenException exception) {
+        catch (Exception exception) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", exception.getMessage());
-            return "redirect:/fenModel?error=FenModelNotValid";
+            return "new_fen";
         }
+
+
 
     }
 

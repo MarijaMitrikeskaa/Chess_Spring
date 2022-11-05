@@ -26,10 +26,12 @@ public class FenServiceImpl implements FenService {
 
     @Override
     public void saveFen(FenModel fenModel) {
-        if (isValidFen(fenModel.getFen()))
+        if (isValidFen(fenModel.getFen())) {
             this.fenRepo.save(fenModel);
-        else System.out.println("Invalid fen");
-
+        }
+        else {
+            throw new InvalidFenException();
+        }
     }
 
     @Override
@@ -49,7 +51,10 @@ public class FenServiceImpl implements FenService {
 
     @Override
     public Optional<FenModel> edit(String id, String fen, String description) {
-        return Optional.empty();
+      FenModel fenModel=this.fenRepo.findById(id).orElseThrow(() -> new InvalidFenException());
+      fenModel.setFen(fen);
+      fenModel.setDescription(description);
+      return Optional.of(this.fenRepo.save(fenModel));
     }
 
 

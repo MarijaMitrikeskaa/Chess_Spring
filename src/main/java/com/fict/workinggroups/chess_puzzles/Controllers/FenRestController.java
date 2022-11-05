@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //localhost:55505/api/fens/ - to get all fens GET
 //localhost:55505/api/fens/add - to add new POST
@@ -27,48 +29,50 @@ public class FenRestController {
 
     @GetMapping
     public List<FenModel> getAllFens() {
-        return fenRepository.findAll();
+        return fenService.getAllFens();
     }
 
     @PostMapping("/add")
-    public FenModel createFen(@ModelAttribute @Valid FenModel fenModel) throws InvalidFenException {
-
-
-      if(fenService.isValidFen(fenModel.getFen())) {
-          return fenRepository.save(fenModel);
-      }
-      else throw  new InvalidFenException();
-
+    public ResponseEntity createFen(@ModelAttribute FenModel fenModel) {
+        try {
+            fenService.saveFen(fenModel);
+            return ResponseEntity.ok().body(fenModel);
+        } catch (Exception e) {
+            return ResponseEntity.status(422).body("Invalid Fen");
+        }
 
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FenModel> getFenById(@PathVariable String id) throws ResourceNotFoundException {
         {
-            FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN %id is not found", id ));
+            FenModel fenModel = fenService.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN %id is not found", id));
             return ResponseEntity.ok().body(fenModel);
         }
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<FenModel> updateFen(@PathVariable String id, @ModelAttribute FenModel fenDetails) throws ResourceNotFoundException {
+    public ResponseEntity updateFen(@PathVariable String id, @ModelAttribute FenModel fenDetails) throws ResourceNotFoundException {
+       try {
+           fenService.edit(id,fenDetails.getFen(),fenDetails.getDescription());
+           return ResponseEntity.ok().body(fenDetails);
+       }
+       catch (Exception e)
+       {
+           return ResponseEntity.status(422).body("Fen Not Found");
 
-
-                FenModel fenModel = fenRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN %id is not found" , id) );
-        fenModel.setFen(fenDetails.getFen());
-        fenModel.setDescription(fenDetails.getDescription());
-        fenRepository.save(fenModel);
-        return ResponseEntity.ok().body(fenModel);
+       }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteFen(@PathVariable String id)  {
-        fenRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity deleteFen(@PathVariable String id) {
+        try {
+            fenService.deleteFen(id);
+            return ResponseEntity.ok().body(id);
+        } catch (Exception e) {
+
+            return ResponseEntity.status(422).body("Fen Not Found");
+        }
     }
 }
 
-//todo
-//treba opcija da moze, od front-end da se odgovori
-//----> "A1" - "B4" za FEN_ID "SDKGDSJFLHDSKFHLS", napraveno od X account
-//from, to, fenId,accountId (date, time....)
