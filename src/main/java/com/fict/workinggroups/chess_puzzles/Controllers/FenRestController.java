@@ -3,16 +3,14 @@ package com.fict.workinggroups.chess_puzzles.Controllers;
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.Service.FenService;
+import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 //localhost:55505/api/fens/ - to get all fens GET
 //localhost:55505/api/fens/add - to add new POST
@@ -37,29 +35,36 @@ public class FenRestController {
         try {
             fenService.saveFen(fenModel);
             return ResponseEntity.ok().body(fenModel);
-        } catch (Exception e) {
-            return ResponseEntity.status(422).body("Invalid Fen");
+        } catch (InvalidFenException e) {
+            return ResponseEntity.status(422).body(e.getMessage());
         }
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FenModel> getFenById(@PathVariable String id) throws ResourceNotFoundException {
+    public ResponseEntity<String> getFenById(@PathVariable String id)  {
         {
-            FenModel fenModel = fenService.findById(id).orElseThrow(() -> new ResourceNotFoundException("This FEN %id is not found", id));
-            return ResponseEntity.ok().body(fenModel);
+            try {
+                fenService.getFenById(id);
+
+                return ResponseEntity.ok().body(id);
+            }
+            catch (FenNotFound e)
+            {
+                return ResponseEntity.status(422).body(e.getMessage());
+            }
         }
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity updateFen(@PathVariable String id, @ModelAttribute FenModel fenDetails) throws ResourceNotFoundException {
+    public ResponseEntity editFen(@PathVariable String id, @ModelAttribute FenModel fenDetails)  {
        try {
            fenService.edit(id,fenDetails.getFen(),fenDetails.getDescription());
            return ResponseEntity.ok().body(fenDetails);
        }
-       catch (Exception e)
+       catch (InvalidFenException e)
        {
-           return ResponseEntity.status(422).body("Fen Not Found");
+           return ResponseEntity.status(422).body(e.getMessage());
 
        }
     }
@@ -69,9 +74,9 @@ public class FenRestController {
         try {
             fenService.deleteFen(id);
             return ResponseEntity.ok().body(id);
-        } catch (Exception e) {
+        } catch (FenNotFound e) {
 
-            return ResponseEntity.status(422).body("Fen Not Found");
+            return ResponseEntity.status(422).body(e.getMessage());
         }
     }
 }

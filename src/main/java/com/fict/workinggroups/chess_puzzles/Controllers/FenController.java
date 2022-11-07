@@ -37,9 +37,9 @@ public class FenController {
             return "redirect:/";
 
         }
-        catch (Exception exception) {
+        catch (InvalidFenException e) {
             model.addAttribute("hasError", true);
-            model.addAttribute("error", exception.getMessage());
+            model.addAttribute("error", e.getMessage());
             return "new_fen";
         }
 

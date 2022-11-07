@@ -11,9 +11,9 @@ public interface FenService {
 
     void saveFen(FenModel fenModel);
 
-    FenModel getFenById(String id);
+    Optional<FenModel> getFenById(String id);
 
-    void deleteFen(String id);
+    Optional deleteFen(String id);
     Optional<FenModel> edit(String id, String fen, String description);
 
     Optional<FenModel> findById(String id);
