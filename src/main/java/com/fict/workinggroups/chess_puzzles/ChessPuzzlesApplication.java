@@ -10,6 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 
@@ -41,4 +43,9 @@ public class ChessPuzzlesApplication {
             fenRepository.save(new FenModel("3rr1nk/1R2q3/3b3p/4np2/2Pp2pP/P2P2P1/5PBK/1RBQ2N1 b – – 0 1", "Black to play and win"));
         };
     }
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
+    }
+
 }
