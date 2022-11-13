@@ -14,7 +14,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 
 @SpringBootApplication
-public class ChessPuzzlesApplication implements CommandLineRunner {
+public class ChessPuzzlesApplication {
 
     public static void main(String[] args) {
 
@@ -23,67 +23,22 @@ public class ChessPuzzlesApplication implements CommandLineRunner {
         TestMoves testMoves = new TestMoves();
 
         System.out.println(testMoves.getBoardModel());
-
-
-
-
-
-
-
-        //todo setup board from FEN position
-        //HITS ***might*** be needed conversion from FEN to PGN and back
-
-        //dali mozime da printame validni potezi?
-        //dali e mate?
-
-
-        //move practicing code in separate class
-
-        //check for valid FEN
-        //https://www.chess.com/analysis
-        //rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
-        //https://www.chess.com/forum/view/general/how-do-i-know-if-a-position-is-legal
-        //
-        //board.setPosition();
-        //dali so ovaj nacin ke ni frli exception ako FEN e nevaliden?
-        //t.e dali voopsto prima fen?
-
-        //maybe!!!!>>>>????
-        //use another lib
-        //https://github.com/bhlangonijr/chesslib
-
     }
-
-
-
 
 
     @Autowired
     private FenRepository fenRepository;
 
-    @Override
-    public void run(String... args) throws Exception {
-        FenModel fenModel1 = new FenModel();
-        fenModel1.setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-        fenModel1.setDescription("Description 1");
-        //fenModel1.setValidAnswer("A1", "B2")
-        fenRepository.save(fenModel1);
 
-        FenModel fenModel2 = new FenModel();
-        fenModel2.setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-        fenModel2.setDescription("Description 2");
-        fenRepository.save(fenModel2);
-
-        FenModel fenModel3 = new FenModel();
-        fenModel3.setFen("r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1");
-        fenModel3.setDescription("Description 3");
-        fenRepository.save(fenModel3);
-
-        for (int i = 0; i < 100; i++) {
-            FenModel fenModel = new FenModel();
-            fenModel.setFen("8/8/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1");
-            fenModel.setDescription("Description " + i);
-            fenRepository.save(fenModel);
-        }
+    @Bean
+    public CommandLineRunner dataLoader(FenRepository fenRepository) {
+        return args -> {
+            fenRepository.save(new FenModel("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", "The Starting Position"));
+            fenRepository.save(new FenModel("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", "This is after the move 1.e4"));
+            fenRepository.save(new FenModel("3RQ3/pp3pk1/6p1/2q4p/5PbK/P1r5/2n3PP/7R b – – 0 1", "Black to play and mate white"));
+            fenRepository.save(new FenModel("5k2/ppp5/4P3/3R3p/6P1/1K2Nr2/PP3P2/8 b - - 1 32", "The final position"));
+            fenRepository.save(new FenModel("r3r3/3nkp2/q1p1p1p1/p3P1P1/PbpB4/1P5R/2P2Q1P/3RN2K w – – 0 1", "The checkmate, White to play and mate Black."));
+            fenRepository.save(new FenModel("3rr1nk/1R2q3/3b3p/4np2/2Pp2pP/P2P2P1/5PBK/1RBQ2N1 b – – 0 1", "Black to play and win"));
+        };
     }
 }
