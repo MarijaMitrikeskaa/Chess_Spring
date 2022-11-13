@@ -1,4 +1,4 @@
-package com.fict.workinggroups.chess_puzzles.controller;
+package com.fict.workinggroups.chess_puzzles.controller.restcontroller;
 
 import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
