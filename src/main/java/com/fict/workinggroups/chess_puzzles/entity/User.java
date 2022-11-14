@@ -1,12 +1,12 @@
 package com.fict.workinggroups.chess_puzzles.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Collections;
 
 @Data
 @Entity
@@ -14,14 +14,11 @@ import java.util.Collection;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
     private String username;
     private String password;
 
     @Enumerated(value = EnumType.STRING)
-    private Role role;
+     private Role role;
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
@@ -30,19 +27,27 @@ public class User implements UserDetails {
 
 
 
-    public User(String id, String username, String password, Role role) {
-        this.id = id;
+
+
+    public User() {
+    }
+
+    public User(String username, String password, String repeatPassword, Role userRole) {
+        this.username = username;
+        this.password = password;
+        this.role = userRole;
+    }
+
+    public User( String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
 
-    public User() {
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+        return Collections.singleton(role);
     }
 
 

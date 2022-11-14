@@ -16,12 +16,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
-    private final CustomUsernamePasswordAuthenticationProvider authenticationProvider;
+    private final CustomUsernamePasswordAuthenticationProvider customAuthenticationProvider;
 
     public WebSecurityConfig(PasswordEncoder passwordEncoder,
-                             CustomUsernamePasswordAuthenticationProvider authenticationProvider) {
+                            CustomUsernamePasswordAuthenticationProvider customAuthenticationProvider) {
         this.passwordEncoder = passwordEncoder;
-        this.authenticationProvider = authenticationProvider;
+        this.customAuthenticationProvider = customAuthenticationProvider;
     }
 
 
@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/homepage","/new_fen", "/update_fen", "/register").permitAll()
+                .antMatchers("/", "/homepage","/new_fen", "/update_fen", "/register","/h2-console").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -38,16 +38,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .failureUrl("/login?error=BadCredentials")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/homepage", true)
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login")
-                .and()
-                .exceptionHandling().accessDeniedPage("/home");
+                .logoutSuccessUrl("/login");
+//                .and()
+//                .exceptionHandling().accessDeniedPage("/home");
 
     }
 
@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin")
                 .password(passwordEncoder.encode("admin"))
                 .authorities("ROLE_ADMIN");
-        auth.authenticationProvider(authenticationProvider);
+        auth.authenticationProvider(this.customAuthenticationProvider);
     }
 
 

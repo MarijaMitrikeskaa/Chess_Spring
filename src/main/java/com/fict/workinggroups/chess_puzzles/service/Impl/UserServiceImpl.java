@@ -2,22 +2,20 @@ package com.fict.workinggroups.chess_puzzles.service.Impl;
 
 import com.fict.workinggroups.chess_puzzles.entity.Role;
 import com.fict.workinggroups.chess_puzzles.entity.User;
-import com.fict.workinggroups.chess_puzzles.exception.InvalidUserCredentialsException;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameOrPasswordException;
 import com.fict.workinggroups.chess_puzzles.exception.PasswordsDoNotMatchException;
 import com.fict.workinggroups.chess_puzzles.exception.UsernameAlreadyExistsException;
 import com.fict.workinggroups.chess_puzzles.repository.UserRepository;
 import com.fict.workinggroups.chess_puzzles.service.UserService;
-import org.springframework.security.core.GrantedAuthority;
+
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Repository;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Optional;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -44,7 +42,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsDoNotMatchException();
         if(this.userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
-        User user = new User(username,password,passwordEncoder.encode(password),userRole);
+        User user = new User(username,password,repeatPassword,userRole);
         return userRepository.save(user);
     }
 }
