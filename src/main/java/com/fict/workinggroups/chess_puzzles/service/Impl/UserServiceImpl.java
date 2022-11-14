@@ -35,14 +35,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User register(String username, String password, String repeatPassword, Role userRole) {
+    public User register(String username, String password, String repeatPassword, Role role) {
         if (username==null || username.isEmpty()  || password==null || password.isEmpty())
             throw new InvalidUsernameOrPasswordException();
         if (!password.equals(repeatPassword))
             throw new PasswordsDoNotMatchException();
         if(this.userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
-        User user = new User(username,password,repeatPassword,userRole);
+        User user = new User(username,passwordEncoder.encode(password),role);
         return userRepository.save(user);
     }
 }
