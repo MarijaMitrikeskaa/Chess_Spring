@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Guest user</title>
 </head>
 <body>
+<div align="center" class="container my-2">
+    <h1>Welcome <span th:text="${Guest.name}"></span>
+    </h1>
 
-<h1>Guest Name</h1>
+
+
+<!--            <td th:text="${Guest.guestId}"></td>-->
+
+
+
+
+</div>
+
 </body>
 </html>

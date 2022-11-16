@@ -14,13 +14,16 @@
     <hr>
     <h2> Enter your name </h2>
 
-    <form action="#" th:action="@{/saveGuestname}" th:object="${guest}" method="POST">
-        <p th:text="${error}" class="text-danger"></p>
-        <input type="text" th:field="*{guest}"
-               placeholder="Enter Valid FEN" class="form-control mb-4 col-4"> </form>
-<form action="/GuestPage" method="GET">
+    <form  th:action="@{/saveGuest}" th:object="${Guest}" method="POST">
+        <p th:text="${error}"  class="text-danger"></p>
+        <input type="text" th:field="*{name}" placeholder="Enter Valid FEN" class="form-control mb-4 col-4">
         <button type="submit" class="btn btn-info col-2"> Save Guest</button>
-</form>
+    </form>
+<!--        <input type="text" th:field="*{guest}"-->
+
+
+
+
 
 
 </div>

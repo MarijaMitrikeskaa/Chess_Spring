@@ -1,12 +1,14 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
 import com.fict.workinggroups.chess_puzzles.entity.Guest;
+import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.repository.GuestRepository;
 import com.fict.workinggroups.chess_puzzles.service.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,10 +19,12 @@ public class GuestServiceImpl implements GuestService {
 
     @Override
     public Optional<Guest> getGuestById(String id) {
-//        if (!guestRepository.findById(id).isEmpty()) {
-//            return this.guestRepository.findById(id);
+        if (!guestRepository.findById(id).isEmpty()) {
+            return this.guestRepository.findById(id);
 //        }
-        return null;
+//        return null;
+        }
+        throw new FenNotFound();
     }
 
 
@@ -34,6 +38,11 @@ public class GuestServiceImpl implements GuestService {
         else {
             throw new InvalidFenException();
      }
+    }
+
+    @Override
+    public List<Guest> getAllGuest() {
+        return guestRepository.findAll();
     }
 }
 

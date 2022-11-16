@@ -4,6 +4,7 @@ import com.fict.workinggroups.chess_puzzles.entity.FenModel;
 import com.fict.workinggroups.chess_puzzles.entity.Guest;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.service.GuestService;
+import org.h2.engine.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,18 +25,20 @@ public class GuestContoller {
         return "guestpage";
     }
 
-    @GetMapping("/Guestgame")
-    public String viewGuestGame(){
+    @GetMapping("/guestGame")
+    public String viewGuestGame(Model model){
+        model.addAttribute("Guest", guestService.getAllGuest());
+
 
         return "GuestGame";
     }
 
-    @PostMapping("/saveGuestname")
-    public String saveFen(@ModelAttribute("Guest") Guest guest, Model model)  {
+    @PostMapping("/saveGuest")
+    public String saveGuest(@ModelAttribute("Guest") Guest guest, Model model)  {
 
         try{
             guestService.saveGuest(guest);
-            return "redirect:/GuestGame";
+            return "GuestGame";
 
         }
         catch (InvalidFenException e) {
