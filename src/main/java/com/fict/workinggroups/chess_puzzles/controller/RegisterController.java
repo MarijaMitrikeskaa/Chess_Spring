@@ -3,7 +3,7 @@ package com.fict.workinggroups.chess_puzzles.controller;
 import com.fict.workinggroups.chess_puzzles.entity.Role;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidArgumentsException;
 import com.fict.workinggroups.chess_puzzles.exception.PasswordsDoNotMatchException;
-import com.fict.workinggroups.chess_puzzles.service.AuthService;
+
 import com.fict.workinggroups.chess_puzzles.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +16,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/register")
 public class RegisterController {
 
-    private final AuthService authService;
-    private final UserService userService;
 
-    public RegisterController(AuthService authService, UserService userService) {
-        this.authService = authService;
+
+
+
+
+  private final UserService userService;
+
+    public RegisterController( UserService userService) {
+
         this.userService = userService;
     }
+
+
 
     @GetMapping
     public String getRegisterPage(@RequestParam(required = false) String error, Model model) {
@@ -30,8 +36,8 @@ public class RegisterController {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        model.addAttribute("bodyContent","register");
-        return "/register";
+       // model.addAttribute("bodyContent","register");
+        return "register";
     }
 
     @PostMapping
@@ -40,8 +46,9 @@ public class RegisterController {
                            @RequestParam String repeatedPassword,
                            @RequestParam Role role) {
         try{
+
             this.userService.register(username, password, repeatedPassword,role);
-            return "redirect:/login";
+            return "redirect:/login?success=AccountSuccessfullyCreated";
         } catch (InvalidArgumentsException | PasswordsDoNotMatchException exception) {
             return "redirect:/register?error=" + exception.getMessage();
         }

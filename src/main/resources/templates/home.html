@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 <head>
-  <title>Bootstrap 5 Example</title>
+  <title>Home Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,8 +10,13 @@
 <body>
 
 <div class="container-fluid p-5 text-center">
+  <form action="/logout" method="GET"><button type="submit" class="position-relative top-5 start-50 translate-middle">Logout</button> </form>
   <h1>FEN Chess List</h1>
-  <a class="btn btn-primary btn-sm mb-3">Home Page</a>
+
+  <form  action="/viewFens" method="GET">
+    <button type="submit" class="btn btn-danger">List Fens</button></form>
+
+
 </div>
 
 </body>

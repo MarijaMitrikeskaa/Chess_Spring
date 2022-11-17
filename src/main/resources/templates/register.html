@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <title>Create an account</title>
@@ -13,7 +14,7 @@
 
 <body>
 <div class="container">
-  <h1 th:if="${param.hasError}" th:text="${error}"></h1>
+  <h1 th:if="${hasError}" th:text="${error}"></h1>
 </div>
 <div class="container">
   <form class="form-signin mt-xl-5" method="post" action="/register">
@@ -33,24 +34,17 @@
       <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control"
              placeholder="Repeat Password" required="">
     </p>
+
     <p>
-      <label for="name" class="sr-only">Name</label>
-      <input type="text" id="name" name="name" class="form-control" placeholder="Name" required="" autofocus="">
-    </p>
-    <p>
-      <label for="surname" class="sr-only">Surname</label>
-      <input type="text" id="surname" name="surname" class="form-control" placeholder="Surname" required=""
-             autofocus="">
-    </p>
-    <p>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" name="role" type="radio" id="ROLE_ADMIN" value="ROLE_ADMIN">
-      <label class="form-check-label" for="ROLE_ADMIN">ROLE_ADMIN</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" name="role"  type="radio" id="ROLE_USER" value="ROLE_USER">
-      <label class="form-check-label" for="ROLE_USER">ROLE_USER</label>
-    </div>
+      <input type="hidden" name="role" value="ROLE_USER" id="ROLE_USER">
+<!--    <div class="form-check form-check-inline">-->
+<!--      <input class="form-check-input" name="role" type="radio" id="ROLE_ADMIN" value="ROLE_ADMIN">-->
+<!--      <label class="form-check-label" for="ROLE_ADMIN">ROLE_ADMIN</label>-->
+<!--    </div>-->
+<!--    <div class="form-check form-check-inline">-->
+<!--      <input class="form-check-input" name="role"  type="radio" id="ROLE_USER" value="ROLE_USER">-->
+<!--      <label class="form-check-label" for="ROLE_USER">ROLE_USER</label>-->
+<!--    </div>-->
     </p>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
   </form>

@@ -1,8 +1,8 @@
 package com.fict.workinggroups.chess_puzzles;
 
 import com.fict.workinggroups.chess_puzzles.BoardMoves.TestMoves;
-import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
-import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
+import com.fict.workinggroups.chess_puzzles.entity.FenModel;
+import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 
 @SpringBootApplication

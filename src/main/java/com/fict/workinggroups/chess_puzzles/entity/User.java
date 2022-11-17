@@ -7,21 +7,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Collections;
 
 @Data
 @Entity
 @Table(name = "Chessuser")
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(generator="system-uuid")
+    @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+    private String userId;
+
     private String username;
     private String password;
 
     @Enumerated(value = EnumType.STRING)
-    private Role role;
+     private Role role;
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
@@ -30,19 +31,35 @@ public class User implements UserDetails {
 
 
 
-    public User(String id, String username, String password, Role role) {
-        this.id = id;
+
+
+    public User() {
+    }
+
+//    public User(String username, String password, String repeatPassword, Role userRole) {
+//        this.username = username;
+//        this.password = password;
+//        this.role = userRole;
+//    }
+
+    public User( String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
 
-    public User() {
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+        return Collections.singleton(role);
     }
 
 
