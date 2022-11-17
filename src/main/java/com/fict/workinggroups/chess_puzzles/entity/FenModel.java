@@ -1,11 +1,11 @@
-package com.fict.workinggroups.chess_puzzles.Entity;
+package com.fict.workinggroups.chess_puzzles.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Fen")
+@Table(name = "FenModels")
 public class FenModel{
 
 

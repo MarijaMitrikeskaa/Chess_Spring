@@ -1,11 +1,10 @@
-package com.fict.workinggroups.chess_puzzles.Controllers;
+package com.fict.workinggroups.chess_puzzles.controller.restcontroller;
 
-import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
-import com.fict.workinggroups.chess_puzzles.Repository.FenRepository;
-import com.fict.workinggroups.chess_puzzles.Service.FenService;
+import com.fict.workinggroups.chess_puzzles.entity.FenModel;
+import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
+import com.fict.workinggroups.chess_puzzles.service.FenService;
 import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
-import com.fict.workinggroups.chess_puzzles.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
-package com.fict.workinggroups.chess_puzzles.Service;
+package com.fict.workinggroups.chess_puzzles.service;
 
 
-import com.fict.workinggroups.chess_puzzles.Entity.FenModel;
+import com.fict.workinggroups.chess_puzzles.entity.FenModel;
 
 import java.util.List;
 import java.util.Optional;
