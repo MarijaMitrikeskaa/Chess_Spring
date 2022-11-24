@@ -1,21 +1,21 @@
 package com.fict.workinggroups.chess_puzzles.service;
 
 
-import com.fict.workinggroups.chess_puzzles.entity.FenModel;
+import com.fict.workinggroups.chess_puzzles.entity.Fen;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface FenService {
-    List<FenModel> getAllFens();
+    List<Fen> getAllFens();
 
-    void saveFen(FenModel fenModel);
+    void saveFen(Fen fen);
 
-    Optional<FenModel> getFenById(String id);
+    Optional<Fen> getFenById(String id);
 
     Optional deleteFen(String id);
-    Optional<FenModel> edit(String id, String fen, String description);
+    Optional<Fen> edit(String id, String fen, String description);
 
-    Optional<FenModel> findById(String id);
+    Optional<Fen> findById(String id);
     boolean isValidFen(String fen);
 }

@@ -2,6 +2,7 @@ package com.fict.workinggroups.chess_puzzles.service.Impl;
 
 import com.fict.workinggroups.chess_puzzles.entity.Role;
 import com.fict.workinggroups.chess_puzzles.entity.User;
+import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameOrPasswordException;
 import com.fict.workinggroups.chess_puzzles.exception.PasswordsDoNotMatchException;
 import com.fict.workinggroups.chess_puzzles.exception.UsernameAlreadyExistsException;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 
 
 @Service
@@ -32,6 +34,16 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return userRepository.findByUsername(s).orElseThrow(()->new UsernameNotFoundException(s));
     }
+    public User saveGuest(User guest)
+    {
+        if(!guest.getUsername().isEmpty())
+        {
+            return this.userRepository.save(guest);
+        }
+        else {
+            throw new InvalidFenException();
+        }
+    }
 
 
     @Override
@@ -44,6 +56,11 @@ public class UserServiceImpl implements UserService {
             throw new UsernameAlreadyExistsException(username);
         User user = new User(username,passwordEncoder.encode(password),role);
         return userRepository.save(user);
+    }
+
+
+        public Optional<User> getGuest(String  id) {
+       return userRepository.findByUserId(id);
     }
 }
 

@@ -1,6 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.controller;
 
-import com.fict.workinggroups.chess_puzzles.entity.FenModel;
+import com.fict.workinggroups.chess_puzzles.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +22,16 @@ public class FenController {
 
     @GetMapping("/newFenForm")
     public String newFenForm(Model model) {
-        FenModel fenModel = new FenModel();
-        model.addAttribute("fenModel", fenModel);
+        Fen fen = new Fen();
+        model.addAttribute("fenModel", fen);
         return "new_fen";
     }
 
     @PostMapping("/saveFen")
-    public String saveFen(@ModelAttribute("fenModel") FenModel fenModel, Model model)  {
+    public String saveFen(@ModelAttribute("fenModel") Fen fen, Model model)  {
 
         try{
-            fenService.saveFen(fenModel);
+            fenService.saveFen(fen);
             return "redirect:/viewFens";
 
         }
@@ -49,8 +49,8 @@ public class FenController {
     @PutMapping("/updateForm/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
   public String UpdateForm(@PathVariable(value = "id") String id, Model model){
-        FenModel fenModel = fenService.findById(id).get();
-              model.addAttribute("fen", fenModel);
+        Fen fen = fenService.findById(id).get();
+              model.addAttribute("fen", fen);
               return "update_fen";
            }
 

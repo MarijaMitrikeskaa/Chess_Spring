@@ -1,10 +1,9 @@
 package com.fict.workinggroups.chess_puzzles.controller;
 
-import com.fict.workinggroups.chess_puzzles.entity.FenModel;
-import com.fict.workinggroups.chess_puzzles.entity.Guest;
+import com.fict.workinggroups.chess_puzzles.entity.User;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
-import com.fict.workinggroups.chess_puzzles.service.GuestService;
-import org.h2.engine.Mode;
+
+import com.fict.workinggroups.chess_puzzles.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,29 +14,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class GuestContoller {
     @Autowired
-   private GuestService guestService;
+   private UserService userService;
 
     @GetMapping("/guestPage")
     public String viewHomePage(Model model) {
-        Guest guest = new Guest();
-        model.addAttribute("Guest", guest);
+        User user=new User();
+        model.addAttribute("Guest", user);
 
         return "guestpage";
     }
 
     @GetMapping("/guestGame")
-    public String viewGuestGame(Model model){
-        model.addAttribute("Guest", guestService.getAllGuest());
+    public String viewGuestGame(Model model,String id){
+        model.addAttribute("Guest", userService.getGuest(id));
 
 
         return "GuestGame";
     }
 
     @PostMapping("/saveGuest")
-    public String saveGuest(@ModelAttribute("Guest") Guest guest, Model model)  {
+    public String saveGuest(@ModelAttribute("Guest") User guest, Model model)  {
 
         try{
-            guestService.saveGuest(guest);
+           userService.saveGuest(guest);
             return "GuestGame";
 
         }

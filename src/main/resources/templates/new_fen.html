@@ -14,7 +14,7 @@
     <hr>
     <h2> Save FEN Chess </h2>
 
-    <form action="#" th:action="@{/saveFen}" th:object="${fenModel}" method="POST">
+    <form action="#" th:action="@{/saveFen}" th:object="${fen}" method="POST">
         <p th:text="${error}" class="text-danger"></p>
         <input type="text" th:field="*{fen}"
                placeholder="Enter Valid FEN" class="form-control mb-4 col-4">

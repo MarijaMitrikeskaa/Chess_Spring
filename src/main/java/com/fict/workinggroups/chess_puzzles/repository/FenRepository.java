@@ -1,11 +1,11 @@
 package com.fict.workinggroups.chess_puzzles.repository;
 
 
-import com.fict.workinggroups.chess_puzzles.entity.FenModel;
+import com.fict.workinggroups.chess_puzzles.entity.Fen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface FenRepository extends JpaRepository<FenModel, String> {
+public interface FenRepository extends JpaRepository<Fen, String> {
 
 }
 //change the ID to string
