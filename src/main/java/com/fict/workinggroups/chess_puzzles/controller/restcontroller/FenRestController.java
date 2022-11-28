@@ -1,6 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.controller.restcontroller;
 
-import com.fict.workinggroups.chess_puzzles.entity.FenModel;
+import com.fict.workinggroups.chess_puzzles.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
 import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
@@ -25,15 +25,15 @@ public class FenRestController {
     private FenService fenService;
 
     @GetMapping
-    public List<FenModel> getAllFens() {
+    public List<Fen> getAllFens() {
         return fenService.getAllFens();
     }
 
     @PostMapping("/add")
-    public ResponseEntity createFen(@ModelAttribute FenModel fenModel) {
+    public ResponseEntity createFen(@ModelAttribute Fen fen) {
         try {
-            fenService.saveFen(fenModel);
-            return ResponseEntity.ok().body(fenModel);
+            fenService.saveFen(fen);
+            return ResponseEntity.ok().body(fen);
         } catch (InvalidFenException e) {
             return ResponseEntity.status(422).body(e.getMessage());
         }
@@ -56,7 +56,7 @@ public class FenRestController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity editFen(@PathVariable String id, @ModelAttribute FenModel fenDetails)  {
+    public ResponseEntity editFen(@PathVariable String id, @ModelAttribute Fen fenDetails)  {
        try {
            fenService.edit(id,fenDetails.getFen(),fenDetails.getDescription());
            return ResponseEntity.ok().body(fenDetails);

@@ -5,21 +5,21 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "FenModels")
-public class FenModel{
+@Table(name = "Fens")
+public class Fen {
 
 
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    @Column(name = "TheFens")
+    @Column(name = "Fen")
     private String fen;
 
-    @Column(name = "TheDescription")
+    @Column(name = "Description")
     private String description;
 
-    public FenModel(String fen, String description) {
+    public Fen(String fen, String description) {
         this.fen = fen;
         this.description = description;
 
@@ -27,7 +27,7 @@ public class FenModel{
 
 
 
-    public FenModel() {
+    public Fen() {
 
     }
 

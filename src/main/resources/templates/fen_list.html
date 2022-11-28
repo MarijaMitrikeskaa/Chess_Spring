@@ -29,18 +29,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="fenModel : ${fenList}">
-            <td th:text="${fenModel.fen}"></td>
-            <td th:text="${fenModel.description}"></td>
+        <tr th:each="fen : ${fenList}">
+            <td th:text="${fen.fen}"></td>
+            <td th:text="${fen.description}"></td>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
             <td>
                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                <form th:action="@{'/updateForm/{id}'(id=${fenModel.id})}" th:method="PUT">
+                <form th:action="@{'/updateForm/{id}'(id=${fen.id})}" th:method="PUT">
                     <button class="btn btn-primary">Update</button>
                 </form>
                 </th:block>
                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                <form  th:action="@{'/deleteFenID/{id}'(id=${fenModel.id})}" th:method="DELETE">
+                <form  th:action="@{'/deleteFenID/{id}'(id=${fen.id})}" th:method="DELETE">
                     <button type="submit" class="btn btn-danger">
                         Delete</button>
                 </form>
