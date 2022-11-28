@@ -33,11 +33,11 @@ public class GuestContoller {
     }
 
     @PostMapping("/saveGuest")
-    public String saveGuest(@ModelAttribute("Guest") User guest, Model model)  {
+    public String saveGuest(@ModelAttribute("User") User guest, Model model)  {
 
         try{
            userService.saveGuest(guest);
-            return "GuestGame";
+            return "home";
 
         }
         catch (InvalidFenException e) {

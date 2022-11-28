@@ -23,12 +23,12 @@ public class FenController {
     @GetMapping("/newFenForm")
     public String newFenForm(Model model) {
         Fen fen = new Fen();
-        model.addAttribute("fenModel", fen);
+        model.addAttribute("fen", fen);
         return "new_fen";
     }
 
     @PostMapping("/saveFen")
-    public String saveFen(@ModelAttribute("fenModel") Fen fen, Model model)  {
+    public String saveFen(@ModelAttribute("fen") Fen fen, Model model)  {
 
         try{
             fenService.saveFen(fen);
