@@ -1,6 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.controller;
 
-import com.fict.workinggroups.chess_puzzles.entity.Fen;
+import com.fict.workinggroups.chess_puzzles.model.Fen;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import org.springframework.beans.factory.annotation.Autowired;

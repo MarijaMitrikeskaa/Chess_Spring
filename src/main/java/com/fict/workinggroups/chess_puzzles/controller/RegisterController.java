@@ -1,6 +1,7 @@
 package com.fict.workinggroups.chess_puzzles.controller;
 
-import com.fict.workinggroups.chess_puzzles.entity.Role;
+import com.fict.workinggroups.chess_puzzles.exception.UsernameAlreadyExistsException;
+import com.fict.workinggroups.chess_puzzles.model.Role;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidArgumentsException;
 import com.fict.workinggroups.chess_puzzles.exception.PasswordsDoNotMatchException;
 
@@ -49,7 +50,7 @@ public class RegisterController {
 
             this.userService.register(username, password, repeatedPassword,role);
             return "redirect:/login?success=AccountSuccessfullyCreated";
-        } catch (InvalidArgumentsException | PasswordsDoNotMatchException exception) {
+        } catch (InvalidArgumentsException | PasswordsDoNotMatchException | UsernameAlreadyExistsException exception) {
             return "redirect:/register?error=" + exception.getMessage();
         }
     }

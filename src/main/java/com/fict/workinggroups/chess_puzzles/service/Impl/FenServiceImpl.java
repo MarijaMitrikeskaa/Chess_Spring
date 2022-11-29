@@ -1,6 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
-import com.fict.workinggroups.chess_puzzles.entity.Fen;
+import com.fict.workinggroups.chess_puzzles.model.Fen;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
 import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;

@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUsernamePasswordAuthenticationProvider customAuthenticationProvider;
 
     public WebSecurityConfig(PasswordEncoder passwordEncoder,
-                            CustomUsernamePasswordAuthenticationProvider customAuthenticationProvider) {
+                             CustomUsernamePasswordAuthenticationProvider customAuthenticationProvider) {
         this.passwordEncoder = passwordEncoder;
         this.customAuthenticationProvider = customAuthenticationProvider;
     }
@@ -32,8 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/homepage","/new_fen","/register","/h2-console","/guestPage","/guestGame","/saveGuest","/api/").permitAll()
-                .antMatchers("/admin/**","/update_fen","/delete").hasRole("ADMIN")
+                .antMatchers( "/homepage","/viewFens","/new_fen","/register","/login","/h2-console","/guestPage","/guestGame","/saveGuest","/api/").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -47,9 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login");
-//                .and()
-//                .exceptionHandling().accessDeniedPage("/home");
+                .logoutSuccessUrl("/login")
+                .and()
+                .exceptionHandling().accessDeniedPage("/home");
         http.headers().frameOptions().disable();
 
     }
@@ -70,4 +70,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 }
-

@@ -1,4 +1,4 @@
-package com.fict.workinggroups.chess_puzzles.entity;
+package com.fict.workinggroups.chess_puzzles.model;
 
 import org.hibernate.annotations.GenericGenerator;
 

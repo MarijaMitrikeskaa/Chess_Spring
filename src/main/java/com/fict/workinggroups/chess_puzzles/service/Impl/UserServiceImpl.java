@@ -1,7 +1,7 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
-import com.fict.workinggroups.chess_puzzles.entity.Role;
-import com.fict.workinggroups.chess_puzzles.entity.User;
+import com.fict.workinggroups.chess_puzzles.model.Role;
+import com.fict.workinggroups.chess_puzzles.model.User;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameOrPasswordException;
 import com.fict.workinggroups.chess_puzzles.exception.PasswordsDoNotMatchException;

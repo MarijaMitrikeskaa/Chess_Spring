@@ -1,7 +1,7 @@
 package com.fict.workinggroups.chess_puzzles.repository;
 
 
-import com.fict.workinggroups.chess_puzzles.entity.Fen;
+import com.fict.workinggroups.chess_puzzles.model.Fen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 @Repository
