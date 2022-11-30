@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -48,19 +50,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(String username, String password, String repeatPassword, Role role) {
+        Pattern pattern=Pattern.compile("^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+        Matcher matcher=pattern.matcher(username);
+        if (!matcher.matches()){
+            throw new  InvalidUsernameOrPasswordException();
+        }
         if (username==null || username.isEmpty()  || password==null || password.isEmpty())
             throw new InvalidUsernameOrPasswordException();
         if (!password.equals(repeatPassword))
             throw new PasswordsDoNotMatchException();
         if(this.userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
+
         User user = new User(username,passwordEncoder.encode(password),role);
         return userRepository.save(user);
     }
 
 
-        public Optional<User> getGuest(String  id) {
-       return userRepository.findByUserId(id);
+    public Optional<User> getGuest(String  id) {
+        return userRepository.findByUserId(id);
     }
 }
 
