@@ -22,7 +22,7 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(value = EnumType.STRING)
-     private Role role;
+    private Role role;
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
@@ -54,6 +54,14 @@ public class User implements UserDetails {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
