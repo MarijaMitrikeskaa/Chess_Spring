@@ -1,6 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.controller;
 
-import com.fict.workinggroups.chess_puzzles.entity.User;
+import com.fict.workinggroups.chess_puzzles.model.User;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 
 import com.fict.workinggroups.chess_puzzles.service.UserService;
@@ -32,21 +32,11 @@ public class GuestContoller {
         return "GuestGame";
     }
 
-    @PostMapping("/saveGuest")
-    public String saveGuest(@ModelAttribute("User") User guest, Model model)  {
+    @PostMapping("/homepage")
+    public String saveGuest(@ModelAttribute("Guest") User guest, Model model)  {
 
-        try{
            userService.saveGuest(guest);
             return "home";
-
-        }
-        catch (InvalidFenException e) {
-            model.addAttribute("hasError", true);
-            model.addAttribute("error", e.getMessage());
-            return "guestpage";
-        }
-
-
 
     }
 }

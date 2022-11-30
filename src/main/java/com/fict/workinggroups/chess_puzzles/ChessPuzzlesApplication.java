@@ -1,7 +1,7 @@
 package com.fict.workinggroups.chess_puzzles;
 
 import com.fict.workinggroups.chess_puzzles.BoardMoves.TestMoves;
-import com.fict.workinggroups.chess_puzzles.entity.Fen;
+import com.fict.workinggroups.chess_puzzles.model.Fen;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 
 

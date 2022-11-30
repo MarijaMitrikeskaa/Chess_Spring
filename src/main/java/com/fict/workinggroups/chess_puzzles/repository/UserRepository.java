@@ -1,6 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.repository;
 
-import com.fict.workinggroups.chess_puzzles.entity.User;
+import com.fict.workinggroups.chess_puzzles.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
