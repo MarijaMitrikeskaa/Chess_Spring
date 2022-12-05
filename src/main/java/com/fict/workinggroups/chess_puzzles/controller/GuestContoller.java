@@ -1,7 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.controller;
 
 import com.fict.workinggroups.chess_puzzles.model.User;
-import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 
 import com.fict.workinggroups.chess_puzzles.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class GuestContoller {
         model.addAttribute("Guest", userService.getGuest(id));
 
 
-        return "GuestGame";
+        return "tournament";
     }
 
     @PostMapping("/homepage")

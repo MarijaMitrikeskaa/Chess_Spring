@@ -19,9 +19,13 @@ public class Fen {
     @Column(name = "Description")
     private String description;
 
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
+
     public Fen(String fen, String description) {
         this.fen = fen;
         this.description = description;
+
 
     }
 
