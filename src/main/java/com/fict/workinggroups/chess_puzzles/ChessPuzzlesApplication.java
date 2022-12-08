@@ -1,7 +1,7 @@
 package com.fict.workinggroups.chess_puzzles;
 
-import com.fict.workinggroups.chess_puzzles.BoardMoves.TestMoves;
-import com.fict.workinggroups.chess_puzzles.model.Fen;
+
+import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 
 
@@ -21,9 +21,9 @@ public class ChessPuzzlesApplication {
 
         SpringApplication.run(ChessPuzzlesApplication.class, args);
 
-        TestMoves testMoves = new TestMoves();
-
-        System.out.println(testMoves.getBoardModel());
+//        TestMoves testMoves = new TestMoves();
+//
+//        System.out.println(testMoves.getBoardModel());
     }
 
 

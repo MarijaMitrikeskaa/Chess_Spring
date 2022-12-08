@@ -1,6 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
-import com.fict.workinggroups.chess_puzzles.model.PlayedFen;
+import com.fict.workinggroups.chess_puzzles.model.entity.PlayedFen;
 import com.fict.workinggroups.chess_puzzles.repository.PlayedFensRepository;
 import com.fict.workinggroups.chess_puzzles.service.PlayedFensService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,9 @@ public class PlayedFensServiceImpl implements PlayedFensService {
     private PlayedFensRepository playedFensRepository;
 
     @Override
-    public Optional<PlayedFen> getPlayerFenById(String id){return this.playedFensRepository.findById(id);}
-
+    public Optional<PlayedFen> getPlayerFenById(String id) {
+        return this.playedFensRepository.findById(id);
+    }
 
 
 }

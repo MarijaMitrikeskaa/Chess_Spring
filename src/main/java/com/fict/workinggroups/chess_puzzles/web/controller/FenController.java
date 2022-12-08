@@ -1,6 +1,6 @@
-package com.fict.workinggroups.chess_puzzles.controller;
+package com.fict.workinggroups.chess_puzzles.web.controller;
 
-import com.fict.workinggroups.chess_puzzles.model.Fen;
+import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class FenController {
 
     @DeleteMapping("/deleteFenID/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String deleteFenID(@PathVariable(value = "id") String id) {
+    public String deleteFenId(@PathVariable(value = "id") String id) {
         this.fenService.deleteFen(id);
         return "redirect:/viewFens";
     }

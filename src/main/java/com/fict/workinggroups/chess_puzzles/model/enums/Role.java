@@ -1,4 +1,4 @@
-package com.fict.workinggroups.chess_puzzles.model;
+package com.fict.workinggroups.chess_puzzles.model.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 

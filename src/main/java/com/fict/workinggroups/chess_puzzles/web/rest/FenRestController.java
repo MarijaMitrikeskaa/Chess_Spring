@@ -1,6 +1,6 @@
-package com.fict.workinggroups.chess_puzzles.controller.restcontroller;
+package com.fict.workinggroups.chess_puzzles.web.rest;
 
-import com.fict.workinggroups.chess_puzzles.model.Fen;
+import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
 import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;

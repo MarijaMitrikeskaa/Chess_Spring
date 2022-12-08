@@ -1,4 +1,4 @@
-package com.fict.workinggroups.chess_puzzles.controller;
+package com.fict.workinggroups.chess_puzzles.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
