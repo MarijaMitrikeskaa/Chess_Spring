@@ -50,7 +50,7 @@ public class TournamentController {
 
         try {
             tournamentService.addTournament(tournament);
-            return "redirect:/viewFens";
+            return "redirect:/viewTournaments";
 
         } catch (InvalidFenException e) {
             model.addAttribute("hasError", true);

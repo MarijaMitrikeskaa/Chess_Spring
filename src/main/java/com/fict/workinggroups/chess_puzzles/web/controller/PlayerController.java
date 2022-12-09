@@ -26,14 +26,9 @@ public class PlayerController {
 
     }
 
-//    @GetMapping("/newPlayer")
-//    public String newPlayer(Model model) {
-//        Player player=new Player();
-//        model.addAttribute("player", player);
-//        return "edit_player";
-//    }
 
-    @PutMapping("/editPlayer")
+
+    @PutMapping("/editPlayer/{id}")
 
     public String editPlayer(@PathVariable(value = "id") String id, Model model)  {
 
@@ -62,7 +57,7 @@ public class PlayerController {
 
     }
 }
-
+// TODO: 09.12.2022 Player profile so edit kopce
 
 
 
