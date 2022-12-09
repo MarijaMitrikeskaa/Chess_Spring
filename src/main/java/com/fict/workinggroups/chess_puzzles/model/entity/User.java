@@ -1,5 +1,6 @@
-package com.fict.workinggroups.chess_puzzles.model;
+package com.fict.workinggroups.chess_puzzles.model.entity;
 
+import com.fict.workinggroups.chess_puzzles.model.enums.Role;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,7 +17,7 @@ public class User implements UserDetails {
 
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String userId;
+    private String Id;
 
     private String username;
     private String password;
@@ -48,12 +49,12 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return Id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(String userId) {
+        this.Id = userId;
     }
 
     public String getUsername() {

@@ -1,9 +1,11 @@
 package com.fict.workinggroups.chess_puzzles.service;
 
-import com.fict.workinggroups.chess_puzzles.model.Tournament;
+import com.fict.workinggroups.chess_puzzles.model.entity.Player;
+import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface TournamentService {
 
@@ -11,4 +13,11 @@ public interface TournamentService {
     List<Tournament> getAllTournaments();
 
     Optional<Tournament> deleteTournament(String id);
+
+    Tournament addTournament(Tournament tournament);
+
+
+
+    Set<Player> listPlayersInTournament(String tournamentId);
+    Set<Player> joinTournament2(String tournamentId,Player player);
 }

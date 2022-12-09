@@ -1,8 +1,8 @@
-package com.fict.workinggroups.chess_puzzles.controller;
+package com.fict.workinggroups.chess_puzzles.web.controller;
 
 import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameOrPasswordException;
 import com.fict.workinggroups.chess_puzzles.exception.UsernameAlreadyExistsException;
-import com.fict.workinggroups.chess_puzzles.model.Role;
+import com.fict.workinggroups.chess_puzzles.model.enums.Role;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidArgumentsException;
 import com.fict.workinggroups.chess_puzzles.exception.PasswordsDoNotMatchException;
 

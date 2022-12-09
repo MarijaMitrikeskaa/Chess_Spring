@@ -1,6 +1,6 @@
-package com.fict.workinggroups.chess_puzzles.controller;
+package com.fict.workinggroups.chess_puzzles.web.controller;
 
-import com.fict.workinggroups.chess_puzzles.model.User;
+import com.fict.workinggroups.chess_puzzles.model.entity.User;
 
 import com.fict.workinggroups.chess_puzzles.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class GuestContoller {
         model.addAttribute("Guest", userService.getGuest(id));
 
 
-        return "tournament";
+        return "tournaments_list";
     }
 
     @PostMapping("/homepage")

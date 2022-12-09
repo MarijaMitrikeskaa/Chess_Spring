@@ -1,6 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.service;
 
-import com.fict.workinggroups.chess_puzzles.model.PlayedFen;
+import com.fict.workinggroups.chess_puzzles.model.entity.PlayedFen;
 
 import java.util.Optional;
 

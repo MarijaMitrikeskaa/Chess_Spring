@@ -1,14 +1,17 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
-import com.fict.workinggroups.chess_puzzles.model.Role;
-import com.fict.workinggroups.chess_puzzles.model.User;
+import com.fict.workinggroups.chess_puzzles.model.entity.Player;
+import com.fict.workinggroups.chess_puzzles.model.enums.Role;
+import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameOrPasswordException;
 import com.fict.workinggroups.chess_puzzles.exception.PasswordsDoNotMatchException;
 import com.fict.workinggroups.chess_puzzles.exception.UsernameAlreadyExistsException;
+import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.repository.UserRepository;
 import com.fict.workinggroups.chess_puzzles.service.UserService;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,14 +25,17 @@ import java.util.regex.Pattern;
 
 
 @Service
+
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PlayerRepository playerRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, PlayerRepository playerRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.playerRepository = playerRepository;
     }
 
     @Override
@@ -63,12 +69,17 @@ public class UserServiceImpl implements UserService {
             throw new UsernameAlreadyExistsException(username);
 
         User user = new User(username,passwordEncoder.encode(password),role);
+
+        Player player=new Player(username);
+        player.setUserId(user);
+        this.playerRepository.save(player);
+
         return userRepository.save(user);
     }
 
 
     public Optional<User> getGuest(String  id) {
-        return userRepository.findByUserId(id);
+        return userRepository.findById(id);
     }
 }
 

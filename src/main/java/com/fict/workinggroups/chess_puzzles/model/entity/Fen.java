@@ -1,5 +1,6 @@
-package com.fict.workinggroups.chess_puzzles.model;
+package com.fict.workinggroups.chess_puzzles.model.entity;
 
+import com.fict.workinggroups.chess_puzzles.model.enums.Status;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,10 +14,10 @@ public class Fen {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    @Column(name = "Fen")
+    @Column(name = "fen")
     private String fen;
 
-    @Column(name = "Description")
+    @Column(name = "description")
     private String description;
 
     @Enumerated(value = EnumType.STRING)
@@ -25,6 +26,7 @@ public class Fen {
     public Fen(String fen, String description) {
         this.fen = fen;
         this.description = description;
+        this.status=Status.PENDING;
 
 
     }
