@@ -57,7 +57,7 @@ public class TournamentController {
         }
     }
 
-//    nesaka da zaucuvua tournament
+//    nesaka da zaucuvua tournament, n
 
     @DeleteMapping("/deleteTournament/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

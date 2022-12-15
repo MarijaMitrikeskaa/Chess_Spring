@@ -2,8 +2,6 @@ package com.fict.workinggroups.chess_puzzles.service.Impl;
 
 import com.fict.workinggroups.chess_puzzles.exception.PlayerNotFound;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
-import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
-import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.repository.TournamentRepository;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {

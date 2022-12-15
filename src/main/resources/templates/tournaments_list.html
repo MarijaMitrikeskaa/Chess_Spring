@@ -19,6 +19,8 @@
         <button type="submit" class="btn btn-danger position-relative top-5 start-50 translate-middle">Logout</button>
     </form>
 
+    <a th:href="@{'/addTournament'}" class="btn btn-primary btn-sm mb-3"> Add Tournament</a>
+
 
     <table border="1" class="table table-striped table-responsive-md">
         <thead>
@@ -32,7 +34,12 @@
         </tr>
         </thead>
         <tbody>
+<<<<<<< HEAD
         <tr th:each="tournament : ${Tournament}">
+=======
+
+        <tr th:each="tournament : ${tournaments}">
+>>>>>>> e4828b68b1f04aeb9ef3aca7ff215e7c04c2d1d9
             <td th:text="${tournament.name}"></td>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <td>
@@ -54,10 +61,16 @@
                 </form>
             </td>
 
+
+
+
+
+
+
             <td>
 
                 <form th:action="@{'/joinTournament/{id}'(id=${tournament.id})}" th:method="POST">
-                    <input type="hidden" th:field="*{player}" />
+
 
                     <button type="submit" class="btn btn-primary">
                         Join
