@@ -14,9 +14,9 @@ public interface TournamentService {
 
     Optional<Tournament> deleteTournament(String id);
 
-    Tournament addTournament(Tournament tournament);
+    void saveTournament (Tournament tournament);
 
-
+//    Tournament addTournament(Tournament tournament);
 
     Set<Player> listPlayersInTournament(String tournamentId);
     Set<Player> joinTournament2(String tournamentId,Player player);

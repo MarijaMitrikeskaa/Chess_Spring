@@ -1,8 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.web.controller;
 
-import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
-import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
-import com.fict.workinggroups.chess_puzzles.model.entity.Player;
+import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
@@ -21,7 +19,7 @@ public class TournamentController {
     private PlayerService playerService;
 
     @GetMapping("/viewTournaments")
-    public String viewPlayers(Model model) {
+    public String viewTournaments(Model model) {
         model.addAttribute("tournaments", tournamentService.getAllTournaments());
         return "tournaments_list";
 
@@ -29,7 +27,7 @@ public class TournamentController {
 
 
     @GetMapping("/addTournament")
-    public String newTournament(Model model) {
+    public String addTournament(Model model) {
         Tournament tournament = new Tournament();
         model.addAttribute("tournament", tournament);
         return "add_tournament";
@@ -49,15 +47,17 @@ public class TournamentController {
     public String saveTournament(@ModelAttribute("tournament") Tournament tournament, Model model) {
 
         try {
-            tournamentService.addTournament(tournament);
+            tournamentService.saveTournament(tournament);
             return "redirect:/viewFens";
 
-        } catch (InvalidFenException e) {
+        } catch (InvalidTournament e) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", e.getMessage());
             return "add_tournament";
         }
     }
+
+//    nesaka da zaucuvua tournament
 
     @DeleteMapping("/deleteTournament/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

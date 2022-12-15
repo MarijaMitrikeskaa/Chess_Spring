@@ -1,6 +1,8 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
+import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.exception.TournamentNotFound;
+import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.repository.TournamentRepository;
@@ -40,11 +42,14 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Tournament addTournament(Tournament tournament) {
-
-        return this.tournamentRepository.save(tournament);
+    public void saveTournament(Tournament tournament) {
+        this.tournamentRepository.save(tournament);
     }
 
+//    @Override
+//    public Tournament addTournament(Tournament tournament) {
+//        return tournamentRepository.save(tournament);
+//    }
 
     @Override
     public Set<Player> listPlayersInTournament(String tournamentId){
@@ -62,10 +67,6 @@ public class TournamentServiceImpl implements TournamentService {
             return playersSet;
         }
         throw new IndexOutOfBoundsException();
-
-
-
-
     }
 
 }

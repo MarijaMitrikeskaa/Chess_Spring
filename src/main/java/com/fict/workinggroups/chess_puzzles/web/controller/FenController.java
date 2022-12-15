@@ -48,11 +48,11 @@ public class FenController {
 
     @PutMapping("/updateForm/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-  public String UpdateForm(@PathVariable(value = "id") String id, Model model){
+    public String UpdateForm(@PathVariable(value = "id") String id, Model model){
         Fen fen = fenService.findById(id).get();
               model.addAttribute("fen", fen);
               return "update_fen";
-           }
+    }
 
 
     @DeleteMapping("/deleteFenID/{id}")
