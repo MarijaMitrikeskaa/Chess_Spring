@@ -34,12 +34,9 @@
         </tr>
         </thead>
         <tbody>
-<<<<<<< HEAD
-        <tr th:each="tournament : ${Tournament}">
-=======
 
         <tr th:each="tournament : ${tournaments}">
->>>>>>> e4828b68b1f04aeb9ef3aca7ff215e7c04c2d1d9
+
             <td th:text="${tournament.name}"></td>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <td>

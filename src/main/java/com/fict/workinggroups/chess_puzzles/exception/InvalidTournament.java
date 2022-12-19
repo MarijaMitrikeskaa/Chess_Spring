@@ -2,8 +2,8 @@ package com.fict.workinggroups.chess_puzzles.exception;
 
 public class InvalidTournament extends RuntimeException{
 
-    public InvalidTournament(){
+    public InvalidTournament(String name){
 
-        super("Invalid Tournament");
+        super(String.format("Invalid Tournament, %s already exits", name));
     }
 }

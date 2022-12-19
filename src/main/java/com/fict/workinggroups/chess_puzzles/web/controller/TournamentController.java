@@ -5,6 +5,7 @@ import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +48,7 @@ public class TournamentController {
     public String saveTournament(@ModelAttribute("tournament") Tournament tournament, Model model) {
 
         try {
-            tournamentService.saveTournament(tournament);
+            this.tournamentService.saveTournament(tournament);
             return "redirect:/viewFens";
 
         } catch (InvalidTournament e) {
@@ -57,7 +58,15 @@ public class TournamentController {
         }
     }
 
-//    nesaka da zaucuvua tournament, n
+    @PostMapping
+    public  String saveT(@RequestParam String name){
+        try{
+            this.tournamentService.saveT(name);
+            return "redirect:/viewFens";
+        } catch (InvalidTournament exception){
+            return "add_tournament" + exception.getMessage();
+        }
+    }
 
     @DeleteMapping("/deleteTournament/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
