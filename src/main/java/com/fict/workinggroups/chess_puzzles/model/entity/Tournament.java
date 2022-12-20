@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,7 +22,7 @@ public class Tournament {
     private LocalDate date = LocalDate.now();
 
     @ManyToMany
-    private Set<Player> players;
+    private Set<Player> players=new HashSet<>();
 
     public Tournament() {
     }
@@ -30,6 +31,7 @@ public class Tournament {
     public Tournament(String name) {
 
         this.name=name;
+
 
 
     }

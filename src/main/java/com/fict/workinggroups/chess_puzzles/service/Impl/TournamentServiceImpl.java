@@ -4,6 +4,7 @@ import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
 import com.fict.workinggroups.chess_puzzles.exception.TournamentNotFound;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
+import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.repository.TournamentRepository;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Autowired
     private TournamentRepository tournamentRepository;
+
+    @Autowired
+    private PlayerRepository playerRepository;
 
     @Override
     public Optional<Tournament> getTournamentById(String id) {
@@ -48,10 +52,6 @@ public class TournamentServiceImpl implements TournamentService {
         this.tournamentRepository.save(tournament);}
     }
 
-//    @Override
-//    public Tournament addTournament(Tournament tournament) {
-//        return tournamentRepository.save(tournament);
-//    }
 
     @Override
     public Set<Player> listPlayersInTournament(String tournamentId){
@@ -61,26 +61,20 @@ public class TournamentServiceImpl implements TournamentService {
         }
         throw new IndexOutOfBoundsException();
     }
-    @Override
-    public Set<Player> joinTournament2(String tournamentId,Player player) {
-        if (this.tournamentRepository.findById(tournamentId).isPresent()) {
-            Set<Player>playersSet= this.tournamentRepository.findById(tournamentId).get().getPlayers();
-            playersSet.add(player);
-            return playersSet;
-        }
-        throw new IndexOutOfBoundsException();
-    }
+
     @Override
     public Tournament findTournamentByName(String s) throws InvalidTournament{
         return tournamentRepository.findByName(s).orElseThrow(()->new InvalidTournament(s));
     }
+    @Override
+    public void joinTournament(String id,String userId){
 
-//    @Override
-//    public Tournament saveT(String name) {
-//        if (this.tournamentRepository.findByName(name).isPresent())
-//            throw new InvalidTournament(name);
-//
-//        return tournamentRepository.save(name);
-//    }
-//    problem ima so prikazuvanjeto na poraka
+
+        Optional<Player> player=this.playerRepository.findByUserId(userId);
+        Optional<Tournament> tournament=this.tournamentRepository.findById(String.valueOf(id));
+        Set<Player> players=tournament.get().getPlayers();
+        players.add(player.get());
+
+    }
+
 }

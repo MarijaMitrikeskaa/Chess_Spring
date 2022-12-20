@@ -47,15 +47,15 @@ public class PlayerController {
         return "redirect:/viewPlayers";
     }
 
-    @PostMapping("/joinTournament/{id}")
-    public String joinTournament(@PathVariable(value = "id") String id,Model model,Player player) {
-        Tournament tournament = this.tournamentService.getTournamentById(id).get();
-        String playerId=player.getId();
-        model.addAttribute("tournament", tournament);
-        model.addAttribute("playerId",playerId);
-        return "redirect:/viewTournaments";
-
-    }
+//    @PostMapping("/joinTournament/{id}")
+//    public String joinTournament(@PathVariable(value = "id") String id,Model model,Player player) {
+//        Tournament tournament = this.tournamentService.getTournamentById(id).get();
+//        String playerId=player.getId();
+//        model.addAttribute("tournament", tournament);
+//        model.addAttribute("playerId",playerId);
+//        return "redirect:/viewTournaments";
+//
+//    }
 }
 // TODO: 09.12.2022 Player profile so edit kopce
 

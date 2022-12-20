@@ -2,6 +2,7 @@ package com.fict.workinggroups.chess_puzzles.service;
 
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
+import com.fict.workinggroups.chess_puzzles.model.entity.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public interface TournamentService {
 //    Tournament addTournament(Tournament tournament);
 
     Set<Player> listPlayersInTournament(String tournamentId);
-    Set<Player> joinTournament2(String tournamentId,Player player);
+    void joinTournament(String id, String userId);
 
     Tournament findTournamentByName(String s);
 //    Tournament saveT(String name);
