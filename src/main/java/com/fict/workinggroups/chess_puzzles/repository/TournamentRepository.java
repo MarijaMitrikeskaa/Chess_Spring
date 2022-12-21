@@ -9,4 +9,7 @@ import java.util.Optional;
 @Repository
 public interface TournamentRepository extends JpaRepository<Tournament, String> {
     Optional<Tournament> findByName(String name);
+
+
+
 }

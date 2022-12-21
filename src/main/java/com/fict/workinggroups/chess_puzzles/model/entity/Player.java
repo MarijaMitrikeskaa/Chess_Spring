@@ -23,7 +23,7 @@ public class Player {
     @JoinColumn(name = "fen_id")
     private Set<Fen> fens;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "players")
     private Set<Tournament> tournaments;
 
     //private int NumOfTournaments;

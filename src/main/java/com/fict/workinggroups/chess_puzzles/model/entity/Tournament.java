@@ -2,10 +2,7 @@ package com.fict.workinggroups.chess_puzzles.model.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +19,12 @@ public class Tournament {
     private LocalDate date = LocalDate.now();
 
     @ManyToMany
+    @JoinTable(
+
+            name = "tournament_player",
+            joinColumns = @JoinColumn(name = "player_id"),
+            inverseJoinColumns = @JoinColumn(name = "tournament_id")
+    )
     private Set<Player> players=new HashSet<>();
 
     public Tournament() {
@@ -31,6 +34,7 @@ public class Tournament {
     public Tournament(String name) {
 
         this.name=name;
+        this.players=new HashSet<>();
 
 
 

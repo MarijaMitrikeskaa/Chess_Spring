@@ -20,7 +20,7 @@ public interface TournamentService {
 //    Tournament addTournament(Tournament tournament);
 
     Set<Player> listPlayersInTournament(String tournamentId);
-    void joinTournament(String id, String userId);
+    void joinTournament(String id, User userId);
 
     Tournament findTournamentByName(String s);
 //    Tournament saveT(String name);
