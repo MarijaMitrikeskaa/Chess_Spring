@@ -12,6 +12,7 @@ import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -60,11 +61,13 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public Set<Player> listPlayersInTournament(String tournamentId){
-//        if (this.tournamentRepository.findById(tournamentId).isPresent()){
-//            if (this.tournamentRepository.findById(tournamentId).get().getPlayers().size()>0)
-//                return this.tournamentRepository.findById(tournamentId).get().getPlayers();
-//        }
-     return null;
+        if (this.tournamentRepository.findById(tournamentId).isPresent()){
+            if (this.tournamentRepository.findById(tournamentId).get().getPlayers().size()>0)
+                return this.tournamentRepository.findById(tournamentId).get().getPlayers();
+        }
+        return this.tournamentRepository.findById(tournamentId).get().getPlayers();
+
+
     }
 
     @Override
@@ -84,9 +87,8 @@ public class TournamentServiceImpl implements TournamentService {
         Set<Tournament>tournaments=player.get().getTournaments();
         tournaments.add(tournament.get());
 
-
-
-
     }
+
+
 
 }

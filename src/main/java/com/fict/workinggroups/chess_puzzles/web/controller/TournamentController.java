@@ -78,13 +78,17 @@ public class TournamentController {
     public String joinTournament(@PathVariable(value = "id")String id) {
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         User user= (User) authentication.getPrincipal();
-
-
-
-
         this.tournamentService.joinTournament(id,user);
 
-        return "redirect:/viewTournaments";
+        return "redirect:/tournamentplayers/{id}";
+
+    }
+
+    @GetMapping("/tournamentplayers/{id}")
+            public String showPlayer(Model model, @PathVariable("id") String id)
+    {
+        model.addAttribute("players", tournamentService.listPlayersInTournament(id));
+        return "join_player";
 
     }
 
