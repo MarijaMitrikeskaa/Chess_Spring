@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Fens")
+@Table(name = "Fen")
 public class Fen {
 
 
@@ -37,6 +37,13 @@ public class Fen {
 
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public String getId() {
         return id;

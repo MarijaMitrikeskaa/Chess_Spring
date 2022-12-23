@@ -28,7 +28,7 @@ public class GuestContoller {
         model.addAttribute("Guest", userService.getGuest(id));
 
 
-        return "tournaments_list";
+        return "tournament_list";
     }
 
     @PostMapping("/homepage")

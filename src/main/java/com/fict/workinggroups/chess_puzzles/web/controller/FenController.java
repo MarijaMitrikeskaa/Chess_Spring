@@ -24,23 +24,21 @@ public class FenController {
     public String newFenForm(Model model) {
         Fen fen = new Fen();
         model.addAttribute("fen", fen);
-        return "new_fen";
+        return "add_fen";
     }
 
     @PostMapping("/saveFen")
-    public String saveFen(@ModelAttribute("fen") Fen fen, Model model)  {
+    public String saveFen(@ModelAttribute("fen") Fen fen, Model model) {
 
-        try{
+        try {
             fenService.saveFen(fen);
             return "redirect:/viewFens";
 
-        }
-        catch (InvalidFenException e) {
+        } catch (InvalidFenException e) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", e.getMessage());
-            return "new_fen";
+            return "add_fen";
         }
-
 
 
     }
@@ -48,10 +46,10 @@ public class FenController {
 
     @PutMapping("/updateForm/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String UpdateForm(@PathVariable(value = "id") String id, Model model){
+    public String UpdateForm(@PathVariable(value = "id") String id, Model model) {
         Fen fen = fenService.findById(id).get();
-              model.addAttribute("fen", fen);
-              return "update_fen";
+        model.addAttribute("fen", fen);
+        return "edit_fen";
     }
 
 

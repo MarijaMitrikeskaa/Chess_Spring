@@ -25,7 +25,7 @@
             <th>FEN Combinations</th>
             <th>Description</th>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-            <th>Actions</th>
+                <th>Actions</th>
             </th:block>
         </tr>
         </thead>
@@ -34,19 +34,20 @@
             <td th:text="${fen.fen}"></td>
             <td th:text="${fen.description}"></td>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-            <td>
-                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                <form th:action="@{'/updateForm/{id}'(id=${fen.id})}" th:method="PUT">
-                    <button class="btn btn-primary">Update</button>
-                </form>
-                </th:block>
-                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                <form  th:action="@{'/deleteFenID/{id}'(id=${fen.id})}" th:method="DELETE">
-                    <button type="submit" class="btn btn-danger">
-                        Delete</button>
-                </form>
-                </th:block>
-            </td>
+                <td>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <form th:action="@{'/updateForm/{id}'(id=${fen.id})}" th:method="PUT">
+                            <button class="btn btn-primary">Update</button>
+                        </form>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <form th:action="@{'/deleteFenID/{id}'(id=${fen.id})}" th:method="DELETE">
+                            <button type="submit" class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </th:block>
+                </td>
             </th:block>
         </tr>
         </tbody>

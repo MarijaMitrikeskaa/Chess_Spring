@@ -18,13 +18,16 @@ public class Tournament {
 
     private LocalDate date = LocalDate.now();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinTable(
 
             name = "tournament_player",
-            joinColumns = @JoinColumn(name = "player_id"),
-            inverseJoinColumns = @JoinColumn(name = "tournament_id")
-    )
+            joinColumns = {@JoinColumn(name = "tournament_id")},
+            inverseJoinColumns = {@JoinColumn(name = "player_id")})
     private Set<Player> players=new HashSet<>();
 
     public Tournament() {
@@ -34,7 +37,7 @@ public class Tournament {
     public Tournament(String name) {
 
         this.name=name;
-        this.players=new HashSet<>();
+
 
 
 

@@ -1,8 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.web.controller;
 
-import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
-import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class PlayerController {
     @GetMapping("/viewPlayers")
     public String viewPlayers(Model model){
         model.addAttribute("players",playerService.getAllPlayers());
-        return "list_players";
+        return "player_list";
 
     }
 

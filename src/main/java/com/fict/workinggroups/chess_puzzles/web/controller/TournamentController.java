@@ -3,9 +3,7 @@ package com.fict.workinggroups.chess_puzzles.web.controller;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
-import com.fict.workinggroups.chess_puzzles.service.PlayerService;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
-import com.fict.workinggroups.chess_puzzles.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -16,25 +14,28 @@ import org.springframework.web.bind.annotation.*;
 
 
 
+
 @AllArgsConstructor
 @Controller
 public class TournamentController {
 
 
     private TournamentService tournamentService;
-    private PlayerService playerService;
-    private UserService userService;
 
     @GetMapping("/viewTournaments")
     public String viewTournaments(Model model) {
         model.addAttribute("tournaments", tournamentService.getAllTournaments());
-        return "tournaments_list";
+        return "tournament_list";
 
     }
 
 
     @GetMapping("/addTournament")
-    public String addTournament(Model model) {
+    public String addTournament(Model model, @RequestParam(required = false) String error) {
+        if (error != null && !error.isEmpty()) {
+            model.addAttribute("hasError", true);
+            model.addAttribute("error", error);
+        }
         Tournament tournament = new Tournament();
         model.addAttribute("tournament", tournament);
         return "add_tournament";
@@ -44,6 +45,7 @@ public class TournamentController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editTournament(@PathVariable(value = "id") String id, Model model) {
         Tournament tournament = this.tournamentService.getTournamentById(id).get();
+        this.tournamentService.edit(id,tournament.getName());
         model.addAttribute("tournament", tournament);
         return "edit_tournament";
 
@@ -51,19 +53,22 @@ public class TournamentController {
     }
 
     @PostMapping("/saveTournament")
-    public String saveTournament(@ModelAttribute("tournament") Tournament tournament, Model model) {
+    public String saveTournament( Tournament tournament, @RequestParam(required=false) String id) {
 
         try {
-            this.tournamentService.saveTournament(tournament);
+            if (id!=null){
+                this.tournamentService.edit(id,tournament.getName());
+            }
+            else {
+                this.tournamentService.saveTournament(tournament);
+            }
             return "redirect:/viewTournaments";
 
         } catch (InvalidTournament e) {
-            model.addAttribute("hasError", true);
-            model.addAttribute("error", e.getMessage());
-            return "add_tournament";
+
+            return "redirect:/addTournament?error=" + e.getMessage();
         }
     }
-
 
 
     @DeleteMapping("/deleteTournament/{id}")
@@ -75,18 +80,17 @@ public class TournamentController {
 
 
     @PostMapping("/joinTournament/{id}")
-    public String joinTournament(@PathVariable(value = "id")String id) {
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        User user= (User) authentication.getPrincipal();
-        this.tournamentService.joinTournament(id,user);
+    public String joinTournament(@PathVariable(value = "id") String id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        this.tournamentService.joinTournament(id, user);
 
-        return "redirect:/tournamentplayers/{id}";
+        return "redirect:/tournamentPlayers/{id}";
 
     }
 
-    @GetMapping("/tournamentplayers/{id}")
-            public String showPlayer(Model model, @PathVariable("id") String id)
-    {
+    @GetMapping("/tournamentPlayers/{id}")
+    public String showPlayer(Model model, @PathVariable("id") String id) {
         model.addAttribute("players", tournamentService.listPlayersInTournament(id));
         return "join_player";
 

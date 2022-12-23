@@ -3,6 +3,7 @@ package com.fict.workinggroups.chess_puzzles.model.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,8 +24,13 @@ public class Player {
     @JoinColumn(name = "fen_id")
     private Set<Fen> fens;
 
-    @ManyToMany(mappedBy = "players")
-    private Set<Tournament> tournaments;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+            CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "players")
+    private Set<Tournament> tournaments=new HashSet<>();
 
     //private int NumOfTournaments;
 
@@ -36,6 +42,7 @@ public class Player {
     public Player(String username) {
 
         this.username=username;
+
 
 
     }

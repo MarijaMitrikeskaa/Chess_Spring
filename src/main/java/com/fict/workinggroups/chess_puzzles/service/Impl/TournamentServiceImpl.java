@@ -12,7 +12,6 @@ import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,9 +24,6 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Autowired
     private PlayerRepository playerRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     public Optional<Tournament> getTournamentById(String id) {
@@ -51,18 +47,30 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
+    public Optional<Tournament> edit(String id, String name) {
+        Tournament tournament = this.tournamentRepository.findById(id).orElseThrow(TournamentNotFound::new);
+        tournament.setName(name);
+
+        return Optional.of(this.tournamentRepository.save(tournament));
+
+    }
+
+    @Override
     public void saveTournament(Tournament tournament) {
-        if(this.tournamentRepository.findByName(tournament.getName()).isPresent()){
-            throw new InvalidTournament(tournament.getName());}
-        else {
-        this.tournamentRepository.save(tournament);}
+        if (this.tournamentRepository.findByName(tournament.getName()).isPresent()) {
+            throw new InvalidTournament(tournament.getName());
+        } else {
+            this.tournamentRepository.save(tournament);
+        }
+
+
     }
 
 
     @Override
-    public Set<Player> listPlayersInTournament(String tournamentId){
-        if (this.tournamentRepository.findById(tournamentId).isPresent()){
-            if (this.tournamentRepository.findById(tournamentId).get().getPlayers().size()>0)
+    public Set<Player> listPlayersInTournament(String tournamentId) {
+        if (this.tournamentRepository.findById(tournamentId).isPresent()) {
+            if (this.tournamentRepository.findById(tournamentId).get().getPlayers().size() > 0)
                 return this.tournamentRepository.findById(tournamentId).get().getPlayers();
         }
         return this.tournamentRepository.findById(tournamentId).get().getPlayers();
@@ -71,24 +79,23 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Tournament findTournamentByName(String s) throws InvalidTournament{
-        return tournamentRepository.findByName(s).orElseThrow(()->new InvalidTournament(s));
+    public Tournament findTournamentByName(String s) throws InvalidTournament {
+        return tournamentRepository.findByName(s).orElseThrow(() -> new InvalidTournament(s));
     }
+
     @Override
-    public void joinTournament(String id, User userId){
+    public void joinTournament(String id, User userId) {
 
 
-        Optional<Player> player=this.playerRepository.findByUserId(userId);
+        Optional<Player> player = this.playerRepository.findByUserId(userId);
 
 
-        Optional<Tournament> tournament=this.tournamentRepository.findById(id);
-        Set<Player> players=tournament.get().getPlayers();
-        players.add(player.get());
-        Set<Tournament>tournaments=player.get().getTournaments();
-        tournaments.add(tournament.get());
+        Optional<Tournament> tournament = this.tournamentRepository.findById(id);
+        Set<Player> players = tournament.get().getPlayers();
+        players.add(player.orElseThrow());
+
 
     }
-
 
 
 }
