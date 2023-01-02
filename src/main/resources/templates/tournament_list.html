@@ -33,8 +33,11 @@
             <th>Tournament</th>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <th>Delete</th>
+            </th:block>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <th>Edit</th>
             </th:block>
+
             <th>Join Tournament</th>
 
         </tr>
@@ -56,6 +59,7 @@
 
 
             </th:block>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
             <td>
             <form th:action="@{'/editTournament/{id}'(id=${tournament.id})}" th:method="PUT">
                 <button type="submit" class="btn btn-danger">
@@ -63,6 +67,8 @@
                 </button>
             </form>
             </td>
+
+            </th:block>
 <!--            <td>-->
 
 <!--             -->

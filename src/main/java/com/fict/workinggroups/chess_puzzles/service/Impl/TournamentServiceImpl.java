@@ -12,6 +12,7 @@ import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -49,6 +50,8 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public Optional<Tournament> edit(String id, String name) {
         Tournament tournament = this.tournamentRepository.findById(id).orElseThrow(TournamentNotFound::new);
+
+
         tournament.setName(name);
 
         return Optional.of(this.tournamentRepository.save(tournament));
@@ -59,9 +62,11 @@ public class TournamentServiceImpl implements TournamentService {
     public void saveTournament(Tournament tournament) {
         if (this.tournamentRepository.findByName(tournament.getName()).isPresent()) {
             throw new InvalidTournament(tournament.getName());
-        } else {
-            this.tournamentRepository.save(tournament);
         }
+
+
+
+        this.tournamentRepository.save(tournament);
 
 
     }
@@ -90,9 +95,12 @@ public class TournamentServiceImpl implements TournamentService {
         Optional<Player> player = this.playerRepository.findByUserId(userId);
 
 
+
+
         Optional<Tournament> tournament = this.tournamentRepository.findById(id);
         Set<Player> players = tournament.get().getPlayers();
         players.add(player.orElseThrow());
+        tournamentRepository.save(tournament.get());
 
 
     }

@@ -13,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-
-
 @AllArgsConstructor
 @Controller
 public class TournamentController {
@@ -45,7 +43,7 @@ public class TournamentController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editTournament(@PathVariable(value = "id") String id, Model model) {
         Tournament tournament = this.tournamentService.getTournamentById(id).get();
-        this.tournamentService.edit(id,tournament.getName());
+        //this.tournamentService.edit(id,tournament.getName());
         model.addAttribute("tournament", tournament);
         return "edit_tournament";
 
@@ -92,7 +90,7 @@ public class TournamentController {
     @GetMapping("/tournamentPlayers/{id}")
     public String showPlayer(Model model, @PathVariable("id") String id) {
         model.addAttribute("players", tournamentService.listPlayersInTournament(id));
-        return "join_player";
+        return "tournament_players";
 
     }
 

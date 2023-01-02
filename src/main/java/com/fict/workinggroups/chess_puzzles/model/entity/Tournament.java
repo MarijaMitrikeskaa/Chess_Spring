@@ -3,6 +3,7 @@ package com.fict.workinggroups.chess_puzzles.model.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +14,7 @@ public class Tournament {
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
+
 
     private String name;
 
@@ -26,8 +28,8 @@ public class Tournament {
     @JoinTable(
 
             name = "tournament_player",
-            joinColumns = {@JoinColumn(name = "tournament_id")},
-            inverseJoinColumns = {@JoinColumn(name = "player_id")})
+            joinColumns = {@JoinColumn(name = "tournament_id",referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "player_id",referencedColumnName = "id")})
     private Set<Player> players=new HashSet<>();
 
     public Tournament() {
@@ -37,6 +39,8 @@ public class Tournament {
     public Tournament(String name) {
 
         this.name=name;
+
+
 
 
 
