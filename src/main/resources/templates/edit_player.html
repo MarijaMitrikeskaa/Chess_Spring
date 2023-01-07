@@ -17,6 +17,7 @@
 
     <form action="#" th:action="@{/savePlayer}" th:object="${player}" method="POST">
         <p th:text="${error}" class="text-danger"></p>
+        <input type="hidden" th:field="*{id}" />
         <input type="text" th:field="*{username}"
                placeholder="Enter Username" class="form-control mb-4 col-4">
 <!--        edit pasword for player??-->

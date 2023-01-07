@@ -7,12 +7,10 @@ import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.repository.TournamentRepository;
-import com.fict.workinggroups.chess_puzzles.repository.UserRepository;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -48,11 +46,12 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Optional<Tournament> edit(String id, String name) {
+    public Optional<Tournament> edit(String id, String name,boolean isActive) {
         Tournament tournament = this.tournamentRepository.findById(id).orElseThrow(TournamentNotFound::new);
 
 
         tournament.setName(name);
+        tournament.setActive(isActive);
 
         return Optional.of(this.tournamentRepository.save(tournament));
 

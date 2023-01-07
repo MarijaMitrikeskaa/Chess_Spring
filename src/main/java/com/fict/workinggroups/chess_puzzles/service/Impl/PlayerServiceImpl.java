@@ -1,10 +1,14 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
+import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameException;
 import com.fict.workinggroups.chess_puzzles.exception.PlayerNotFound;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
+import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,9 +42,32 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Optional<Player> addPlayer(String username) {
+    public Optional<Player> editPlayer(String id, String username) {
+        Player player = this.playerRepository.findById(id).orElseThrow(InvalidUsernameException::new);
+        if (this.playerRepository.findByUsername(username).isPresent()) {
+            throw new InvalidUsernameException();
+        }
 
-        return Optional.of(this.playerRepository.save(new Player()));
+        player.setUsername(username);
+        return Optional.of(this.playerRepository.save(player));
+
+
+    }
+
+    @Override
+    public boolean hasId(String playerId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+
+        Player player = playerRepository.findById(playerId).get();
+
+        String userId = user.getId();
+        String idPlayer = player.getUserId().getId();
+        return userId.equals(idPlayer);
+
+
+
     }
 
 

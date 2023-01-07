@@ -1,5 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.web.rest;
 
+import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
@@ -30,13 +31,18 @@ public class FenRestController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity createFen(@ModelAttribute Fen fen) {
-        try {
-            fenService.saveFen(fen);
-            return ResponseEntity.ok().body(fen);
-        } catch (InvalidFenException e) {
-            return ResponseEntity.status(422).body(e.getMessage());
-        }
+    public ResponseEntity<Fen> saveFen(@ModelAttribute FenDto fenDto) {
+        return this.fenService.save(fenDto)
+                .map(fen->ResponseEntity.ok().body(fen))
+                .orElseGet(()->ResponseEntity.badRequest().build());
+
+
+//        try {
+//            fenService.saveFen(fen);
+//            return ResponseEntity.ok().body(fen);
+//        } catch (InvalidFenException e) {
+//            return ResponseEntity.status(422).body(e.getMessage());
+//        }
 
     }
 
@@ -56,16 +62,22 @@ public class FenRestController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity editFen(@PathVariable String id, @ModelAttribute Fen fenDetails)  {
-       try {
-           fenService.edit(id,fenDetails.getFen(),fenDetails.getDescription());
-           return ResponseEntity.ok().body(fenDetails);
-       }
-       catch (InvalidFenException e)
-       {
-           return ResponseEntity.status(422).body(e.getMessage());
+    public ResponseEntity<Fen> editFen(@PathVariable String id, @ModelAttribute FenDto fenDto)  {
 
-       }
+
+        return this.fenService.edit(id,fenDto)
+                .map(fen -> ResponseEntity.ok().body(fen))
+                .orElseGet(()->ResponseEntity.badRequest().build());
+
+//        try {
+//           fenService.edit(id,fenDetails.getFen(),fenDetails.getDescription());
+//           return ResponseEntity.ok().body(fenDetails);
+//       }
+//       catch (InvalidFenException e)
+//       {
+//           return ResponseEntity.status(422).body(e.getMessage());
+//
+//       }
     }
 
     @DeleteMapping("/delete/{id}")

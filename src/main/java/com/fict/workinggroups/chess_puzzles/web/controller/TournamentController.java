@@ -5,6 +5,7 @@ import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import lombok.AllArgsConstructor;
+import org.h2.engine.Mode;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,14 +52,17 @@ public class TournamentController {
     }
 
     @PostMapping("/saveTournament")
-    public String saveTournament( Tournament tournament, @RequestParam(required=false) String id) {
+    public String saveTournament(@ModelAttribute("tournament") Tournament tournament, @RequestParam(required=false) String id, Model model) {
 
         try {
             if (id!=null){
-                this.tournamentService.edit(id,tournament.getName());
+                this.tournamentService.edit(id,tournament.getName(),tournament.getIsActive());
+                model.addAttribute("tournament",tournament);
+
             }
             else {
                 this.tournamentService.saveTournament(tournament);
+
             }
             return "redirect:/viewTournaments";
 
@@ -95,3 +99,5 @@ public class TournamentController {
     }
 
 }
+
+

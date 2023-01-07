@@ -21,7 +21,7 @@ public interface TournamentService {
 
     Set<Player> listPlayersInTournament(String tournamentId);
     void joinTournament(String id, User userId);
-    Optional<Tournament> edit(String id,String name);
+    Optional<Tournament> edit(String id,String name,boolean isActive);
 
     Tournament findTournamentByName(String s);
 //    Tournament saveT(String name);

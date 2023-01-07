@@ -16,6 +16,7 @@
 <div class="container">
     <h1> Add Tournament </h1>
     <form action="#" th:action="@{/saveTournament}" th:object="${tournament}" method="POST">
+
         <input type="text" th:field="*{name}"
                class="form-control mb-4 col-4">
 

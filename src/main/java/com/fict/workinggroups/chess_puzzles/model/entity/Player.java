@@ -1,5 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.model.entity;
 
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Setter
 public class Player {
 
     @Id

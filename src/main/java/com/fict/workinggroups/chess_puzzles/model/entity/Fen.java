@@ -23,18 +23,47 @@ public class Fen {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-    public Fen(String fen, String description) {
+    private int points;
+
+    private String solution;
+
+    public Fen(String fen, String description,int points,String solution) {
         this.fen = fen;
         this.description = description;
         this.status=Status.PENDING;
-
-
+        this.points=points;
+        this.solution=solution;
     }
+
+    public Fen(String fen, String description,int points) {
+        this.fen = fen;
+        this.description = description;
+        this.points=points;
+        this.status=Status.PENDING;
+    }
+
+
 
 
 
     public Fen() {
 
+    }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public Status getStatus() {

@@ -21,7 +21,17 @@
         <input type="text" th:field = "*{name}"
                class="form-control mb-4 col-4">
 
-        <button type="submit" class="btn btn-info col-2"> Edit Tournament </button>
+        <select class="form-control" th:field="*{isActive}">
+            <option th:value="1" >true</option>
+            <option th:value="0" >false</option>
+        </select>
+
+
+
+
+
+
+        <button type="submit" class="btn btn-info col-2"> Save Edited Tournament </button>
     </form>
     <hr>
     <a th:href ="@{/viewTournaments}"> Back To The Tournament List </a>

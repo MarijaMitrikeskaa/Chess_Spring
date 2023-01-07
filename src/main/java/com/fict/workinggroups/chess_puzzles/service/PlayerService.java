@@ -8,14 +8,16 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface PlayerService {
-    Optional<Player> getPlayerById(String id) ;
+    Optional<Player> getPlayerById(String id);
 
     List<Player> getAllPlayers();
 
     Optional<Player> deletePlayer(String id);
 
-    Optional<Player>addPlayer(String username);
 
-//    Set<Tournament> joinTournament(String tournamentId);
+    Optional<Player> editPlayer(String id, String username);
 
- }
+    boolean hasId(String playerId);
+
+
+}

@@ -31,8 +31,16 @@
     <tbody>
     <tr th:each="player : ${players}">
       <td th:text="${player.username}"></td>
-      <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+
         <td>
+<!--          <th:block sec:authorize="">-->
+            <form  th:action="@{'/editPlayer/{id}'(id=${player.id})}" th:method="PUT">
+              <button type="submit" class="btn btn-danger">
+                Edit</button>
+            </form>
+<!--          </th:block>-->
+        </td>
+      <td>
 
           <th:block sec:authorize="hasRole('ROLE_ADMIN')">
             <form  th:action="@{'/deletePlayer/{id}'(id=${player.id})}" th:method="DELETE">
@@ -41,7 +49,7 @@
             </form>
           </th:block>
         </td>
-      </th:block>
+
     </tr>
     </tbody>
   </table>

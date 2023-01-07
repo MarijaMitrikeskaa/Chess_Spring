@@ -3,7 +3,6 @@ package com.fict.workinggroups.chess_puzzles.model.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +18,8 @@ public class Tournament {
     private String name;
 
     private LocalDate date = LocalDate.now();
+
+    private boolean isActive;
 
     @ManyToMany(fetch = FetchType.LAZY,
     cascade = {
@@ -36,15 +37,20 @@ public class Tournament {
     }
 
 
-    public Tournament(String name) {
+    public Tournament(String name,boolean isActive) {
 
         this.name=name;
+        this.isActive=isActive;
 
 
 
 
 
 
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getId() {
@@ -73,5 +79,13 @@ public class Tournament {
 
     public void setPlayers(Set<Player> players) {
         this.players = players;
+    }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        this.isActive = active;
     }
 }

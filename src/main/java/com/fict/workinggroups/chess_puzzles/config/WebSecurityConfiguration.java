@@ -4,6 +4,7 @@
 //import lombok.AllArgsConstructor;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.authentication.AuthenticationProvider;
 //import org.springframework.security.config.Customizer;
 //import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -64,9 +65,10 @@
 //
 //
 //    @Bean
-//    public InMemoryUserDetailsManager userDetailsService() {
-//        UserDetails admin = User.withUsername("admin")
-//                .password(passwordEncoder.encode("admin"))
+//    public InMemoryUserDetailsManager userDetailsManager() {
+//        UserDetails admin = User.withDefaultPasswordEncoder()
+//                .username("admin")
+//                .password("admin")
 //                .roles("ADMIN")
 //                .build();
 //
