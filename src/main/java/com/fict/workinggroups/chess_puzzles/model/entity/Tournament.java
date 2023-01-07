@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 public class Tournament {
     @Id
-    @GeneratedValue(generator="system-uuid")
+    @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
@@ -19,32 +19,27 @@ public class Tournament {
 
     private LocalDate date = LocalDate.now();
 
-    private boolean isActive;
+    private boolean tournamentActive;
 
     @ManyToMany(fetch = FetchType.LAZY,
-    cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinTable(
 
             name = "tournament_player",
-            joinColumns = {@JoinColumn(name = "tournament_id",referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "player_id",referencedColumnName = "id")})
-    private Set<Player> players=new HashSet<>();
+            joinColumns = {@JoinColumn(name = "tournament_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "player_id", referencedColumnName = "id")})
+    private Set<Player> players = new HashSet<>();
 
     public Tournament() {
     }
 
 
-    public Tournament(String name,boolean isActive) {
+    public Tournament(String name) {
 
-        this.name=name;
-        this.isActive=isActive;
-
-
-
-
+        this.name = name;
 
 
     }
@@ -81,11 +76,11 @@ public class Tournament {
         this.players = players;
     }
 
-    public boolean getIsActive() {
-        return isActive;
+    public boolean isTournamentActive() {
+        return tournamentActive;
     }
 
-    public void setActive(boolean active) {
-        this.isActive = active;
+    public void setTournamentActive(boolean tournamentActive) {
+        this.tournamentActive = tournamentActive;
     }
 }

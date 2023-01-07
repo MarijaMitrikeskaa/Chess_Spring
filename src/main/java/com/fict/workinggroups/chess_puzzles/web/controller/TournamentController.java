@@ -52,15 +52,14 @@ public class TournamentController {
     }
 
     @PostMapping("/saveTournament")
-    public String saveTournament(@ModelAttribute("tournament") Tournament tournament, @RequestParam(required=false) String id, Model model) {
+    public String saveTournament(@ModelAttribute("tournament") Tournament tournament, @RequestParam(required = false) String id, Model model) {
 
         try {
-            if (id!=null){
-                this.tournamentService.edit(id,tournament.getName(),tournament.getIsActive());
-                model.addAttribute("tournament",tournament);
+            if (id != null) {
+                this.tournamentService.edit(id, tournament.getName(), tournament.isTournamentActive());
+                model.addAttribute("tournament", tournament);
 
-            }
-            else {
+            } else {
                 this.tournamentService.saveTournament(tournament);
 
             }

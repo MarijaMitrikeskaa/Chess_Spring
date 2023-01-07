@@ -46,12 +46,12 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Optional<Tournament> edit(String id, String name,boolean isActive) {
+    public Optional<Tournament> edit(String id, String name, boolean tournamentActivated) {
         Tournament tournament = this.tournamentRepository.findById(id).orElseThrow(TournamentNotFound::new);
 
 
         tournament.setName(name);
-        tournament.setActive(isActive);
+        tournament.setTournamentActive(tournamentActivated);
 
         return Optional.of(this.tournamentRepository.save(tournament));
 
@@ -62,7 +62,6 @@ public class TournamentServiceImpl implements TournamentService {
         if (this.tournamentRepository.findByName(tournament.getName()).isPresent()) {
             throw new InvalidTournament(tournament.getName());
         }
-
 
 
         this.tournamentRepository.save(tournament);
@@ -92,9 +91,6 @@ public class TournamentServiceImpl implements TournamentService {
 
 
         Optional<Player> player = this.playerRepository.findByUserId(userId);
-
-
-
 
         Optional<Tournament> tournament = this.tournamentRepository.findById(id);
         Set<Player> players = tournament.get().getPlayers();

@@ -14,27 +14,23 @@
     <h1> Edit Tournament </h1>
 
 
-
     <form action="#" th:action="@{/saveTournament}" th:object="${tournament}" method="POST">
 
-        <input type="hidden" th:field="*{id}" />
-        <input type="text" th:field = "*{name}"
+        <input type="hidden" th:field="*{id}"/>
+        <input type="text" th:field="*{name}"
                class="form-control mb-4 col-4">
 
-        <select class="form-control" th:field="*{isActive}">
-            <option th:value="1" >true</option>
-            <option th:value="0" >false</option>
+
+        <select class="form-control" th:field="*{tournamentActive}">
+            <option th:value="1">true</option>
+            <option th:value="0">false</option>
         </select>
 
 
-
-
-
-
-        <button type="submit" class="btn btn-info col-2"> Save Edited Tournament </button>
+        <button type="submit" class="btn btn-info col-2"> Save Edited Tournament</button>
     </form>
     <hr>
-    <a th:href ="@{/viewTournaments}"> Back To The Tournament List </a>
+    <a th:href="@{/viewTournaments}"> Back To The Tournament List </a>
 </div>
 </body>
 </html>
