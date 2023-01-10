@@ -33,6 +33,18 @@ public class Tournament {
             inverseJoinColumns = {@JoinColumn(name = "player_id", referencedColumnName = "id")})
     private Set<Player> players = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(
+
+            name = "tournament_fen",
+            joinColumns = {@JoinColumn(name = "tournament_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "fen_id", referencedColumnName = "id")})
+    private Set<Fen> fens=new HashSet<>();
+
     public Tournament() {
     }
 
@@ -82,5 +94,13 @@ public class Tournament {
 
     public void setTournamentActive(boolean tournamentActive) {
         this.tournamentActive = tournamentActive;
+    }
+
+    public Set<Fen> getFens() {
+        return fens;
+    }
+
+    public void setFens(Set<Fen> fens) {
+        this.fens = fens;
     }
 }

@@ -36,23 +36,25 @@
             <td th:text="${fen.fen}"></td>
             <td th:text="${fen.description}"></td>
             <td th:text="${fen.points}"></td>
+
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-            <td th:text="${fen.solution}"></td>
+                <td th:text="${fen.solution}"></td>
                 <th:block/>
-            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                <td>
-                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                        <form th:action="@{'/updateForm/{id}'(id=${fen.id})}" th:method="PUT">
-                            <button class="btn btn-primary">Update</button>
-                        </form>
-                    </th:block>
-                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                        <form th:action="@{'/deleteFenID/{id}'(id=${fen.id})}" th:method="DELETE">
-                            <button type="submit" class="btn btn-danger">
-                                Delete
-                            </button>
-                        </form>
-                    </th:block>
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <td>
+                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                            <form th:action="@{'/updateForm/{id}'(id=${fen.id})}" th:method="PUT">
+                                <button class="btn btn-primary">Update</button>
+                            </form>
+                        </th:block>
+                </th:block>
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form th:action="@{'/deleteFenID/{id}'(id=${fen.id})}" th:method="DELETE">
+                        <button type="submit" class="btn btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </th:block>
                 </td>
             </th:block>
         </tr>

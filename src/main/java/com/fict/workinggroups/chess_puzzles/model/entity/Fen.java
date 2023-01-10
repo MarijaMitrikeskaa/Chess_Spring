@@ -1,11 +1,16 @@
 package com.fict.workinggroups.chess_puzzles.model.entity;
 
 import com.fict.workinggroups.chess_puzzles.model.enums.Status;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Setter
+@Getter
 @Table(name = "Fen")
 public class Fen {
 
@@ -26,6 +31,14 @@ public class Fen {
     private int points;
 
     private String solution;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "fens")
+    private Set<Tournament> tournaments;
 
     public Fen(String fen, String description,int points,String solution) {
         this.fen = fen;
@@ -100,4 +113,3 @@ public class Fen {
         this.description = description;
     }
 }
-

@@ -93,6 +93,7 @@ public class TournamentController {
     @GetMapping("/tournamentPlayers/{id}")
     public String showPlayer(Model model, @PathVariable("id") String id) {
         model.addAttribute("players", tournamentService.listPlayersInTournament(id));
+        model.addAttribute("fenList",tournamentService.listFensInTournament(id));
         return "tournament_players";
 
     }

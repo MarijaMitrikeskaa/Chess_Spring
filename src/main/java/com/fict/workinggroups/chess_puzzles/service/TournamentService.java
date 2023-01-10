@@ -1,5 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.service;
 
+import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
@@ -20,6 +21,7 @@ public interface TournamentService {
 //    Tournament addTournament(Tournament tournament);
 
     Set<Player> listPlayersInTournament(String tournamentId);
+    Set<Fen> listFensInTournament(String tournamentId);
     void joinTournament(String id, User userId);
     Optional<Tournament> edit(String id,String name,boolean tournamentActivated);
 

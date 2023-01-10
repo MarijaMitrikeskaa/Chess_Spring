@@ -2,15 +2,18 @@ package com.fict.workinggroups.chess_puzzles.service.Impl;
 
 import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
 import com.fict.workinggroups.chess_puzzles.exception.TournamentNotFound;
+import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
+import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.repository.TournamentRepository;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -23,6 +26,9 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Autowired
     private PlayerRepository playerRepository;
+
+    @Autowired
+    private FenRepository fenRepository;
 
     @Override
     public Optional<Tournament> getTournamentById(String id) {
@@ -57,12 +63,16 @@ public class TournamentServiceImpl implements TournamentService {
 
     }
 
+
     @Override
     public void saveTournament(Tournament tournament) {
         if (this.tournamentRepository.findByName(tournament.getName()).isPresent()) {
             throw new InvalidTournament(tournament.getName());
         }
+        List<Fen>fens= this.fenRepository.findAll();
+        Set<Fen>fenSet=new HashSet<Fen>(fens);
 
+        tournament.setFens(fenSet);
 
         this.tournamentRepository.save(tournament);
 
@@ -77,6 +87,16 @@ public class TournamentServiceImpl implements TournamentService {
                 return this.tournamentRepository.findById(tournamentId).get().getPlayers();
         }
         return this.tournamentRepository.findById(tournamentId).get().getPlayers();
+
+
+    }
+    @Override
+    public Set<Fen> listFensInTournament(String tournamentId) {
+        if (this.tournamentRepository.findById(tournamentId).isPresent()) {
+            if (this.tournamentRepository.findById(tournamentId).get().getFens().size() > 0)
+                return this.tournamentRepository.findById(tournamentId).get().getFens();
+        }
+        return this.tournamentRepository.findById(tournamentId).get().getFens();
 
 
     }
