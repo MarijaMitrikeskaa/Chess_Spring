@@ -1,10 +1,9 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
+import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.model.dto.PlayedFenDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.PlayedFen;
-import com.fict.workinggroups.chess_puzzles.model.entity.Player;
-import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.repository.PlayedFensRepository;
 import com.fict.workinggroups.chess_puzzles.service.PlayedFensService;
@@ -25,10 +24,15 @@ public class PlayedFensServiceImpl implements PlayedFensService {
 
     @Override
     public boolean checkSolution(PlayedFenDto playedFenDto) {
-        Fen fen = this.fenRepository.getReferenceById(playedFenDto.getFenId());
-        String fenSolution = fen.getSolution();
-        return fenSolution.equals(playedFenDto.getSolution());
+        if (this.fenRepository.findById(playedFenDto.getFenId()).isPresent()) {
+            Optional<Fen> fen = this.fenRepository.findById(playedFenDto.getFenId());
+            String fenSolution = fen.get().getSolution();
+            return fenSolution.equals(playedFenDto.getSolution());
 
+        } else {
+            throw new FenNotFound();
+
+        }
     }
 
 
