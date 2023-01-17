@@ -1,6 +1,7 @@
 package com.fict.workinggroups.chess_puzzles.web.controller;
 
 import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameException;
+import com.fict.workinggroups.chess_puzzles.model.dto.PlayerDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class PlayerController {
     }
 
     @PostMapping("/savePlayer")
-    public String savePlayer(Player player, @RequestParam String id) {
+    public String savePlayer(PlayerDto playerDto, @RequestParam String id) {
         if (id != null) {
-            this.playerService.editPlayer(id, player.getUsername());
+            this.playerService.editPlayer(id, playerDto);
         } else {
             throw new InvalidUsernameException();
         }

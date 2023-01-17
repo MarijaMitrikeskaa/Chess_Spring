@@ -1,6 +1,7 @@
 package com.fict.workinggroups.chess_puzzles.web.controller;
 
 import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
+import com.fict.workinggroups.chess_puzzles.model.dto.TournamentDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
@@ -51,15 +52,15 @@ public class TournamentController {
     }
 
     @PostMapping("/saveTournament")
-    public String saveTournament(@ModelAttribute("tournament") Tournament tournament, @RequestParam(required = false) String id, Model model) {
+    public String saveTournament(@ModelAttribute("tournament") TournamentDto tournamentDto, @RequestParam(required = false) String id, Model model) {
 
         try {
             if (id != null) {
-                this.tournamentService.edit(id, tournament.getName(), tournament.isTournamentActive());
-                model.addAttribute("tournament", tournament);
+                this.tournamentService.edit(id, tournamentDto);
+                model.addAttribute("tournament", tournamentDto);
 
             } else {
-                this.tournamentService.saveTournament(tournament);
+                this.tournamentService.saveTournament(tournamentDto);
 
             }
             return "redirect:/viewTournaments";

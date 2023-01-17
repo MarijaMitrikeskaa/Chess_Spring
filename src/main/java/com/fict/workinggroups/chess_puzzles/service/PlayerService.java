@@ -1,5 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.service;
 
+import com.fict.workinggroups.chess_puzzles.model.dto.PlayerDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 
@@ -15,7 +16,7 @@ public interface PlayerService {
     Optional<Player> deletePlayer(String id);
 
 
-    Optional<Player> editPlayer(String id, String username);
+    Optional<Player> editPlayer(String id, PlayerDto playerDto);
 
     boolean hasId(String playerId);
 

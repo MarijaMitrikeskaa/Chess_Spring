@@ -1,7 +1,10 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
+import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
 import com.fict.workinggroups.chess_puzzles.exception.TournamentNotFound;
+import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
+import com.fict.workinggroups.chess_puzzles.model.dto.TournamentDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
@@ -32,12 +35,16 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public Optional<Tournament> getTournamentById(String id) {
-        return this.tournamentRepository.findById(id);
+        if(!tournamentRepository.findById(id).isEmpty()){
+            return this.tournamentRepository.findById(id);}
+        else {
+            throw new TournamentNotFound();
+        }
     }
 
     @Override
     public List<Tournament> getAllTournaments() {
-        return this.tournamentRepository.findAll();
+        return tournamentRepository.findAll();
     }
 
     @Override
@@ -52,12 +59,12 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Optional<Tournament> edit(String id, String name, boolean tournamentActivated) {
+    public Optional<Tournament> edit(String id, TournamentDto tournamentDto) {
         Tournament tournament = this.tournamentRepository.findById(id).orElseThrow(TournamentNotFound::new);
 
 
-        tournament.setName(name);
-        tournament.setTournamentActive(tournamentActivated);
+        tournament.setName(tournamentDto.getName());
+        tournament.setTournamentActive(tournamentDto.isTournamentActivated());
 
         return Optional.of(this.tournamentRepository.save(tournament));
 
@@ -65,16 +72,28 @@ public class TournamentServiceImpl implements TournamentService {
 
 
     @Override
-    public void saveTournament(Tournament tournament) {
-        if (this.tournamentRepository.findByName(tournament.getName()).isPresent()) {
-            throw new InvalidTournament(tournament.getName());
+    public Optional<Tournament> saveTournament(TournamentDto tournamentDto) {
+        if (this.tournamentRepository.findByName(tournamentDto.getName()).isPresent()) {
+            throw new InvalidTournament(tournamentDto.getName());
         }
+        Tournament tournament=new Tournament(tournamentDto.getName());
         List<Fen>fens= this.fenRepository.findAll();
-        Set<Fen>fenSet=new HashSet<Fen>(fens);
+        Set<Fen>fenSet= new HashSet<>(fens);
 
         tournament.setFens(fenSet);
 
-        this.tournamentRepository.save(tournament);
+      return Optional.of(this.tournamentRepository.save(tournament));
+
+//        public Optional<Fen> save(FenDto fenDto) {
+//            if (isValidFen(fenDto.getFen())) {
+//                Fen fen=new Fen(fenDto.getFen(),fenDto.getDescription(),fenDto.getPoints());
+//                this.fenRepo.save(fen);
+//                return Optional.of(fen);
+//            }
+//            else {
+//                throw new InvalidFenException();
+//            }
+//        }
 
 
     }

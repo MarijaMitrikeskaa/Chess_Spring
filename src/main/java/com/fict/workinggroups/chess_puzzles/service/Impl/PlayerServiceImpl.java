@@ -2,7 +2,9 @@ package com.fict.workinggroups.chess_puzzles.service.Impl;
 
 import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameException;
 import com.fict.workinggroups.chess_puzzles.exception.PlayerNotFound;
+import com.fict.workinggroups.chess_puzzles.model.dto.PlayerDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
+import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
@@ -41,14 +43,16 @@ public class PlayerServiceImpl implements PlayerService {
 
     }
 
+
+
     @Override
-    public Optional<Player> editPlayer(String id, String username) {
+    public Optional<Player> editPlayer(String id, PlayerDto playerDto) {
         Player player = this.playerRepository.findById(id).orElseThrow(InvalidUsernameException::new);
-        if (this.playerRepository.findByUsername(username).isPresent()) {
+        if (this.playerRepository.findByUsername(playerDto.getUsername()).isPresent()) {
             throw new InvalidUsernameException();
         }
 
-        player.setUsername(username);
+        player.setUsername(playerDto.getUsername());
         return Optional.of(this.playerRepository.save(player));
 
 
