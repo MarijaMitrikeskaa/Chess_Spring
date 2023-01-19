@@ -19,7 +19,7 @@
         <button type="submit" class="btn btn-danger position-relative top-5 start-50 translate-middle">Logout</button>
     </form>
     <form method="GET">
-    <button type="submit" class="btn btn-primary" formaction="addTournament">Add Tournament</button>
+        <button type="submit" class="btn btn-primary" formaction="addTournament">Add Tournament</button>
     </form>
 
     <!--    <a th:href="@{'/addTournament'}"  class="btn btn-primary btn-sm mb-3"> Add Tournament</a>-->
@@ -60,19 +60,19 @@
 
             </th:block>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-            <td>
-            <form th:action="@{'/editTournament/{id}'(id=${tournament.id})}" th:method="PUT">
-                <button type="submit" class="btn btn-danger">
-                    Edit
-                </button>
-            </form>
-            </td>
+                <td>
+                    <form th:action="@{'/editTournament/{id}'(id=${tournament.id})}" th:method="PUT">
+                        <button type="submit" class="btn btn-danger">
+                            Edit
+                        </button>
+                    </form>
+                </td>
 
             </th:block>
-<!--            <td>-->
+            <!--            <td>-->
 
-<!--             -->
-<!--            </td>-->
+            <!--             -->
+            <!--            </td>-->
 
 
             <td>

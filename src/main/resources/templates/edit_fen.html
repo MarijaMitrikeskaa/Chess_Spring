@@ -17,22 +17,22 @@
 
     <form action="#" th:action="@{/saveFen}" th:object="${fen}" method="POST">
 
-        <input type="hidden" th:field="*{id}" />
-        <input type="text" th:field = "*{fen}"
+        <input type="hidden" th:field="*{id}"/>
+        <input type="text" th:field="*{fen}"
                class="form-control mb-4 col-4">
 
-        <input type="text" th:field = "*{description}"
+        <input type="text" th:field="*{description}"
                class="form-control mb-4 col-4">
 
-        <input type="text" th:field = "*{points}"
+        <input type="text" th:field="*{points}"
                class="form-control mb-4 col-4">
-        <input type="text" th:field = "*{solution}"
+        <input type="text" th:field="*{solution}"
                class="form-control mb-4 col-4">
 
-        <button type="submit" class="btn btn-info col-2"> Update FEN </button>
+        <button type="submit" class="btn btn-info col-2"> Update FEN</button>
     </form>
     <hr>
-    <a th:href ="@{/viewFens}"> Back To The FEN List </a>
+    <a th:href="@{/viewFens}"> Back To The FEN List </a>
 </div>
 </body>
 </html>
