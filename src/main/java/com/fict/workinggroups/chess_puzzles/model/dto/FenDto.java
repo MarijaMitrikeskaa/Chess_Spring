@@ -9,13 +9,13 @@ public class FenDto {
 
     String fen;
     String description;
-    int points;
 
 
-    public FenDto(String fen, String description,int points) {
+
+    public FenDto(String fen, String description) {
         this.fen = fen;
         this.description = description;
-        this.points=points;
+
     }
 
     public FenDto() {

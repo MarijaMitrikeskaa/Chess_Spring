@@ -10,6 +10,10 @@ import java.util.Optional;
 public interface TournamentRepository extends JpaRepository<Tournament, String> {
     Optional<Tournament> findByName(String name);
 
+    Optional<Tournament> findById(String id);
+
+
+
 
 
 }

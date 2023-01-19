@@ -1,11 +1,16 @@
 package com.fict.workinggroups.chess_puzzles.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.security.Timestamp;
+import java.util.Set;
 
 @Entity
+@Setter
+@Getter
 public class PlayedFen {
 
     @Id
@@ -27,27 +32,20 @@ public class PlayedFen {
     @JoinColumn(name = "tournament_id")
     private Tournament tournamentId;
 
+    private int playerPoints;
+
+
     public PlayedFen() {
 
     }
 
+
+    public PlayedFen(int playerPoints) {
+        this.playerPoints=playerPoints;
+
+    }
     public String getId() {
         return id;
     }
 
-    public Timestamp getDate() {
-        return date;
-    }
-
-    public Fen getFenId() {
-        return fenId;
-    }
-
-    public Player getPlayerId() {
-        return playerId;
-    }
-
-    public Tournament getTournamentId() {
-        return tournamentId;
-    }
 }

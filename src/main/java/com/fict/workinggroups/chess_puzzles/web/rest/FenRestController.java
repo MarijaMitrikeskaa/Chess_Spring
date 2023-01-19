@@ -37,13 +37,6 @@ public class FenRestController {
                 .orElseGet(()->ResponseEntity.badRequest().build());
 
 
-//        try {
-//            fenService.saveFen(fen);
-//            return ResponseEntity.ok().body(fen);
-//        } catch (InvalidFenException e) {
-//            return ResponseEntity.status(422).body(e.getMessage());
-//        }
-
     }
 
     @GetMapping("/{id}")

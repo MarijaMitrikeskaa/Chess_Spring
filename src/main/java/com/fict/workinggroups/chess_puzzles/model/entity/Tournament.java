@@ -1,5 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Tournament {
 
     private boolean tournamentActive;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -33,6 +35,7 @@ public class Tournament {
             inverseJoinColumns = {@JoinColumn(name = "player_id", referencedColumnName = "id")})
     private Set<Player> players = new HashSet<>();
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,

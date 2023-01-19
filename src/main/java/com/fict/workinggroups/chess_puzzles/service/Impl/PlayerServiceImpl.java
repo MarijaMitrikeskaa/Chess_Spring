@@ -48,9 +48,14 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Optional<Player> editPlayer(String id, PlayerDto playerDto) {
         Player player = this.playerRepository.findById(id).orElseThrow(InvalidUsernameException::new);
+// to check if the current username equals the one in the input
+//        if (this.playerRepository.findByUsername(player.getUsername().equals(playerDto.getUsername()))){
+//
+//        }
         if (this.playerRepository.findByUsername(playerDto.getUsername()).isPresent()) {
             throw new InvalidUsernameException();
         }
+
 
         player.setUsername(playerDto.getUsername());
         return Optional.of(this.playerRepository.save(player));

@@ -4,8 +4,12 @@ import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.model.dto.PlayedFenDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.PlayedFen;
+import com.fict.workinggroups.chess_puzzles.model.entity.Player;
+import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 import com.fict.workinggroups.chess_puzzles.repository.PlayedFensRepository;
+import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
+import com.fict.workinggroups.chess_puzzles.repository.TournamentRepository;
 import com.fict.workinggroups.chess_puzzles.service.PlayedFensService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,23 @@ public class PlayedFensServiceImpl implements PlayedFensService {
 
     @Autowired
     private FenRepository fenRepository;
+
+    @Autowired
+    private TournamentRepository tournamentRepository;
+
+    @Autowired
+    private PlayerRepository playerRepository;
+
+
+    @Override
+    public  void playerPoints(PlayedFenDto playedFenDto,Player player, PlayedFen playedFen){
+        if (checkSolution(playedFenDto)){
+           int achievedPoints=playedFen.getPlayerPoints();
+           player.setPoints(achievedPoints);
+        }
+
+    }
+
 
 
     @Override

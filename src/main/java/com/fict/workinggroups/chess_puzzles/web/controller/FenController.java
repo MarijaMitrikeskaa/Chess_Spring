@@ -31,7 +31,7 @@ public class FenController {
     public String saveFen(@ModelAttribute("fen") Fen fen, Model model) {
 
         try {
-            fenService.saveFen(fen.getFen(),fen.getDescription(),fen.getPoints(),fen.getSolution());
+            fenService.saveFen(fen.getFen(),fen.getDescription(),fen.getSolution());
             return "redirect:/viewFens";
 
         } catch (InvalidFenException e) {

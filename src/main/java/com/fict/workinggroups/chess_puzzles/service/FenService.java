@@ -10,12 +10,12 @@ import java.util.Optional;
 public interface FenService {
     List<Fen> getAllFens();
 
-     Optional<Fen> saveFen(String fen,String description,int points,String solution);
+     Optional<Fen> saveFen(String fen,String description,String solution);
 
     Optional<Fen> getFenById(String id);
 
     Optional deleteFen(String id);
-    Optional<Fen> edit(String id, String fen, String description,int points,String solution);
+    Optional<Fen> edit(String id, String fen, String description,String solution);
 
     Optional<Fen> findById(String id);
     boolean isValidFen(String fen);

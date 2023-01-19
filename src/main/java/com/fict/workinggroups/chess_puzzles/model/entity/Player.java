@@ -1,5 +1,8 @@
 package com.fict.workinggroups.chess_puzzles.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -9,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Setter
+@Getter
 public class Player {
 
     @Id
@@ -26,6 +30,7 @@ public class Player {
     @JoinColumn(name = "fen_id")
     private Set<Fen> fens;
 
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
             CascadeType.PERSIST,
@@ -33,7 +38,7 @@ public class Player {
             },
             mappedBy = "players")
     private Set<Tournament> tournaments=new HashSet<>();
-
+    private int points=0;
     //private int NumOfTournaments;
 
     public Player() {

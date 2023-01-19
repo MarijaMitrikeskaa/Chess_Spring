@@ -1,5 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fict.workinggroups.chess_puzzles.model.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,10 +29,10 @@ public class Fen {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-    private int points;
+
 
     private String solution;
-
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -40,18 +41,18 @@ public class Fen {
             mappedBy = "fens")
     private Set<Tournament> tournaments;
 
-    public Fen(String fen, String description,int points,String solution) {
+    public Fen(String fen, String description,String solution) {
         this.fen = fen;
         this.description = description;
         this.status=Status.PENDING;
-        this.points=points;
+
         this.solution=solution;
     }
 
-    public Fen(String fen, String description,int points) {
+    public Fen(String fen, String description) {
         this.fen = fen;
         this.description = description;
-        this.points=points;
+
         this.status=Status.PENDING;
     }
 
@@ -71,13 +72,9 @@ public class Fen {
         this.solution = solution;
     }
 
-    public int getPoints() {
-        return points;
-    }
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
+
+
 
     public Status getStatus() {
         return status;

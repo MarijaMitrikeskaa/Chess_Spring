@@ -12,4 +12,5 @@ public interface PlayerRepository extends JpaRepository <Player, String> {
 
     Optional<Player>findByUserId(User userId);
     Optional<Player>findByUsername(String username);
+    Optional<Player>findById(String id);
 }

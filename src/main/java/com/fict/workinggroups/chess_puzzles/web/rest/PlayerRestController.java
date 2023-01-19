@@ -3,7 +3,6 @@ package com.fict.workinggroups.chess_puzzles.web.rest;
 import com.fict.workinggroups.chess_puzzles.exception.PlayerNotFound;
 import com.fict.workinggroups.chess_puzzles.model.dto.PlayerDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
-import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ public class PlayerRestController {
     private PlayerService playerService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getPlayerByid(@PathVariable String id)
+    public ResponseEntity<String> getPlayerBid(@PathVariable String id)
     {
         try{
             playerService.getPlayerById(id);

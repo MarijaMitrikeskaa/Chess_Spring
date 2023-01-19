@@ -63,13 +63,13 @@ return this.tournamentService.edit(id, tournamentDto)
         .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
-    @GetMapping("/listplayers/{id}")
+    @GetMapping("/listPlayers/{id}")
     public Set<Player> listAllPlayers(@PathVariable String id)
     {
         return tournamentService.listPlayersInTournament(id);
     }
 
-    @GetMapping("/listfens/{id}")
+    @GetMapping("/listFens/{id}")
     public Set<Fen> listAllFens(@PathVariable String id)
     {
         return tournamentService.listFensInTournament(id);
