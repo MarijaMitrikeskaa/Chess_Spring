@@ -28,6 +28,8 @@ public class Tournament {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
+
+    //remove this
     @JoinTable(
 
             name = "tournament_player",
@@ -42,7 +44,6 @@ public class Tournament {
                     CascadeType.MERGE
             })
     @JoinTable(
-
             name = "tournament_fen",
             joinColumns = {@JoinColumn(name = "tournament_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "fen_id", referencedColumnName = "id")})

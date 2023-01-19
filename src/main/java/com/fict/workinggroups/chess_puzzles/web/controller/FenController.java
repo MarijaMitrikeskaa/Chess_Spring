@@ -1,8 +1,8 @@
 package com.fict.workinggroups.chess_puzzles.web.controller;
 
+import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
-import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class FenController {
     public String saveFen(@ModelAttribute("fen") Fen fen, Model model) {
 
         try {
-            fenService.saveFen(fen.getFen(), fen.getDescription(), fen.getSolution());
+            fenService.saveFen(fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getSolution());
             return "redirect:/viewFens";
 
         } catch (InvalidFenException e) {

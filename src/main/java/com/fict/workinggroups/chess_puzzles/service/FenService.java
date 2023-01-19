@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface FenService {
     List<Fen> getAllFens();
 
-    Optional<Fen> saveFen(String fen, String description, String solution);
+    Optional<Fen> saveFen(String fen, String description, Integer maxPoints, String solution);
 
     Optional<Fen> getFenById(String id);
 

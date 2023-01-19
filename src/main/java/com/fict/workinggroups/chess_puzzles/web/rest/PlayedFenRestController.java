@@ -1,7 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.web.rest;
 
 
-import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.exception.WrongFenSolutionException;
 import com.fict.workinggroups.chess_puzzles.model.dto.PlayedFenDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.PlayedFen;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
-import javax.swing.text.html.parser.Entity;
 import java.util.HashMap;
 
 @RestController
@@ -29,8 +27,7 @@ public class PlayedFenRestController {
     @Autowired
     private EntityManager entityManager;
 
-
-    @PostMapping("/checkSolution")
+    @PostMapping("/makeAMove") //todo
     public ResponseEntity checkFenSolution(PlayedFenDto playedFenDto) {
         try {
             playedFensService.checkSolution(playedFenDto);
@@ -39,7 +36,10 @@ public class PlayedFenRestController {
             return ResponseEntity.status(422).body(e.getMessage());
         }
     }
+    //pak vratete nazad kon Android dali e tocno ili ne
 
+
+    //todo review this, do we need it?
     @Query(value = "SELECT * FROM Lead")
     @PostMapping("/leaderboard")
     public ResponseEntity leaderboard(PlayedFenDto playedFenDto, Player player, PlayedFen playedFen, @Param("username") String username, @Param("sum") int sum) {
@@ -52,7 +52,6 @@ public class PlayedFenRestController {
         } catch (WrongFenSolutionException e) {
             return ResponseEntity.status(422).body(e.getMessage());
         }
-
     }
 
 //

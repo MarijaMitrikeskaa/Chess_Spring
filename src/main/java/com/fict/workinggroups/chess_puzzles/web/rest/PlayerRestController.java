@@ -17,6 +17,7 @@ public class PlayerRestController {
     @Autowired
     private PlayerService playerService;
 
+    //todo return Player entity, not String
     @GetMapping("/{id}")
     public ResponseEntity<String> getPlayerBid(@PathVariable String id) {
         try {
@@ -32,6 +33,7 @@ public class PlayerRestController {
         return playerService.getAllPlayers();
     }
 
+    //todo only by admin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletePlayer(@PathVariable String id) {
         try {

@@ -1,14 +1,14 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
-import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
-import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
-import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
-import com.fict.workinggroups.chess_puzzles.service.FenService;
 import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
+import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
+import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
+import com.fict.workinggroups.chess_puzzles.model.enums.Status;
+import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
+import com.fict.workinggroups.chess_puzzles.service.FenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -27,9 +27,9 @@ public class FenServiceImpl implements FenService {
     }
 
     @Override
-    public Optional<Fen> saveFen(String fen, String description, String solution) {
+    public Optional<Fen> saveFen(String fen, String description, Integer maxPoints, String solution) {
         if (isValidFen(fen)) {
-            Fen newFen = new Fen(fen, description, solution);
+            Fen newFen = new Fen(fen, description, maxPoints, solution);
             this.fenRepo.save(newFen);
             return Optional.of(newFen);
         } else {
@@ -98,6 +98,7 @@ public class FenServiceImpl implements FenService {
     public Optional<Fen> save(FenDto fenDto) {
         if (isValidFen(fenDto.getFen())) {
             Fen fen = new Fen(fenDto.getFen(), fenDto.getDescription());
+            fen.setStatus(Status.PENDING);
             this.fenRepo.save(fen);
             return Optional.of(fen);
         } else {
@@ -111,6 +112,7 @@ public class FenServiceImpl implements FenService {
         fen.setFen(fenDto.getFen());
         fen.setDescription(fenDto.getDescription());
 
+        // TODO: 19.1.23 update also the status, maxPoints etc
 
         return Optional.of(this.fenRepo.save(fen));
     }

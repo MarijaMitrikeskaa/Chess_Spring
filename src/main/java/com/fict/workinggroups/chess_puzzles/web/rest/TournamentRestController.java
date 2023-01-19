@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +20,7 @@ public class TournamentRestController {
     @Autowired
     private TournamentService tournamentService;
 
+    //todo not String
     @GetMapping("/{id}")
     public ResponseEntity<String> getTournamentById(@PathVariable String id) {
         try {
@@ -46,6 +46,7 @@ public class TournamentRestController {
         }
     }
 
+    //todo admin only
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTournament(@PathVariable String id) {
         try {
@@ -63,6 +64,7 @@ public class TournamentRestController {
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
+    //todo remove this or put in comment
     @GetMapping("/listPlayers/{id}")
     public Set<Player> listAllPlayers(@PathVariable String id) {
         return tournamentService.listPlayersInTournament(id);
