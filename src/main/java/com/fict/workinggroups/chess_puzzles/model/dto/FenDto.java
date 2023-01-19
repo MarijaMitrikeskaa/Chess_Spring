@@ -11,7 +11,6 @@ public class FenDto {
     String description;
 
 
-
     public FenDto(String fen, String description) {
         this.fen = fen;
         this.description = description;

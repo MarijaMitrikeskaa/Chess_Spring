@@ -16,7 +16,7 @@ import java.util.Set;
 public class Player {
 
     @Id
-    @GeneratedValue(generator="system-uuid")
+    @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
@@ -33,23 +33,21 @@ public class Player {
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-            CascadeType.PERSIST,
+                    CascadeType.PERSIST,
                     CascadeType.MERGE
             },
             mappedBy = "players")
-    private Set<Tournament> tournaments=new HashSet<>();
-    private int points=0;
+    private Set<Tournament> tournaments = new HashSet<>();
+    private int points = 0;
     //private int NumOfTournaments;
 
     public Player() {
     }
 
 
-
     public Player(String username) {
 
-        this.username=username;
-
+        this.username = username;
 
 
     }

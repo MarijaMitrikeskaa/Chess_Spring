@@ -58,20 +58,18 @@ public class TournamentRestController {
 
     @PutMapping("/edit/{id}")
     public ResponseEntity<Tournament> editTournament(@PathVariable String id, @ModelAttribute TournamentDto tournamentDto) {
-return this.tournamentService.edit(id, tournamentDto)
-        .map(tournament -> ResponseEntity.ok().body(tournament))
-        .orElseGet(() -> ResponseEntity.badRequest().build());
+        return this.tournamentService.edit(id, tournamentDto)
+                .map(tournament -> ResponseEntity.ok().body(tournament))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
     @GetMapping("/listPlayers/{id}")
-    public Set<Player> listAllPlayers(@PathVariable String id)
-    {
+    public Set<Player> listAllPlayers(@PathVariable String id) {
         return tournamentService.listPlayersInTournament(id);
     }
 
     @GetMapping("/listFens/{id}")
-    public Set<Fen> listAllFens(@PathVariable String id)
-    {
+    public Set<Fen> listAllFens(@PathVariable String id) {
         return tournamentService.listFensInTournament(id);
     }
 }

@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface PlayedFensService {
 
     Optional<PlayedFen> getPlayerFenById(String id);
+
     boolean checkSolution(PlayedFenDto playedFenDto);
 
     void playerPoints(PlayedFenDto playedFenDto, Player player, PlayedFen playedFen);

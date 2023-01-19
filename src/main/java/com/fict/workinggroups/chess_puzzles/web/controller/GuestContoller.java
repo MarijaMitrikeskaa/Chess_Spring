@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class GuestContoller {
     @Autowired
-   private UserService userService;
+    private UserService userService;
 
     @GetMapping("/guestPage")
     public String viewHomePage(Model model) {
-        User user=new User();
+        User user = new User();
         model.addAttribute("Guest", user);
 
         return "guestpage";
     }
 
     @GetMapping("/guestGame")
-    public String viewGuestGame(Model model,String id){
+    public String viewGuestGame(Model model, String id) {
         model.addAttribute("Guest", userService.getGuest(id));
 
 
@@ -32,10 +32,10 @@ public class GuestContoller {
     }
 
     @PostMapping("/homepage")
-    public String saveGuest(@ModelAttribute("Guest") User guest, Model model)  {
+    public String saveGuest(@ModelAttribute("Guest") User guest, Model model) {
 
-           userService.saveGuest(guest);
-            return "home";
+        userService.saveGuest(guest);
+        return "home";
 
     }
 }

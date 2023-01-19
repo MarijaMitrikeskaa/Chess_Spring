@@ -15,7 +15,8 @@ import java.util.Collections;
 @Table(name = "Chessuser")
 public class User implements UserDetails {
 
-    @Id @GeneratedValue(generator="system-uuid")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String Id;
 
@@ -31,14 +32,11 @@ public class User implements UserDetails {
     private boolean isEnabled = true;
 
 
-
-
-
     public User() {
     }
 
 
-    public User( String username, String password, Role role) {
+    public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -65,7 +63,6 @@ public class User implements UserDetails {
 
         return Collections.singleton(role);
     }
-
 
 
     @Override

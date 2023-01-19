@@ -44,7 +44,6 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
 
-
     @Override
     public Optional<Player> editPlayer(String id, PlayerDto playerDto) {
         Player player = this.playerRepository.findById(id).orElseThrow(InvalidUsernameException::new);
@@ -74,7 +73,6 @@ public class PlayerServiceImpl implements PlayerService {
         String userId = user.getId();
         String idPlayer = player.getUserId().getId();
         return userId.equals(idPlayer);
-
 
 
     }

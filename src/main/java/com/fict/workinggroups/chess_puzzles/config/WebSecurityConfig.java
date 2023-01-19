@@ -27,10 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/homepage","/viewFens","/new_fen","/register","/login","/h2-console","/guestPage","/guestGame","/saveGuest","/api/fens/**").permitAll()
+                .antMatchers("/homepage", "/viewFens", "/new_fen", "/register", "/login", "/h2-console", "/guestPage", "/guestGame", "/saveGuest", "/api/fens/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -64,7 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorities("ROLE_ADMIN");
         auth.authenticationProvider(this.customAuthenticationProvider);
     }
-
 
 
 }

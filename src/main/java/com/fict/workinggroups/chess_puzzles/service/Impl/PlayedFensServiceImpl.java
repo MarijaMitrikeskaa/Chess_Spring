@@ -33,14 +33,13 @@ public class PlayedFensServiceImpl implements PlayedFensService {
 
 
     @Override
-    public  void playerPoints(PlayedFenDto playedFenDto,Player player, PlayedFen playedFen){
-        if (checkSolution(playedFenDto)){
-           int achievedPoints=playedFen.getPlayerPoints();
-           player.setPoints(achievedPoints);
+    public void playerPoints(PlayedFenDto playedFenDto, Player player, PlayedFen playedFen) {
+        if (checkSolution(playedFenDto)) {
+            int achievedPoints = playedFen.getPlayerPoints();
+            player.setPoints(achievedPoints);
         }
 
     }
-
 
 
     @Override

@@ -39,8 +39,6 @@ public class PlayerController {
     }
 
 
-
-
     @PutMapping("/editPlayer/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or @playerServiceImpl.hasId(#id)")
     public String editPlayer(@PathVariable(value = "id") String id, Model model) {

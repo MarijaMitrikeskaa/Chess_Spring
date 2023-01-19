@@ -1,8 +1,7 @@
 package com.fict.workinggroups.chess_puzzles.model.enums;
 
 
-
-public enum Status  {
+public enum Status {
 
     APPROVED,
     DECLINED,

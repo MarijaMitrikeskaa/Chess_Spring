@@ -41,9 +41,10 @@ public class PlayedFen {
 
 
     public PlayedFen(int playerPoints) {
-        this.playerPoints=playerPoints;
+        this.playerPoints = playerPoints;
 
     }
+
     public String getId() {
         return id;
     }

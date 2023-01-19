@@ -15,8 +15,8 @@ import java.util.Set;
 @Table(name = "Fen")
 public class Fen {
 
-
-    @Id @GeneratedValue(generator="system-uuid")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
@@ -29,7 +29,8 @@ public class Fen {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-
+    @Column(name = "maxPoints")
+    private Integer maxPoints;
 
     private String solution;
     @JsonManagedReference
@@ -41,24 +42,20 @@ public class Fen {
             mappedBy = "fens")
     private Set<Tournament> tournaments;
 
-    public Fen(String fen, String description,String solution) {
+    public Fen(String fen, String description, Integer maxPoints, String solution) {
         this.fen = fen;
         this.description = description;
-        this.status=Status.PENDING;
-
-        this.solution=solution;
+        this.status = Status.PENDING;
+        this.maxPoints = maxPoints;
+        this.solution = solution;
     }
 
     public Fen(String fen, String description) {
         this.fen = fen;
         this.description = description;
 
-        this.status=Status.PENDING;
+        this.status = Status.PENDING;
     }
-
-
-
-
 
     public Fen() {
 
@@ -73,9 +70,6 @@ public class Fen {
     }
 
 
-
-
-
     public Status getStatus() {
         return status;
     }
@@ -87,7 +81,6 @@ public class Fen {
     public String getId() {
         return id;
     }
-
 
 
     public void setId(String id) {

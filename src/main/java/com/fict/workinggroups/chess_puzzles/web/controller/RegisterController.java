@@ -19,26 +19,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RegisterController {
 
 
+    private final UserService userService;
 
-
-
-
-  private final UserService userService;
-
-    public RegisterController( UserService userService) {
+    public RegisterController(UserService userService) {
 
         this.userService = userService;
     }
 
 
-
     @GetMapping
     public String getRegisterPage(@RequestParam(required = false) String error, Model model) {
-        if(error != null && !error.isEmpty()) {
+        if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-       // model.addAttribute("bodyContent","register");
+        // model.addAttribute("bodyContent","register");
         return "register";
     }
 
@@ -47,9 +42,9 @@ public class RegisterController {
                            @RequestParam String password,
                            @RequestParam String repeatedPassword,
                            @RequestParam Role role) {
-        try{
+        try {
 
-            this.userService.register(username, password, repeatedPassword,role);
+            this.userService.register(username, password, repeatedPassword, role);
             return "redirect:/login?success=AccountSuccessfullyCreated";
         } catch (InvalidArgumentsException | PasswordsDoNotMatchException | UsernameAlreadyExistsException |
                  InvalidUsernameOrPasswordException exception) {

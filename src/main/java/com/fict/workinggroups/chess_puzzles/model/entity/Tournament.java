@@ -46,7 +46,7 @@ public class Tournament {
             name = "tournament_fen",
             joinColumns = {@JoinColumn(name = "tournament_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "fen_id", referencedColumnName = "id")})
-    private Set<Fen> fens=new HashSet<>();
+    private Set<Fen> fens = new HashSet<>();
 
     public Tournament() {
     }

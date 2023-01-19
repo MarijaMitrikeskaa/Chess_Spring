@@ -18,37 +18,33 @@ public class PlayerRestController {
     private PlayerService playerService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getPlayerBid(@PathVariable String id)
-    {
-        try{
+    public ResponseEntity<String> getPlayerBid(@PathVariable String id) {
+        try {
             playerService.getPlayerById(id);
             return ResponseEntity.ok().body(id);
-        }
-        catch (PlayerNotFound e)
-        {
+        } catch (PlayerNotFound e) {
             return ResponseEntity.status(422).body(e.getMessage());
         }
     }
 
     @GetMapping
-    public List<Player> getAllPlayers(){ return playerService.getAllPlayers();}
+    public List<Player> getAllPlayers() {
+        return playerService.getAllPlayers();
+    }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deletePlayer(@PathVariable String id)
-    {
-        try{
+    public ResponseEntity<String> deletePlayer(@PathVariable String id) {
+        try {
             playerService.deletePlayer(id);
             return ResponseEntity.ok().body(id);
-        }
-        catch (PlayerNotFound e)
-        {
+        } catch (PlayerNotFound e) {
             return ResponseEntity.status(422).body(e.getMessage());
         }
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Player> editPlayer(@PathVariable String id, @ModelAttribute PlayerDto playerDto){
-        return this.playerService.editPlayer(id,playerDto)
+    public ResponseEntity<Player> editPlayer(@PathVariable String id, @ModelAttribute PlayerDto playerDto) {
+        return this.playerService.editPlayer(id, playerDto)
                 .map(player -> ResponseEntity.ok().body(player))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }

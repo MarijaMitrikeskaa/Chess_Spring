@@ -27,13 +27,12 @@ public class FenServiceImpl implements FenService {
     }
 
     @Override
-    public Optional<Fen> saveFen(String fen,String description,String solution) {
-        if (isValidFen(fen)){
-            Fen newFen=new Fen(fen,description,solution);
+    public Optional<Fen> saveFen(String fen, String description, String solution) {
+        if (isValidFen(fen)) {
+            Fen newFen = new Fen(fen, description, solution);
             this.fenRepo.save(newFen);
             return Optional.of(newFen);
-        }
-        else {
+        } else {
             throw new InvalidFenException();
         }
 
@@ -48,43 +47,39 @@ public class FenServiceImpl implements FenService {
 
     @Override
     public Optional<Fen> getFenById(String id) {
-        if(!fenRepo.findById(id).isEmpty()) {
-           return this.fenRepo.findById(id);
+        if (!fenRepo.findById(id).isEmpty()) {
+            return this.fenRepo.findById(id);
 
-        }
-        else {
+        } else {
             throw new FenNotFound();
         }
     }
 
     @Override
-    public Optional<Fen>findById(String id){
+    public Optional<Fen> findById(String id) {
         return this.fenRepo.findById(id);
     }
 
     @Override
     public Optional<Fen> deleteFen(String id) {
-        if(!fenRepo.findById(id).isEmpty()) {
-          this.fenRepo.deleteById(id);
-          return fenRepo.findById(id);
-        }
-        else {
+        if (!fenRepo.findById(id).isEmpty()) {
+            this.fenRepo.deleteById(id);
+            return fenRepo.findById(id);
+        } else {
             throw new FenNotFound();
         }
 
     }
 
     @Override
-    public Optional<Fen> edit(String id, String fen, String description,String solution) {
-      Fen fenModel=this.fenRepo.findById(id).orElseThrow(() -> new InvalidFenException());
-      fenModel.setFen(fen);
-      fenModel.setDescription(description);
+    public Optional<Fen> edit(String id, String fen, String description, String solution) {
+        Fen fenModel = this.fenRepo.findById(id).orElseThrow(() -> new InvalidFenException());
+        fenModel.setFen(fen);
+        fenModel.setDescription(description);
 
-      fenModel.setSolution(solution);
-      return Optional.of(this.fenRepo.save(fenModel));
+        fenModel.setSolution(solution);
+        return Optional.of(this.fenRepo.save(fenModel));
     }
-
-
 
 
     public boolean isValidFen(String fen) {
@@ -102,18 +97,17 @@ public class FenServiceImpl implements FenService {
     @Override
     public Optional<Fen> save(FenDto fenDto) {
         if (isValidFen(fenDto.getFen())) {
-            Fen fen=new Fen(fenDto.getFen(),fenDto.getDescription());
+            Fen fen = new Fen(fenDto.getFen(), fenDto.getDescription());
             this.fenRepo.save(fen);
             return Optional.of(fen);
-        }
-        else {
+        } else {
             throw new InvalidFenException();
         }
     }
 
     @Override
     public Optional<Fen> edit(String id, FenDto fenDto) {
-        Fen fen=this.fenRepo.findById(id).orElseThrow(InvalidFenException::new);
+        Fen fen = this.fenRepo.findById(id).orElseThrow(InvalidFenException::new);
         fen.setFen(fenDto.getFen());
         fen.setDescription(fenDto.getDescription());
 

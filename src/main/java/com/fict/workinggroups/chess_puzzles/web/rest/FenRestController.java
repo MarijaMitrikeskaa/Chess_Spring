@@ -33,34 +33,32 @@ public class FenRestController {
     @PostMapping("/add")
     public ResponseEntity<Fen> saveFen(@ModelAttribute FenDto fenDto) {
         return this.fenService.save(fenDto)
-                .map(fen->ResponseEntity.ok().body(fen))
-                .orElseGet(()->ResponseEntity.badRequest().build());
+                .map(fen -> ResponseEntity.ok().body(fen))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
 
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getFenById(@PathVariable String id)  {
+    public ResponseEntity<String> getFenById(@PathVariable String id) {
         {
             try {
                 fenService.getFenById(id);
 
                 return ResponseEntity.ok().body(id);
-            }
-            catch (FenNotFound e)
-            {
+            } catch (FenNotFound e) {
                 return ResponseEntity.status(422).body(e.getMessage());
             }
         }
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Fen> editFen(@PathVariable String id, @ModelAttribute FenDto fenDto)  {
+    public ResponseEntity<Fen> editFen(@PathVariable String id, @ModelAttribute FenDto fenDto) {
 
 
-        return this.fenService.edit(id,fenDto)
+        return this.fenService.edit(id, fenDto)
                 .map(fen -> ResponseEntity.ok().body(fen))
-                .orElseGet(()->ResponseEntity.badRequest().build());
+                .orElseGet(() -> ResponseEntity.badRequest().build());
 
 //        try {
 //           fenService.edit(id,fenDetails.getFen(),fenDetails.getDescription());

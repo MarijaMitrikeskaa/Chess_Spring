@@ -35,9 +35,9 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public Optional<Tournament> getTournamentById(String id) {
-        if(!tournamentRepository.findById(id).isEmpty()){
-            return this.tournamentRepository.findById(id);}
-        else {
+        if (!tournamentRepository.findById(id).isEmpty()) {
+            return this.tournamentRepository.findById(id);
+        } else {
             throw new TournamentNotFound();
         }
     }
@@ -76,13 +76,13 @@ public class TournamentServiceImpl implements TournamentService {
         if (this.tournamentRepository.findByName(tournamentDto.getName()).isPresent()) {
             throw new InvalidTournament(tournamentDto.getName());
         }
-        Tournament tournament=new Tournament(tournamentDto.getName());
-        List<Fen>fens= this.fenRepository.findAll();
-        Set<Fen>fenSet= new HashSet<>(fens);
+        Tournament tournament = new Tournament(tournamentDto.getName());
+        List<Fen> fens = this.fenRepository.findAll();
+        Set<Fen> fenSet = new HashSet<>(fens);
 
         tournament.setFens(fenSet);
 
-      return Optional.of(this.tournamentRepository.save(tournament));
+        return Optional.of(this.tournamentRepository.save(tournament));
 
 //        public Optional<Fen> save(FenDto fenDto) {
 //            if (isValidFen(fenDto.getFen())) {
@@ -109,6 +109,7 @@ public class TournamentServiceImpl implements TournamentService {
 
 
     }
+
     @Override
     public Set<Fen> listFensInTournament(String tournamentId) {
         if (this.tournamentRepository.findById(tournamentId).isPresent()) {

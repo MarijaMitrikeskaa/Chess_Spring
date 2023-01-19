@@ -30,7 +30,6 @@ public class PlayedFenRestController {
     private EntityManager entityManager;
 
 
-
     @PostMapping("/checkSolution")
     public ResponseEntity checkFenSolution(PlayedFenDto playedFenDto) {
         try {
@@ -40,18 +39,17 @@ public class PlayedFenRestController {
             return ResponseEntity.status(422).body(e.getMessage());
         }
     }
+
     @Query(value = "SELECT * FROM Lead")
     @PostMapping("/leaderboard")
-    public ResponseEntity leaderboard(PlayedFenDto playedFenDto, Player player, PlayedFen playedFen,@Param("username") String username,@Param("sum") int sum){
+    public ResponseEntity leaderboard(PlayedFenDto playedFenDto, Player player, PlayedFen playedFen, @Param("username") String username, @Param("sum") int sum) {
         try {
-            this.playedFensService.playerPoints(playedFenDto,player,playedFen);
-            HashMap<String,Integer>lead=new HashMap<>();
-            lead.put(username,sum);
+            this.playedFensService.playerPoints(playedFenDto, player, playedFen);
+            HashMap<String, Integer> lead = new HashMap<>();
+            lead.put(username, sum);
 
             return ResponseEntity.ok().body(lead);
-        }
-
-        catch (WrongFenSolutionException e){
+        } catch (WrongFenSolutionException e) {
             return ResponseEntity.status(422).body(e.getMessage());
         }
 

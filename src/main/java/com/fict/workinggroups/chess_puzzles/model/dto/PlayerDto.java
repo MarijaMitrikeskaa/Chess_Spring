@@ -13,7 +13,7 @@ public class PlayerDto {
         this.username = username;
     }
 
-    public PlayerDto(){
+    public PlayerDto() {
 
     }
 }

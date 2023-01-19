@@ -35,7 +35,7 @@
         <tr th:each="fen : ${fenList}">
             <td th:text="${fen.fen}"></td>
             <td th:text="${fen.description}"></td>
-            <td th:text="${fen.points}"></td>
+            <td th:text="${fen.maxPoints}"></td>
 
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <td th:text="${fen.solution}"></td>

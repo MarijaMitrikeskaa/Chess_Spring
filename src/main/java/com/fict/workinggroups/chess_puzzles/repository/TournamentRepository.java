@@ -13,7 +13,4 @@ public interface TournamentRepository extends JpaRepository<Tournament, String> 
     Optional<Tournament> findById(String id);
 
 
-
-
-
 }
