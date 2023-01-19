@@ -70,6 +70,7 @@ public class TournamentRestController {
         return tournamentService.listPlayersInTournament(id);
     }
 
+    //todo - vrakame samo approved fens, ne vrakame solution field kon Android
     @GetMapping("/listFens/{id}")
     public Set<Fen> listAllFens(@PathVariable String id) {
         return tournamentService.listFensInTournament(id);
