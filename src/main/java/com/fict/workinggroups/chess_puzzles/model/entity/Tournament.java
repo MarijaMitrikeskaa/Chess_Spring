@@ -1,7 +1,10 @@
 package com.fict.workinggroups.chess_puzzles.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,6 +12,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class Tournament {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -18,24 +23,11 @@ public class Tournament {
 
     private String name;
 
-    private LocalDate date = LocalDate.now();
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate date;
 
     private boolean tournamentActive;
 
-    @JsonBackReference
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-
-    //remove this
-    @JoinTable(
-
-            name = "tournament_player",
-            joinColumns = {@JoinColumn(name = "tournament_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "player_id", referencedColumnName = "id")})
-    private Set<Player> players = new HashSet<>();
 
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY,
@@ -53,58 +45,14 @@ public class Tournament {
     }
 
 
-    public Tournament(String name) {
+    public Tournament(String name, boolean tournamentActive, LocalDate tournamentDate) {
 
         this.name = name;
-
-
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public Set<Player> getPlayers() {
-        return players;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public void setPlayers(Set<Player> players) {
-        this.players = players;
-    }
-
-    public boolean isTournamentActive() {
-        return tournamentActive;
-    }
-
-    public void setTournamentActive(boolean tournamentActive) {
+        this.date = tournamentDate;
         this.tournamentActive = tournamentActive;
+
+
     }
 
-    public Set<Fen> getFens() {
-        return fens;
-    }
 
-    public void setFens(Set<Fen> fens) {
-        this.fens = fens;
-    }
 }

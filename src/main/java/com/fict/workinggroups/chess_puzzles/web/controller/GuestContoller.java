@@ -1,7 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.web.controller;
 
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
-
 import com.fict.workinggroups.chess_puzzles.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

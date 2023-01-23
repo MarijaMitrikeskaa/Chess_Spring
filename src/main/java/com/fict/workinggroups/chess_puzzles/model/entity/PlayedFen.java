@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.security.Timestamp;
-import java.util.Set;
 
 @Entity
 @Setter
@@ -32,21 +31,20 @@ public class PlayedFen {
     @JoinColumn(name = "tournament_id")
     private Tournament tournamentId;
 
-    private int playerPoints;
+    private Integer actualPoints;
+
+    private String playedSolution;
 
 
     public PlayedFen() {
 
     }
 
-
-    public PlayedFen(int playerPoints) {
-        this.playerPoints = playerPoints;
-
+    public PlayedFen(Fen fenId, Player playerId, Tournament tournamentId, Integer actualPoints, String playedSolution) {
+        this.fenId = fenId;
+        this.playerId = playerId;
+        this.tournamentId = tournamentId;
+        this.actualPoints = actualPoints;
+        this.playedSolution = playedSolution;
     }
-
-    public String getId() {
-        return id;
-    }
-
 }

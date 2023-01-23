@@ -1,10 +1,9 @@
 package com.fict.workinggroups.chess_puzzles.service;
 
+import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
 import com.fict.workinggroups.chess_puzzles.model.dto.TournamentDto;
-import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
-import com.fict.workinggroups.chess_puzzles.model.entity.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,12 +23,15 @@ public interface TournamentService {
 
     Set<Player> listPlayersInTournament(String tournamentId);
 
-    Set<Fen> listFensInTournament(String tournamentId);
+    Set<FenDto> listFensInTournament(String tournamentId);
 
-    void joinTournament(String id, User userId);
 
     Optional<Tournament> edit(String id, TournamentDto tournamentDto);
 
-    Tournament findTournamentByName(String s);
-//    Tournament saveT(String name);
+    Optional<Tournament> edit(String id, Tournament tournament);
+
+    Optional<Tournament> save(Tournament tournament);
+
+    Tournament findTournamentByName(String name);
+
 }

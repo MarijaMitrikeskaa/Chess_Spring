@@ -38,7 +38,7 @@
                 <th>Edit</th>
             </th:block>
 
-            <th>Join Tournament</th>
+            <th>Tournament Details</th>
 
         </tr>
         </thead>
@@ -77,11 +77,11 @@
 
             <td>
 
-                <form th:action="@{'/joinTournament/{id}'(id=${tournament.id})}" th:method="POST">
+                <form th:action="@{'/tournamentDetails/{id}'(id=${tournament.id})}" th:method="GET">
 
 
                     <button type="submit" class="btn btn-primary">
-                        Join
+                        Details
                     </button>
                 </form>
 

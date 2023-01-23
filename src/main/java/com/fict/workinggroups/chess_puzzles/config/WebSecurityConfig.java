@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic() //easing the curl access
                 .and()
-                .exceptionHandling().accessDeniedPage("/home");
+                .exceptionHandling().accessDeniedPage("/homepage");
         http.headers().frameOptions().disable();
 
     }

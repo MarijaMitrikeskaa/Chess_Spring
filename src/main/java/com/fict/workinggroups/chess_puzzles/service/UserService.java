@@ -1,7 +1,7 @@
 package com.fict.workinggroups.chess_puzzles.service;
 
-import com.fict.workinggroups.chess_puzzles.model.enums.Role;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
+import com.fict.workinggroups.chess_puzzles.model.enums.Role;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;

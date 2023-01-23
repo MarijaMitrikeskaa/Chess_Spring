@@ -1,40 +1,46 @@
 package com.fict.workinggroups.chess_puzzles.web.rest;
 
 
-import com.fict.workinggroups.chess_puzzles.exception.WrongFenSolutionException;
-import com.fict.workinggroups.chess_puzzles.model.dto.PlayedFenDto;
-import com.fict.workinggroups.chess_puzzles.service.PlayedFensService;
+import com.fict.workinggroups.chess_puzzles.exception.LeaderBoardNotFoundException;
+import com.fict.workinggroups.chess_puzzles.model.entity.Leaderboard;
+import com.fict.workinggroups.chess_puzzles.service.LeaderboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityManager;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/leaderboard")
 public class LeaderboardRestController {
 
-    @Autowired
-    private PlayedFensService playedFensService;
 
     @Autowired
-    private EntityManager entityManager;
+    LeaderboardService leaderboardService;
 
 
     // /list/{tournamentId}
     //findLeaderboardEntityByTournamentId(String tournamentId)
 
-    @GetMapping("/list") //todo, big todo, dto, repository, service everything
-    public ResponseEntity getLeaderboard(PlayedFenDto playedFenDto) {
-        try {
-            playedFensService.checkSolution(playedFenDto);
-            return ResponseEntity.ok().body(playedFenDto);
-        } catch (WrongFenSolutionException e) {
-            return ResponseEntity.status(422).body(e.getMessage());
+    @GetMapping("/list/{tournamentId}") //todo, big todo, dto, repository, service everything
+    public ResponseEntity getLeaderboard(@PathVariable String tournamentId) {
+        {
+            try {
+                Set<Leaderboard> leaderboard = this.leaderboardService.getLeaderboardByTournamentId(tournamentId);
+                if (!leaderboard.isEmpty()) {
+                    return ResponseEntity.ok().body(leaderboard);
+                } else {
+                    return ResponseEntity.status(422).body(null);
+                }
+            } catch (LeaderBoardNotFoundException e) {
+                return ResponseEntity.status(422).body(null);
+            }
         }
     }
+
 
     //Nickname, totalPoints
 
@@ -48,4 +54,6 @@ public class LeaderboardRestController {
 
 
     //updating the leaderboard is done via PlayedFenService
+
+
 }

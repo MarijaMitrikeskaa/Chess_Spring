@@ -4,7 +4,6 @@ import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameException;
 import com.fict.workinggroups.chess_puzzles.exception.PlayerNotFound;
 import com.fict.workinggroups.chess_puzzles.model.dto.PlayerDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
-import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
@@ -47,11 +46,10 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Optional<Player> editPlayer(String id, PlayerDto playerDto) {
         Player player = this.playerRepository.findById(id).orElseThrow(InvalidUsernameException::new);
-// to check if the current username equals the one in the input
-//        if (this.playerRepository.findByUsername(player.getUsername().equals(playerDto.getUsername()))){
-//
-//        }
-        if (this.playerRepository.findByUsername(playerDto.getUsername()).isPresent()) {
+        if (player.getUsername().equals(playerDto.getUsername())) {
+            player.setUsername(playerDto.getUsername());
+
+        } else if (this.playerRepository.findByUsername(playerDto.getUsername()).isPresent()) {
             throw new InvalidUsernameException();
         }
 
@@ -63,7 +61,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public boolean hasId(String playerId) {
+    public boolean hasUserId(String playerId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 

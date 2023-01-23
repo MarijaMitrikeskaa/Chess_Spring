@@ -1,14 +1,11 @@
 package com.fict.workinggroups.chess_puzzles.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
 @Setter
@@ -26,20 +23,6 @@ public class Player {
 
     private String username;
 
-    @ManyToMany
-    @JoinColumn(name = "fen_id")
-    private Set<Fen> fens;
-
-    @JsonManagedReference
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "players")
-    private Set<Tournament> tournaments = new HashSet<>();
-    private int points = 0;
-    //private int NumOfTournaments;
 
     public Player() {
     }
@@ -64,13 +47,6 @@ public class Player {
         return userId;
     }
 
-    public Set<Fen> getFens() {
-        return fens;
-    }
-
-    public Set<Tournament> getTournaments() {
-        return tournaments;
-    }
 
     public void setUserId(User userId) {
         this.userId = userId;

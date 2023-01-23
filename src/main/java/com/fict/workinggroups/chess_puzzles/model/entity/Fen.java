@@ -42,19 +42,23 @@ public class Fen {
             mappedBy = "fens")
     private Set<Tournament> tournaments;
 
+
     public Fen(String fen, String description, Integer maxPoints, String solution) {
         this.fen = fen;
         this.description = description;
-        this.status = Status.PENDING;
+
         this.maxPoints = maxPoints;
         this.solution = solution;
+        this.status = Status.PENDING;
+
     }
 
-    public Fen(String fen, String description) {
+    public Fen(String fen, String description, Integer maxPoints) {
         this.fen = fen;
         this.description = description;
-
+        this.maxPoints = maxPoints;
         this.status = Status.PENDING;
+
     }
 
     public Fen() {

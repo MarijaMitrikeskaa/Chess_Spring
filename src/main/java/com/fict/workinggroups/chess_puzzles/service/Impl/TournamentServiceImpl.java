@@ -1,6 +1,5 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
-import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
 import com.fict.workinggroups.chess_puzzles.exception.TournamentNotFound;
 import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
@@ -8,9 +7,7 @@ import com.fict.workinggroups.chess_puzzles.model.dto.TournamentDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
-import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
-import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.repository.TournamentRepository;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +24,13 @@ public class TournamentServiceImpl implements TournamentService {
     @Autowired
     private TournamentRepository tournamentRepository;
 
-    @Autowired
-    private PlayerRepository playerRepository;
 
     @Autowired
     private FenRepository fenRepository;
 
     @Override
     public Optional<Tournament> getTournamentById(String id) {
-        if (!tournamentRepository.findById(id).isEmpty()) {
+        if (tournamentRepository.findById(id).isPresent()) {
             return this.tournamentRepository.findById(id);
         } else {
             throw new TournamentNotFound();
@@ -49,7 +44,7 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public Optional<Tournament> deleteTournament(String id) {
-        if (!tournamentRepository.findById(id).isEmpty()) {
+        if (tournamentRepository.findById(id).isPresent()) {
             this.tournamentRepository.deleteById(id);
             return tournamentRepository.findById(id);
         } else {
@@ -64,6 +59,7 @@ public class TournamentServiceImpl implements TournamentService {
 
 
         tournament.setName(tournamentDto.getName());
+        tournament.setDate(tournamentDto.getDate());
         tournament.setTournamentActive(tournamentDto.isTournamentActivated());
 
         return Optional.of(this.tournamentRepository.save(tournament));
@@ -76,7 +72,7 @@ public class TournamentServiceImpl implements TournamentService {
         if (this.tournamentRepository.findByName(tournamentDto.getName()).isPresent()) {
             throw new InvalidTournament(tournamentDto.getName());
         }
-        Tournament tournament = new Tournament(tournamentDto.getName());
+        Tournament tournament = new Tournament(tournamentDto.getName(), tournamentDto.isTournamentActivated(), tournamentDto.getDate());
         List<Fen> fens = this.fenRepository.findAll();
         Set<Fen> fenSet = new HashSet<>(fens);
 
@@ -84,58 +80,74 @@ public class TournamentServiceImpl implements TournamentService {
 
         return Optional.of(this.tournamentRepository.save(tournament));
 
-//        public Optional<Fen> save(FenDto fenDto) {
-//            if (isValidFen(fenDto.getFen())) {
-//                Fen fen=new Fen(fenDto.getFen(),fenDto.getDescription(),fenDto.getPoints());
-//                this.fenRepo.save(fen);
-//                return Optional.of(fen);
-//            }
-//            else {
-//                throw new InvalidFenException();
-//            }
-//        }
-
 
     }
 
 
     @Override
     public Set<Player> listPlayersInTournament(String tournamentId) {
+//        if (this.tournamentRepository.findById(tournamentId).isPresent()) {
+//            if (this.tournamentRepository.findById(tournamentId).get().getPlayers().size() > 0)
+//                return this.tournamentRepository.findById(tournamentId).get().getPlayers();
+//        }
+//        return this.tournamentRepository.findById(tournamentId).get().getPlayers();
+
+        return null;
+    }
+
+    @Override
+    public Set<FenDto> listFensInTournament(String tournamentId) {
         if (this.tournamentRepository.findById(tournamentId).isPresent()) {
-            if (this.tournamentRepository.findById(tournamentId).get().getPlayers().size() > 0)
-                return this.tournamentRepository.findById(tournamentId).get().getPlayers();
+            if (this.tournamentRepository.findById(tournamentId).get().getFens().size() > 0) {
+                Set<Fen> fens = this.tournamentRepository.findById(tournamentId).get().getFens();
+                Set<FenDto> approvedFens = new HashSet<>();
+                for (Fen fen : fens) {
+                    if (fen.getStatus().name().equals("PENDING")) {
+                        FenDto changedFen = new FenDto(fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getStatus());
+                        approvedFens.add(changedFen);
+
+                    }
+
+                }
+                return approvedFens;
+            }
         }
-        return this.tournamentRepository.findById(tournamentId).get().getPlayers();
 
+
+        return null;
+    }
+
+    @Override
+    public Tournament findTournamentByName(String name) throws InvalidTournament {
+        return tournamentRepository.findByName(name).orElseThrow(() -> new InvalidTournament(name));
+    }
+
+
+    @Override
+    public Optional<Tournament> edit(String id, Tournament tournament) {
+        Tournament tournament1 = this.tournamentRepository.findById(id).orElseThrow(TournamentNotFound::new);
+
+
+        tournament1.setName(tournament.getName());
+        tournament1.setDate(tournament.getDate());
+        tournament1.setTournamentActive(tournament.isTournamentActive());
+
+        return Optional.of(this.tournamentRepository.save(tournament1));
 
     }
 
     @Override
-    public Set<Fen> listFensInTournament(String tournamentId) {
-        if (this.tournamentRepository.findById(tournamentId).isPresent()) {
-            if (this.tournamentRepository.findById(tournamentId).get().getFens().size() > 0)
-                return this.tournamentRepository.findById(tournamentId).get().getFens();
+    public Optional<Tournament> save(Tournament tournament) {
+        if (this.tournamentRepository.findByName(tournament.getName()).isPresent()) {
+            throw new InvalidTournament(tournament.getName());
         }
-        return this.tournamentRepository.findById(tournamentId).get().getFens();
+        Tournament tournament1 = new Tournament(tournament.getName(), tournament.isTournamentActive(), tournament.getDate());
+        List<Fen> fens = this.fenRepository.findAll();
+        Set<Fen> fenSet = new HashSet<>(fens);
 
+        tournament1.setFens(fenSet);
 
-    }
-
-    @Override
-    public Tournament findTournamentByName(String s) throws InvalidTournament {
-        return tournamentRepository.findByName(s).orElseThrow(() -> new InvalidTournament(s));
-    }
-
-    @Override
-    public void joinTournament(String id, User userId) {
-
-
-        Optional<Player> player = this.playerRepository.findByUserId(userId);
-
-        Optional<Tournament> tournament = this.tournamentRepository.findById(id);
-        Set<Player> players = tournament.get().getPlayers();
-        players.add(player.orElseThrow());
-        tournamentRepository.save(tournament.get());
+        return Optional.of(this.tournamentRepository.save(tournament1));
 
 
     }

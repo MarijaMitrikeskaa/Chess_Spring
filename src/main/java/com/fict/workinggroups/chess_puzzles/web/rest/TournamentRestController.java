@@ -2,16 +2,17 @@ package com.fict.workinggroups.chess_puzzles.web.rest;
 
 import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
 import com.fict.workinggroups.chess_puzzles.exception.TournamentNotFound;
+import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
 import com.fict.workinggroups.chess_puzzles.model.dto.TournamentDto;
-import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
-import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RequestMapping("/api/tournament")
@@ -20,14 +21,14 @@ public class TournamentRestController {
     @Autowired
     private TournamentService tournamentService;
 
-    //todo not String
+
     @GetMapping("/{id}")
-    public ResponseEntity<String> getTournamentById(@PathVariable String id) {
+    public ResponseEntity<Tournament> getTournamentById(@PathVariable String id) {
         try {
-            tournamentService.getTournamentById(id);
-            return ResponseEntity.ok().body(id);
+            Optional<Tournament> tournament = tournamentService.getTournamentById(id);
+            return tournament.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.status(422).body(null));
         } catch (TournamentNotFound e) {
-            return ResponseEntity.status(422).body(e.getMessage());
+            return ResponseEntity.status(422).body(null);
         }
     }
 
@@ -46,7 +47,8 @@ public class TournamentRestController {
         }
     }
 
-    //todo admin only
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTournament(@PathVariable String id) {
         try {
@@ -64,15 +66,10 @@ public class TournamentRestController {
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
-    //todo remove this or put in comment
-    @GetMapping("/listPlayers/{id}")
-    public Set<Player> listAllPlayers(@PathVariable String id) {
-        return tournamentService.listPlayersInTournament(id);
-    }
 
     //todo - vrakame samo approved fens, ne vrakame solution field kon Android
     @GetMapping("/listFens/{id}")
-    public Set<Fen> listAllFens(@PathVariable String id) {
-        return tournamentService.listFensInTournament(id);
+    public Set<FenDto> listAllFens(@PathVariable String id) {
+        return this.tournamentService.listFensInTournament(id);
     }
 }

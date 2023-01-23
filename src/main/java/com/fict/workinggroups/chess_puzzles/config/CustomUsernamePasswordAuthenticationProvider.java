@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.naming.AuthenticationException;
-
 @Component
 public class CustomUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
 

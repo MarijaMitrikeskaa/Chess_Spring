@@ -1,17 +1,15 @@
 package com.fict.workinggroups.chess_puzzles.web.controller;
 
 import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
-import com.fict.workinggroups.chess_puzzles.model.dto.TournamentDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
-import com.fict.workinggroups.chess_puzzles.model.entity.User;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 
 
 @AllArgsConstructor
@@ -52,15 +50,20 @@ public class TournamentController {
     }
 
     @PostMapping("/saveTournament")
-    public String saveTournament(@ModelAttribute("tournament") TournamentDto tournamentDto, @RequestParam(required = false) String id, Model model) {
-
+    public String saveTournament(@ModelAttribute("tournament") Tournament tournament, @RequestParam(required = false) String id, Model model) throws ParseException {
+//        //Create a DateTimeFormatter with your required format:
+//        SimpleDateFormat dateParser = new SimpleDateFormat ("dd/MM/yyyy"); //Format for input
+//        String date= String.valueOf(tournamentDto.getDate());
+//        Date date1=dateParser.parse(date);
+//       // SimpleDateFormat dateFormatter = new SimpleDateFormat ("dd-MM-yyyy"); //Format for output
+//        tournamentDto.setDate(date1);
         try {
             if (id != null) {
-                this.tournamentService.edit(id, tournamentDto);
-                model.addAttribute("tournament", tournamentDto);
+                this.tournamentService.edit(id, tournament);
+                model.addAttribute("tournament", tournament);
 
             } else {
-                this.tournamentService.saveTournament(tournamentDto);
+                this.tournamentService.save(tournament);
 
             }
             return "redirect:/viewTournaments";
@@ -80,20 +83,20 @@ public class TournamentController {
     }
 
 
-    @PostMapping("/joinTournament/{id}")
-    public String joinTournament(@PathVariable(value = "id") String id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-        this.tournamentService.joinTournament(id, user);
+//    @PostMapping("/tournamentDetails/{id}")
+//    public String tournamentDetails(@PathVariable(value = "id") String id) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = (User) authentication.getPrincipal();
+//        this.tournamentService.joinTournament(id, user);
+//
+//        return "redirect:/tournamentPlayers/{id}";
+//
+//    }
 
-        return "redirect:/tournamentPlayers/{id}";
-
-    }
-
-    @GetMapping("/tournamentPlayers/{id}")
+    @GetMapping("/tournamentDetails/{id}")
     public String showPlayer(Model model, @PathVariable("id") String id) {
         model.addAttribute("players", tournamentService.listPlayersInTournament(id));
-        model.addAttribute("fenList", tournamentService.listFensInTournament(id));
+        //model.addAttribute("fenList", tournamentService.listFensInTournament(id));
         return "tournament_players";
 
     }

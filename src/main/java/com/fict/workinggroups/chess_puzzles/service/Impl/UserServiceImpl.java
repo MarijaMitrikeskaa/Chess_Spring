@@ -1,19 +1,18 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
-import com.fict.workinggroups.chess_puzzles.exception.*;
+import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameException;
+import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameOrPasswordException;
+import com.fict.workinggroups.chess_puzzles.exception.PasswordsDoNotMatchException;
+import com.fict.workinggroups.chess_puzzles.exception.UsernameAlreadyExistsException;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
-import com.fict.workinggroups.chess_puzzles.model.enums.Role;
 import com.fict.workinggroups.chess_puzzles.model.entity.User;
+import com.fict.workinggroups.chess_puzzles.model.enums.Role;
 import com.fict.workinggroups.chess_puzzles.repository.PlayerRepository;
 import com.fict.workinggroups.chess_puzzles.repository.UserRepository;
 import com.fict.workinggroups.chess_puzzles.service.UserService;
-
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
