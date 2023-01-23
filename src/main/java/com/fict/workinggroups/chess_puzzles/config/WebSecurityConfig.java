@@ -46,6 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login")
                 .and()
+                .httpBasic() //easing the curl access
+                .and()
                 .exceptionHandling().accessDeniedPage("/home");
         http.headers().frameOptions().disable();
 
