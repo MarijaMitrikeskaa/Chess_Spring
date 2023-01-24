@@ -24,6 +24,10 @@ public class Leaderboard {
 
     String tournamentId;
 
+    Integer numberOfPlayedPuzzles;
+
+    Integer numberOfCorrectPlayedPuzzles;
+
     public Leaderboard() {
 
     }
@@ -32,5 +36,6 @@ public class Leaderboard {
         this.nickname = nickname;
         this.points = points;
         this.tournamentId = tournamentId;
+
     }
 }

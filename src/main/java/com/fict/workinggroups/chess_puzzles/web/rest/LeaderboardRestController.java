@@ -22,10 +22,7 @@ public class LeaderboardRestController {
     LeaderboardService leaderboardService;
 
 
-    // /list/{tournamentId}
-    //findLeaderboardEntityByTournamentId(String tournamentId)
-
-    @GetMapping("/list/{tournamentId}") //todo, big todo, dto, repository, service everything
+    @GetMapping("/list/{tournamentId}")
     public ResponseEntity getLeaderboard(@PathVariable String tournamentId) {
         {
             try {
@@ -41,19 +38,6 @@ public class LeaderboardRestController {
         }
     }
 
-
-    //Nickname, totalPoints
-
-    //for version 2, or if you have more time
-    //kolku puzzles probal da gi resi - numberOfPlayedPuzzles 733
-    //numberOfCorrectPlayedPuzzles 677 tocni od 733 so gi igral
-    //kolku gresni ne cuvame kako podatok, mozi so odzemanje da se najdi
-
-    //Petko 1200 points, 677 correct out of 733
-    //Petko 1300 points, 600 correct out of 1000
-
-
-    //updating the leaderboard is done via PlayedFenService
 
 
 }

@@ -85,7 +85,6 @@ public class FenServiceImpl implements FenService {
         return true;
     }
 
-    // Rest methods
 
     @Override
     public Optional<Fen> save(FenSolutionDto fenSolutionDto) {
@@ -112,27 +111,4 @@ public class FenServiceImpl implements FenService {
 
         return Optional.of(this.fenRepo.save(fen));
     }
-//    public Optional<Fen> save(FenDto fenDto) {
-//        if (isValidFen(fenDto.getFen())) {
-//            Fen fen = new Fen(fenDto.getFen(), fenDto.getDescription(),fenDto.getMaxPoints(),fenDto.getSolution());
-//            fen.setStatus(Status.PENDING);
-//            this.fenRepo.save(fen);
-//            return Optional.of(fen);
-//        } else {
-//            throw new InvalidFenException();
-//        }
-//    }
-//
-//    @Override
-//    public Optional<Fen> edit(String id, FenDto fenDto) {
-//        Fen fen = this.fenRepo.findById(id).orElseThrow(InvalidFenException::new);
-//        fen.setFen(fenDto.getFen());
-//        fen.setDescription(fenDto.getDescription());
-//        fen.setMaxPoints(fenDto.getMaxPoints());
-//        fen.setStatus(fenDto.getStatus());
-//
-//        // TODO: 19.1.23 update also the status, maxPoints etc
-//
-//        return Optional.of(this.fenRepo.save(fen));
-//    }
 }

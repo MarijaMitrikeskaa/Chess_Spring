@@ -35,20 +35,5 @@ public class Player {
 
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public String getId() {
-        return id;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
 }

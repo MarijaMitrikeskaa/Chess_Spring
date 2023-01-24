@@ -10,7 +10,5 @@ import java.util.Set;
 @Repository
 public interface LeaderboardRepository extends JpaRepository<Leaderboard, String> {
 
-    Optional<Leaderboard> findLeaderboardByTournamentId(String id);
-
     Set<Leaderboard> findAllByTournamentId(String tournamentId);
 }

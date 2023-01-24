@@ -4,6 +4,7 @@ import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
 import com.fict.workinggroups.chess_puzzles.exception.TournamentNotFound;
 import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
 import com.fict.workinggroups.chess_puzzles.model.dto.TournamentDto;
+import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,7 @@ public class TournamentRestController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/edit/{id}")
     public ResponseEntity<Tournament> editTournament(@PathVariable String id, @ModelAttribute TournamentDto tournamentDto) {
         return this.tournamentService.edit(id, tournamentDto)
@@ -67,9 +69,14 @@ public class TournamentRestController {
     }
 
 
-    //todo - vrakame samo approved fens, ne vrakame solution field kon Android
+
     @GetMapping("/listFens/{id}")
     public Set<FenDto> listAllFens(@PathVariable String id) {
         return this.tournamentService.listFensInTournament(id);
+    }
+
+    @GetMapping("/listFensByTournamentname/{name}")
+    public Set<FenDto> listAllFensBytournamentName(@PathVariable String name){
+    return this.tournamentService.listFensByTournamentName(name);
     }
 }

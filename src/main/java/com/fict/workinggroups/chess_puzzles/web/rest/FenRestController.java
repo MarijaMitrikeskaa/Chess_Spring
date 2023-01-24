@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//localhost:55505/api/fens/ - to get all fens GET
-//localhost:55505/api/fens/add - to add new POST
-//localhost:55505/api/fens/{id} - to get specific fen GET
-//localhost:55505/api/fens/edit/{id} - to edit one fen PUT
-//localhost:55505/api/fens/delete/{id} - to delete one fen DELETE
 @RequestMapping("/api/fens")
 @RestController
 public class FenRestController {

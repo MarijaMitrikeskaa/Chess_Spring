@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class TournamentDto {
@@ -11,14 +12,12 @@ public class TournamentDto {
     String id;
     String name;
     boolean tournamentActivated;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    LocalDate date;
-
-//todo think about date of the tournament
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    LocalDateTime date;
 
 
-    public TournamentDto(String name, boolean tournamentActivated, LocalDate date) {
-        // this.id = id;
+
+    public TournamentDto(String name, boolean tournamentActivated, LocalDateTime date) {
         this.name = name;
         this.tournamentActivated = tournamentActivated;
         this.date = date;

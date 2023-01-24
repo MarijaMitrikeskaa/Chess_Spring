@@ -18,7 +18,7 @@ public class PlayedFenRestController {
     private PlayedFensService playedFensService;
 
 
-    @PostMapping("/makeAMove") //todo
+    @PostMapping("/makeAMove")
     public ResponseEntity makeAMove(PlayedFenDto playedFenDto) {
         try {
             playedFensService.updateLeaderboard(playedFenDto);
@@ -27,7 +27,7 @@ public class PlayedFenRestController {
             return ResponseEntity.status(422).body(e.getMessage());
         }
     }
-    //pak vratete nazad kon Android dali e tocno ili ne
+
 
 
 }

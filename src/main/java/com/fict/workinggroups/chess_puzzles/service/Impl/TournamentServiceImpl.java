@@ -13,10 +13,7 @@ import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TournamentServiceImpl implements TournamentService {
@@ -116,6 +113,29 @@ public class TournamentServiceImpl implements TournamentService {
 
         return null;
     }
+
+    @Override
+    public Set<FenDto> listFensByTournamentName(String name) {
+        if (this.tournamentRepository.findByName(name).isPresent()) {
+            if (this.tournamentRepository.findByName(name).get().getFens().size() > 0) {
+                Set<Fen> fens = this.tournamentRepository.findByName(name).get().getFens();
+                Set<FenDto> approvedFens = new HashSet<>();
+                for (Fen fen : fens) {
+                    if (fen.getStatus().name().equals("PENDING")) {
+                        FenDto changedFen = new FenDto(fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getStatus());
+                        approvedFens.add(changedFen);
+
+                    }
+
+                }
+                return approvedFens;
+            }
+        }
+
+
+        return null;
+    }
+
 
     @Override
     public Tournament findTournamentByName(String name) throws InvalidTournament {

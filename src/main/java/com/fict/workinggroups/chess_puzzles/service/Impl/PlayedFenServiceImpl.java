@@ -7,8 +7,11 @@ import com.fict.workinggroups.chess_puzzles.service.PlayedFensService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class PlayedFenServiceImpl implements PlayedFensService {
@@ -83,19 +86,31 @@ public class PlayedFenServiceImpl implements PlayedFensService {
         return false;
     }
 
+    @Override
+    public List<String> findTournamentByPlayer(String playerId) {
+        List<String> tournamentsName = new ArrayList<>();
+        List<PlayedFen> playedFenList = this.playedFensRepository.findPlayedFensByPlayerId(playerId);
+        for (PlayedFen playedFen : playedFenList) {
+            tournamentsName.add(playedFen.getTournamentId().getName());
+        }
+        return tournamentsName.stream()
+                .distinct()
+                .collect(Collectors.toList());
+    }
 
-    //cekor 1
-    //treba da se zacuva vo playedFenRepository fenId, playerId, tournamentID, solution, actual points etc
-    //actual points - ako maxPoints se 500, actual ako e tocno resenieto ke bidi primer 450, ako e gresno ke bidi 0
+    @Override
+    public List<String> findPlayersByTournament(String tournamentId) {
+        List<String> playersName = new ArrayList<>();
+        List<PlayedFen> playedFenList = this.playedFensRepository.findPlayedFensByTournamentId(tournamentId);
+        for (PlayedFen playedFen : playedFenList) {
+            playersName.add(playedFen.getPlayerId().getUsername());
 
-    //cekor 2
-    //todo update the leaderboad !!!
-    //leaderboadrService/repository - ako postoi toj player za toj natprevar (za toj torunament id)
-    //togas samo dodaj mu poeni
-    //ako ne postoi, napravi go i zacuvaj go vo leaderboard
-    //EntityLeaderboard - PlayerNameNickName, TournamentId(obicen string, ne misli na relations),
-    //                      points | kolku se tocni , kolku se izigrani
+        }
 
+        return playersName.stream()
+                .distinct()
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Optional<PlayedFen> getPlayerFenById(String id) {

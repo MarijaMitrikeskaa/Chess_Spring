@@ -2,6 +2,8 @@ package com.fict.workinggroups.chess_puzzles.model.entity;
 
 import com.fict.workinggroups.chess_puzzles.model.enums.Role;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +14,8 @@ import java.util.Collections;
 
 @Data
 @Entity
-@Table(name = "Chessuser")
+@Getter
+@Setter
 public class User implements UserDetails {
 
     @Id
@@ -40,22 +43,6 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.role = role;
-    }
-
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String userId) {
-        this.Id = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override

@@ -25,6 +25,7 @@ public interface TournamentService {
 
     Set<FenDto> listFensInTournament(String tournamentId);
 
+    Set<FenDto> listFensByTournamentName(String name);
 
     Optional<Tournament> edit(String id, TournamentDto tournamentDto);
 

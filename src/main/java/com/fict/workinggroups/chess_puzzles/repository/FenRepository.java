@@ -13,6 +13,5 @@ public interface FenRepository extends JpaRepository<Fen, String> {
 
     Optional<Fen> findById(String id);
 }
-//change the ID to string
-//list of puzzles {1,2,3,4,...10000}
+
 

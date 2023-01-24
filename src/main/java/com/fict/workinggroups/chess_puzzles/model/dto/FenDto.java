@@ -14,8 +14,6 @@ public class FenDto {
     Status status;
 
 
-//todo add maxPoints, solution(A1-B2) - po default e vo pending status
-
 
     public FenDto(String fen, String description, Integer maxPoints, Status status) {
         this.fen = fen;

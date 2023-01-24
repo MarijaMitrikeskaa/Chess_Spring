@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +24,8 @@ public class Tournament {
 
     private String name;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate date;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime date;
 
     private boolean tournamentActive;
 
@@ -45,7 +46,7 @@ public class Tournament {
     }
 
 
-    public Tournament(String name, boolean tournamentActive, LocalDate tournamentDate) {
+    public Tournament(String name, boolean tournamentActive, LocalDateTime tournamentDate) {
 
         this.name = name;
         this.date = tournamentDate;
