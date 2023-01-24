@@ -28,14 +28,20 @@ public class Leaderboard {
 
     Integer numberOfCorrectPlayedPuzzles;
 
+    Integer numberOfIncorrectPlayedPuzzles;
+
     public Leaderboard() {
 
     }
 
-    public Leaderboard(String nickname, Integer points, String tournamentId) {
+
+    public Leaderboard(String nickname, Integer points, String tournamentId
+    ) {
         this.nickname = nickname;
         this.points = points;
         this.tournamentId = tournamentId;
 
     }
+
+
 }
