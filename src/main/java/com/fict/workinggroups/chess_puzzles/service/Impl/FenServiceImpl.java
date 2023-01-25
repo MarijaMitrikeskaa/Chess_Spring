@@ -2,6 +2,7 @@ package com.fict.workinggroups.chess_puzzles.service.Impl;
 
 import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
+import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
 import com.fict.workinggroups.chess_puzzles.model.dto.FenSolutionDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.enums.Status;
@@ -10,8 +11,10 @@ import com.fict.workinggroups.chess_puzzles.service.FenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -105,9 +108,6 @@ public class FenServiceImpl implements FenService {
         fen.setDescription(fenSolutionDto.getDescription());
         fen.setMaxPoints(fenSolutionDto.getMaxPoints());
         fen.setStatus(fenSolutionDto.getStatus());
-
-
-        // TODO: 19.1.23 update also the status, maxPoints etc
 
         return Optional.of(this.fenRepo.save(fen));
     }

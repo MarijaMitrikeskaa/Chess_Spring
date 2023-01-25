@@ -14,15 +14,11 @@ public class FenDto {
     Status status;
 
 
-
     public FenDto(String fen, String description, Integer maxPoints, Status status) {
         this.fen = fen;
         this.description = description;
         this.maxPoints = maxPoints;
 
         this.status = status;
-    }
-
-    public FenDto() {
     }
 }

@@ -16,7 +16,6 @@ public class TournamentDto {
     LocalDateTime date;
 
 
-
     public TournamentDto(String name, boolean tournamentActivated, LocalDateTime date) {
         this.name = name;
         this.tournamentActivated = tournamentActivated;

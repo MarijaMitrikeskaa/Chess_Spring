@@ -1,8 +1,11 @@
 package com.fict.workinggroups.chess_puzzles.web.rest;
 
 import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
+import com.fict.workinggroups.chess_puzzles.exception.TournamentNotFound;
+import com.fict.workinggroups.chess_puzzles.exception.WrongFenSolutionException;
 import com.fict.workinggroups.chess_puzzles.model.dto.FenSolutionDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
+import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -69,14 +69,13 @@ public class TournamentRestController {
     }
 
 
-
-    @GetMapping("/listFens/{id}")
-    public Set<FenDto> listAllFens(@PathVariable String id) {
+    @GetMapping("/listFensInTournament/{id}")
+    public Set<FenDto> listFensInTournament(@PathVariable String id) {
         return this.tournamentService.listFensInTournament(id);
     }
 
-    @GetMapping("/listFensByTournamentname/{name}")
-    public Set<FenDto> listAllFensBytournamentName(@PathVariable String name){
-    return this.tournamentService.listFensByTournamentName(name);
+    @GetMapping("/listFensByTournamentName/{name}")
+    public Set<FenDto> listFensByTournamentName(@PathVariable String name) {
+        return this.tournamentService.listFensByTournamentName(name);
     }
 }
