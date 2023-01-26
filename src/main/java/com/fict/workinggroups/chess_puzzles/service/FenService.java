@@ -6,7 +6,6 @@ import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface FenService {
     List<Fen> getAllFens();
@@ -26,5 +25,7 @@ public interface FenService {
     Optional<Fen> save(FenSolutionDto fenSolutionDto);
 
     Optional<Fen> edit(String id, FenSolutionDto fenSolutionDto);
+
+    Optional<Fen> addFenSolution(String id, String solution);
 
 }

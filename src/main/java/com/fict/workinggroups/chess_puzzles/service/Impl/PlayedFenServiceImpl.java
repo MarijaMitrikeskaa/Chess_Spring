@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,27 +44,41 @@ public class PlayedFenServiceImpl implements PlayedFensService {
         this.playedFensRepository.save(playedFen);
 
 
-        Set<Leaderboard> leaderboards = this.leaderboardRepository.findAllByTournamentId(playedFenDto.getTournamentId());
+        Integer numberOfPlayedPuzzles = 0;
 
+        Integer numberOfCorrectPlayedPuzzles = 0;
 
-        if (checkSolution(playedFenDto)) {
+        Integer numberOfIncorrectPlayedPuzzles = 0;
 
-            if (!leaderboards.isEmpty()) {
-                for (Leaderboard lead : leaderboards) {
-
-                    if (lead.getNickname().equals(player.get().getUsername())) {
-                        Integer leadPoints = lead.getPoints();
-                        leadPoints += playedFenDto.getActualPoints();
-                        lead.setPoints(leadPoints);
-                        this.leaderboardRepository.save(lead);
-
-                    }
-
-
-                }
-            } else {
-                Leaderboard leaderboard = new Leaderboard(player.get().getUsername(), playedFenDto.getActualPoints(), playedFenDto.getTournamentId());
+        Leaderboard leaderboard = this.leaderboardRepository.findLeaderboardByNicknameAndTournamentId(player.get().getUsername(), playedFenDto.getTournamentId());
+        if (leaderboard != null) {
+            if (checkSolution(playedFenDto)) {
+                Integer leadPoints = leaderboard.getPoints();
+                leadPoints += playedFenDto.getActualPoints();
+                leaderboard.setPoints(leadPoints);
+                leaderboard.setNumberOfPlayedPuzzles(leaderboard.getNumberOfPlayedPuzzles() + 1);
+                leaderboard.setNumberOfCorrectPlayedPuzzles(leaderboard.getNumberOfCorrectPlayedPuzzles() + 1);
                 this.leaderboardRepository.save(leaderboard);
+            } else {
+                leaderboard.setNumberOfPlayedPuzzles(leaderboard.getNumberOfPlayedPuzzles() + 1);
+                leaderboard.setNumberOfIncorrectPlayedPuzzles(leaderboard.getNumberOfPlayedPuzzles() - leaderboard.getNumberOfCorrectPlayedPuzzles());
+                this.leaderboardRepository.save(leaderboard);
+            }
+        } else {
+            if (checkSolution(playedFenDto)) {
+                numberOfPlayedPuzzles++;
+                numberOfCorrectPlayedPuzzles++;
+                Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), playedFenDto.getActualPoints(), playedFenDto.getTournamentId()
+                        , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);
+                this.leaderboardRepository.save(leaderboard1);
+
+            } else {
+                numberOfCorrectPlayedPuzzles++;
+                numberOfIncorrectPlayedPuzzles++;
+                Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), 0, playedFenDto.getTournamentId()
+                        , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);
+                this.leaderboardRepository.save(leaderboard1);
+
             }
         }
 

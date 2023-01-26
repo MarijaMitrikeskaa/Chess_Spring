@@ -52,7 +52,8 @@ public class Fen {
 
     }
 
-    public Fen(String fen, String description, Integer maxPoints) {
+    public Fen(String id, String fen, String description, Integer maxPoints) {
+        this.id = id;
         this.fen = fen;
         this.description = description;
         this.maxPoints = maxPoints;

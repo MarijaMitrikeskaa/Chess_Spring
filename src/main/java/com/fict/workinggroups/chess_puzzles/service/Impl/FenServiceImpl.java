@@ -2,7 +2,6 @@ package com.fict.workinggroups.chess_puzzles.service.Impl;
 
 import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
-import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
 import com.fict.workinggroups.chess_puzzles.model.dto.FenSolutionDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.enums.Status;
@@ -11,10 +10,9 @@ import com.fict.workinggroups.chess_puzzles.service.FenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +24,15 @@ public class FenServiceImpl implements FenService {
 
     @Override
     public List<Fen> getAllFens() {
-        return fenRepo.findAll();
+        List<Fen> fens = this.fenRepo.findAll();
+        List<Fen> noSolutionFens = new ArrayList<>();
+        for (Fen fen : fens) {
+            Fen fen1 = new Fen(fen.getId(), fen.getFen(), fen.getDescription(), fen.getMaxPoints());
+            noSolutionFens.add(fen1);
+        }
+
+
+        return noSolutionFens;
     }
 
     @Override
@@ -108,6 +114,14 @@ public class FenServiceImpl implements FenService {
         fen.setDescription(fenSolutionDto.getDescription());
         fen.setMaxPoints(fenSolutionDto.getMaxPoints());
         fen.setStatus(fenSolutionDto.getStatus());
+
+        return Optional.of(this.fenRepo.save(fen));
+    }
+
+    @Override
+    public Optional<Fen> addFenSolution(String id, String solution) {
+        Fen fen = this.fenRepo.findById(id).orElseThrow(InvalidFenException::new);
+        fen.setSolution(solution);
 
         return Optional.of(this.fenRepo.save(fen));
     }
