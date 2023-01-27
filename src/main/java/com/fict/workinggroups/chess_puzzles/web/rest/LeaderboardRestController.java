@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -24,18 +25,20 @@ public class LeaderboardRestController {
 
     @GetMapping("/list/{tournamentId}")
     public ResponseEntity getLeaderboard(@PathVariable String tournamentId) {
-        {
+
             try {
                 Set<Leaderboard> leaderboard = this.leaderboardService.getLeaderboardByTournamentId(tournamentId);
                 if (!leaderboard.isEmpty()) {
                     return ResponseEntity.ok().body(leaderboard);
                 } else {
-                    return ResponseEntity.status(422).body(null);
+                    Set<Leaderboard>leaderboards=new HashSet<>();
+                    return ResponseEntity.status(422).body(leaderboards);
                 }
-            } catch (LeaderBoardNotFoundException e) {
-                return ResponseEntity.status(422).body(null);
             }
-        }
+            catch (LeaderBoardNotFoundException e) {
+                return ResponseEntity.status(422).body(e.getMessage());
+            }
+
     }
 
 

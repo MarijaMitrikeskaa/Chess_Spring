@@ -13,7 +13,7 @@ public class PlayedFenDto {
 
     Integer actualPoints;
 
-    String playerId;
+    String username;
 
     public PlayedFenDto(String fenId, String playedSolution, String tournamentId, Integer actualPoints) {
         this.fenId = fenId;

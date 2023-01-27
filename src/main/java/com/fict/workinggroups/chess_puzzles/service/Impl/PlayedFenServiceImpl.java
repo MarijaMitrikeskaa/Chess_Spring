@@ -34,14 +34,24 @@ public class PlayedFenServiceImpl implements PlayedFensService {
     @Override
     public void updateLeaderboard(PlayedFenDto playedFenDto) {
         Optional<Fen> fen = this.fenRepository.findById(playedFenDto.getFenId());
-
-        Optional<Player> player = this.playerRepository.findById(playedFenDto.getPlayerId());
-
         Optional<Tournament> tournament = this.tournamentRepository.findById(playedFenDto.getTournamentId());
 
-        PlayedFen playedFen = new PlayedFen(fen.get(), player.get(),
-                tournament.get(), playedFenDto.getActualPoints(), playedFenDto.getPlayedSolution());
-        this.playedFensRepository.save(playedFen);
+        Optional<Player> player=this.playerRepository.findByUsername(playedFenDto.getUsername());
+        if (player.isPresent()){
+            PlayedFen playedFen = new PlayedFen(fen.get(), player.get(),
+                    tournament.get(), playedFenDto.getActualPoints(), playedFenDto.getPlayedSolution());
+            this.playedFensRepository.save(playedFen);
+
+        }
+        else {
+            Player player1=new Player(playedFenDto.getUsername());
+            this.playerRepository.save(player1);
+            PlayedFen playedFen = new PlayedFen(fen.get(), player1,
+                    tournament.get(), playedFenDto.getActualPoints(), playedFenDto.getPlayedSolution());
+            this.playedFensRepository.save(playedFen);
+        }
+
+
 
 
         Integer numberOfPlayedPuzzles = 0;

@@ -28,7 +28,8 @@ public class Tournament {
 
     private boolean tournamentActive;
 
-    int duration;
+    private int duration;
+
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
