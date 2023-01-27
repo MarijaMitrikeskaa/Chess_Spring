@@ -4,6 +4,7 @@ import com.fict.workinggroups.chess_puzzles.exception.InvalidTournament;
 import com.fict.workinggroups.chess_puzzles.exception.TournamentNotFound;
 import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
 import com.fict.workinggroups.chess_puzzles.model.dto.TournamentDto;
+import com.fict.workinggroups.chess_puzzles.model.dto.TournamentPuzzlesDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -21,6 +23,23 @@ public class TournamentRestController {
     @Autowired
     private TournamentService tournamentService;
 
+
+    @GetMapping("/{id}/puzzles")
+    public ResponseEntity<TournamentPuzzlesDto> getTournamentById__(@PathVariable String id) {
+        try {
+            Optional<Tournament> tournament = tournamentService.getTournamentById(id);
+            if(tournament.get().isTournamentActive()){
+                return tournament.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.status(422).body(null));
+            } else {
+                TournamentPuzzlesDto t = new TournamentPuzzlesDto();
+                t.setPuzzleList(new ArrayList<>());
+
+
+            }
+        } catch (TournamentNotFound e) {
+            return ResponseEntity.status(422).body(null);
+        }
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Tournament> getTournamentById(@PathVariable String id) {

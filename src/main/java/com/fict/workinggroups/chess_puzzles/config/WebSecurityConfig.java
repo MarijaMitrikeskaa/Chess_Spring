@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorities("ROLE_USER")
                 .and()
                 .withUser("admin")
-                .password(passwordEncoder.encode("admin"))
+                .password(passwordEncoder.encode("admin12345678qwe"))
                 .authorities("ROLE_ADMIN");
         auth.authenticationProvider(this.customAuthenticationProvider);
     }
