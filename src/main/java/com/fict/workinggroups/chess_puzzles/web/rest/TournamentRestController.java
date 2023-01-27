@@ -12,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RequestMapping("/api/tournament")
 @RestController
@@ -25,14 +22,21 @@ public class TournamentRestController {
 
 
     @GetMapping("/{id}/puzzles")
-    public ResponseEntity<TournamentPuzzlesDto> getTournamentById__(@PathVariable String id) {
+    public ResponseEntity<TournamentPuzzlesDto> getTournamentPuzzlesById(@PathVariable String id) {
         try {
             Optional<Tournament> tournament = tournamentService.getTournamentById(id);
             if(tournament.get().isTournamentActive()){
-                return tournament.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.status(422).body(null));
+                TournamentPuzzlesDto tournamentPuzzlesDto=new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
+                        tournament.get().isTournamentActive(),
+                        tournament.get().getDate(),this.tournamentService.listFensInTournament(id));
+
+                return ResponseEntity.ok().body(tournamentPuzzlesDto);
             } else {
-                TournamentPuzzlesDto t = new TournamentPuzzlesDto();
-                t.setPuzzleList(new ArrayList<>());
+                Set<FenDto> fenDtos=new HashSet<>();
+                TournamentPuzzlesDto tournamentInfo = new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
+                        tournament.get().isTournamentActive(),
+                        tournament.get().getDate(),fenDtos);
+                return ResponseEntity.ok().body(tournamentInfo);
 
 
             }

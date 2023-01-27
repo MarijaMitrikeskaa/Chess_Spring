@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class TournamentPuzzlesDto {
@@ -15,12 +16,14 @@ public class TournamentPuzzlesDto {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime date;
 
-    List<FenDto> puzzleList;
+    Set<FenDto> puzzleList;
 
-    public TournamentPuzzlesDto(String name, boolean tournamentActivated, LocalDateTime date) {
+    public TournamentPuzzlesDto(String id,String name, boolean tournamentActivated, LocalDateTime date,Set<FenDto>puzzleList) {
+       this.id=id;
         this.name = name;
         this.tournamentActivated = tournamentActivated;
         this.date = date;
+        this.puzzleList=puzzleList;
 
     }
 
