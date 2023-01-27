@@ -28,14 +28,14 @@ public class TournamentRestController {
             if(tournament.get().isTournamentActive()){
                 TournamentPuzzlesDto tournamentPuzzlesDto=new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
                         tournament.get().isTournamentActive(),
-                        tournament.get().getDate(),this.tournamentService.listFensInTournament(id));
+                        tournament.get().getDate(),this.tournamentService.listFensInTournament(id),tournament.get().getDuration());
 
                 return ResponseEntity.ok().body(tournamentPuzzlesDto);
             } else {
                 Set<FenDto> fenDtos=new HashSet<>();
                 TournamentPuzzlesDto tournamentInfo = new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
                         tournament.get().isTournamentActive(),
-                        tournament.get().getDate(),fenDtos);
+                        tournament.get().getDate(),fenDtos,tournament.get().getDuration());
                 return ResponseEntity.ok().body(tournamentInfo);
 
 

@@ -14,11 +14,14 @@ public class TournamentDto {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime date;
 
+    int duration;
 
-    public TournamentDto(String name, boolean tournamentActivated, LocalDateTime date) {
+
+    public TournamentDto(String name, boolean tournamentActivated, LocalDateTime date, int duration) {
         this.name = name;
         this.tournamentActivated = tournamentActivated;
         this.date = date;
+        this.duration=duration;
 
     }
 

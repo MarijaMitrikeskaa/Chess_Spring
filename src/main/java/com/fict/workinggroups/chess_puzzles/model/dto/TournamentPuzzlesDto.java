@@ -18,12 +18,16 @@ public class TournamentPuzzlesDto {
 
     Set<FenDto> puzzleList;
 
-    public TournamentPuzzlesDto(String id,String name, boolean tournamentActivated, LocalDateTime date,Set<FenDto>puzzleList) {
+    int duration;
+
+    public TournamentPuzzlesDto(String id,String name, boolean tournamentActivated, LocalDateTime date,Set<FenDto>puzzleList, int duration) {
        this.id=id;
         this.name = name;
         this.tournamentActivated = tournamentActivated;
         this.date = date;
         this.puzzleList=puzzleList;
+        this.duration=duration;
+
 
     }
 

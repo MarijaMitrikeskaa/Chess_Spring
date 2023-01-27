@@ -72,7 +72,7 @@ public class TournamentServiceImpl implements TournamentService {
         if (this.tournamentRepository.findByName(tournamentDto.getName()).isPresent()) {
             throw new InvalidTournament(tournamentDto.getName());
         }
-        Tournament tournament = new Tournament(tournamentDto.getName(), tournamentDto.isTournamentActivated(), tournamentDto.getDate());
+        Tournament tournament = new Tournament(tournamentDto.getName(), tournamentDto.isTournamentActivated(), tournamentDto.getDate(),tournamentDto.getDuration());
         List<Fen> fens = this.fenRepository.findAll();
         Set<Fen> fenSet = new HashSet<>(fens);
 
@@ -164,7 +164,7 @@ public class TournamentServiceImpl implements TournamentService {
         if (this.tournamentRepository.findByName(tournament.getName()).isPresent()) {
             throw new InvalidTournament(tournament.getName());
         }
-        Tournament tournament1 = new Tournament(tournament.getName(), tournament.isTournamentActive(), tournament.getDate());
+        Tournament tournament1 = new Tournament(tournament.getName(), tournament.isTournamentActive(), tournament.getDate(),tournament.getDuration());
         List<Fen> fens = this.fenRepository.findAll();
         Set<Fen> fenSet = new HashSet<>(fens);
 
