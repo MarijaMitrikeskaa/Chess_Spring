@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class FenDto {
-
+    String id;
     String fen;
     String description;
 
@@ -14,10 +14,11 @@ public class FenDto {
     Status status;
 
 
-    public FenDto(String fen, String description, Integer maxPoints, Status status) {
+    public FenDto(String id,String fen, String description, Integer maxPoints, Status status) {
         this.fen = fen;
         this.description = description;
         this.maxPoints = maxPoints;
+        this.id=id;
 
         this.status = status;
     }

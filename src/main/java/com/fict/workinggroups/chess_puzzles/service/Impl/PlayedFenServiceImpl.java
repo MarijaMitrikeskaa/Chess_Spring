@@ -53,7 +53,6 @@ public class PlayedFenServiceImpl implements PlayedFensService {
 
 
 
-
         Integer numberOfPlayedPuzzles = 0;
 
         Integer numberOfCorrectPlayedPuzzles = 0;
