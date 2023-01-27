@@ -42,7 +42,6 @@ public class TournamentController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editTournament(@PathVariable(value = "id") String id, Model model) {
         Tournament tournament = this.tournamentService.getTournamentById(id).get();
-        //this.tournamentService.edit(id,tournament.getName());
         model.addAttribute("tournament", tournament);
         return "edit_tournament";
 
@@ -51,12 +50,7 @@ public class TournamentController {
 
     @PostMapping("/saveTournament")
     public String saveTournament(@ModelAttribute("tournament") Tournament tournament, @RequestParam(required = false) String id, Model model) throws ParseException {
-//        //Create a DateTimeFormatter with your required format:
-//        SimpleDateFormat dateParser = new SimpleDateFormat ("dd/MM/yyyy"); //Format for input
-//        String date= String.valueOf(tournamentDto.getDate());
-//        Date date1=dateParser.parse(date);
-//       // SimpleDateFormat dateFormatter = new SimpleDateFormat ("dd-MM-yyyy"); //Format for output
-//        tournamentDto.setDate(date1);
+
         try {
             if (id != null) {
                 this.tournamentService.edit(id, tournament);

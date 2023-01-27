@@ -154,6 +154,7 @@ public class TournamentServiceImpl implements TournamentService {
         tournament1.setName(tournament.getName());
         tournament1.setDate(tournament.getDate());
         tournament1.setTournamentActive(tournament.isTournamentActive());
+        tournament1.setDuration(tournament.getDuration());
 
         return Optional.of(this.tournamentRepository.save(tournament1));
 

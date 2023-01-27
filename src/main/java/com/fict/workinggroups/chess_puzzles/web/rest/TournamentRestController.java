@@ -45,6 +45,30 @@ public class TournamentRestController {
         }
     }
 
+    @GetMapping("/puzzles")
+    public ResponseEntity<TournamentPuzzlesDto> getTournamentPuzzlesByName(@RequestParam String name) {
+        try {
+            Optional<Tournament> tournament = Optional.ofNullable(tournamentService.findTournamentByName(name));
+            if(tournament.get().isTournamentActive()){
+                TournamentPuzzlesDto tournamentPuzzlesDto=new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
+                        tournament.get().isTournamentActive(),
+                        tournament.get().getDate(),this.tournamentService.listFensByTournamentName(tournament.get().getName()),tournament.get().getDuration());
+
+                return ResponseEntity.ok().body(tournamentPuzzlesDto);
+            } else {
+                Set<FenDto> fenDtos=new HashSet<>();
+                TournamentPuzzlesDto tournamentInfo = new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
+                        tournament.get().isTournamentActive(),
+                        tournament.get().getDate(),fenDtos,tournament.get().getDuration());
+                return ResponseEntity.ok().body(tournamentInfo);
+
+
+            }
+        } catch (TournamentNotFound e) {
+            return ResponseEntity.status(422).body(null);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Tournament> getTournamentById(@PathVariable String id) {
         try {
