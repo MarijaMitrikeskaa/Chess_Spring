@@ -18,5 +18,7 @@ public interface PlayerService {
 
     boolean hasUserId(String playerId);
 
+    Player savePlayer(String username);
+
 
 }

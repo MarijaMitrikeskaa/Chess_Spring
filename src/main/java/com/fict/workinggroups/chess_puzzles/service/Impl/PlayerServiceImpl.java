@@ -75,5 +75,18 @@ public class PlayerServiceImpl implements PlayerService {
 
     }
 
+    @Override
+    public Player savePlayer(String username) {
+        if (this.playerRepository.findByUsername(username).isEmpty()) {
+            Player player = new Player(username);
+            return this.playerRepository.save(player);
+        } else {
+            throw new PlayerNotFound();
+        }
+
+
+    }
+
+
 
 }
