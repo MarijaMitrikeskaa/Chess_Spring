@@ -144,13 +144,17 @@ public class PlayedFenServiceImpl implements PlayedFensService {
 
     @Override
     public Optional<PlayedFen> savePlayedFen(PlayedFen playedFen) {
-        if (this.playedFensRepository.findPlayedFenByFenIdAndPlayerId(playedFen.getFenId().getId(),playedFen.getPlayerId().getId()).isPresent()) {
-            throw new PlayedFenAlreadyExistsException();
-        }
+
         PlayedFen playedFen1 = new PlayedFen(playedFen.getFenId(),playedFen.getPlayerId(),playedFen.getTournamentId(),playedFen.getActualPoints(),playedFen.getPlayedSolution());
 
 
         return Optional.of(this.playedFensRepository.save(playedFen1));
+    }
+
+
+    @Override
+    public List<PlayedFen> getAllPlayedFens() {
+        return playedFensRepository.findAll();
     }
 
 

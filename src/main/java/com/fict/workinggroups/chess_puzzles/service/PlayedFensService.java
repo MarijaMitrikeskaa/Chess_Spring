@@ -20,4 +20,6 @@ public interface PlayedFensService {
 
     Optional<PlayedFen> savePlayedFen(PlayedFen playedFen);
 
+    List<PlayedFen> getAllPlayedFens();
+
 }

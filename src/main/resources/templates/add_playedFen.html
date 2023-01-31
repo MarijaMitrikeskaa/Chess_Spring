@@ -15,7 +15,7 @@
   <hr>
   <h2> Save PlayedFen </h2>
 
-  <form action="#" th:action="@{/savePlayedFen}" th:object="${playedfen}" method="POST">
+  <form action="#" th:action="@{/savePlayedFen}" th:object="${playedFen}" method="POST">
     <p th:text="${error}" class="text-danger"></p>
     <input type="text" th:field="*{actualPoints}"
            placeholder="Enter Valid Username" class="form-control mb-4 col-4">

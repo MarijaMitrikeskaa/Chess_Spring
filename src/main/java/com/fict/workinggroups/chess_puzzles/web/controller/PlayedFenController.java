@@ -19,9 +19,16 @@ public class PlayedFenController {
 
     @GetMapping("/viewPlayedFen")
     public String viewPlayedFens(Model model) {
-        PlayedFen
-        model.addAttribute("playedFen",playedFensService);
+
+        model.addAttribute("playedFen",playedFensService.getAllPlayedFens());
         return "playedFen";
+    }
+
+    @GetMapping("/addPlayedFen")
+    public String addPlayedFen(Model model) {
+        PlayedFen playedFen=new PlayedFen();
+        model.addAttribute("playedFen", playedFen);
+        return "add_playedFen";
     }
 
     @PostMapping("/savePlayedFen")
@@ -33,19 +40,13 @@ public class PlayedFenController {
         catch (PlayerNotFound e){
             model.addAttribute("hasError", true);
             model.addAttribute("error", e.getMessage());
-            return "add_playedfen";
+            return "add_playedFen";
         }
 
     }
 
 
 
-//    @DeleteMapping("/deletePlayedFen/{id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public String deletePlayedFen(@PathVariable(value = "id") String id) {
-//        this.playedFensService.deletePlayedFen(id);
-//        return "redirect:/viewPlayers";
-//    }
 }
 
 

@@ -5,16 +5,17 @@ import lombok.Data;
 
 @Data
 public class LeaderboardDto {
+    String id;
 
-    String name;
+    String playerName;
 
     Integer points;
 
     public LeaderboardDto() {
     }
 
-    public LeaderboardDto(String name, Integer points) {
-        this.name = name;
+    public LeaderboardDto(String playerName, Integer points) {
+        this.playerName=playerName;
         this.points = points;
     }
 }
