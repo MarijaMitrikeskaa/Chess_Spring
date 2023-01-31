@@ -18,15 +18,15 @@
   <form action="#" th:action="@{/savePlayedFen}" th:object="${playedFen}" method="POST">
     <p th:text="${error}" class="text-danger"></p>
     <input type="text" th:field="*{actualPoints}"
-           placeholder="Enter Valid Username" class="form-control mb-4 col-4">
+           placeholder="Enter points" class="form-control mb-4 col-4">
     <input type="text" th:field="*{playedSolution}"
-           placeholder="Enter Valid Username" class="form-control mb-4 col-4">
+           placeholder="Enter solution" class="form-control mb-4 col-4">
     <input type="text" th:field="*{fenId}"
-           placeholder="Enter Valid Username" class="form-control mb-4 col-4">
+           placeholder="Enter fenId" class="form-control mb-4 col-4">
     <input type="text" th:field="*{playerId}"
-           placeholder="Enter Valid Username" class="form-control mb-4 col-4">
+           placeholder="Enter playerId" class="form-control mb-4 col-4">
     <input type="text" th:field="*{tournamentId}"
-           placeholder="Enter Valid Username" class="form-control mb-4 col-4">
+           placeholder="Enter tournamentId" class="form-control mb-4 col-4">
 
 
 
