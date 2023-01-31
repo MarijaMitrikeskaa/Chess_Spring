@@ -1,5 +1,8 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
+import com.fict.workinggroups.chess_puzzles.exception.PlayedFenAlreadyExistsException;
+import com.fict.workinggroups.chess_puzzles.exception.PlayedFenNotFound;
+import com.fict.workinggroups.chess_puzzles.exception.PlayerNotFound;
 import com.fict.workinggroups.chess_puzzles.model.dto.PlayedFenDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.*;
 import com.fict.workinggroups.chess_puzzles.repository.*;
@@ -137,6 +140,17 @@ public class PlayedFenServiceImpl implements PlayedFensService {
     @Override
     public Optional<PlayedFen> getPlayerFenById(String id) {
         return this.playedFensRepository.findById(id);
+    }
+
+    @Override
+    public Optional<PlayedFen> savePlayedFen(PlayedFen playedFen) {
+        if (this.playedFensRepository.findPlayedFenByFenIdAndPlayerId(playedFen.getFenId().getId(),playedFen.getPlayerId().getId()).isPresent()) {
+            throw new PlayedFenAlreadyExistsException();
+        }
+        PlayedFen playedFen1 = new PlayedFen(playedFen.getFenId(),playedFen.getPlayerId(),playedFen.getTournamentId(),playedFen.getActualPoints(),playedFen.getPlayedSolution());
+
+
+        return Optional.of(this.playedFensRepository.save(playedFen1));
     }
 
 

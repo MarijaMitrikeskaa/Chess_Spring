@@ -47,4 +47,6 @@ public class PlayedFen {
         this.actualPoints = actualPoints;
         this.playedSolution = playedSolution;
     }
+
+
 }

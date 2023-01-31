@@ -18,4 +18,6 @@ public interface PlayedFensService {
 
     List<String> findTournamentByPlayer(String playerId);
 
+    Optional<PlayedFen> savePlayedFen(PlayedFen playedFen);
+
 }
