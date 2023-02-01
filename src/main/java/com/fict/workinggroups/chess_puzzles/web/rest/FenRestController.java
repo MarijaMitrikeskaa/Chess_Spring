@@ -42,7 +42,7 @@ public class FenRestController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<Fen> saveFen(@ModelAttribute FenSolutionDto fenSolutionDto) {
         return this.fenService.save(fenSolutionDto)
@@ -59,7 +59,7 @@ public class FenRestController {
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/addSolution/{id}")
     public ResponseEntity<Fen> addFenSolution(@PathVariable String id, String solution) {
 

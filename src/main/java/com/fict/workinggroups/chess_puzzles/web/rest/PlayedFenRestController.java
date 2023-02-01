@@ -25,8 +25,9 @@ public class PlayedFenRestController {
             return ResponseEntity.ok().body(playedFenDto);
         } catch (WrongFenSolutionException e) {
             return ResponseEntity.status(422).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
         }
     }
-
 
 }
