@@ -61,7 +61,7 @@ public class FenRestController {
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/addSolution/{id}")
-    public ResponseEntity<Fen> addFenSolution(@PathVariable String id, String solution) {
+    public ResponseEntity<Fen> addFenSolution(@PathVariable String id, @RequestParam String solution) {
 
 
         return this.fenService.addFenSolution(id, solution)

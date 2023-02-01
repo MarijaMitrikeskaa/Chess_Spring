@@ -8,11 +8,8 @@ public class PlayedFenDto {
 
     String fenId;
     String playedSolution;
-
     String tournamentId;
-
     Integer actualPoints;
-
     String username;
 
     public PlayedFenDto(String fenId, String playedSolution, String tournamentId, Integer actualPoints) {
