@@ -1,6 +1,7 @@
 package com.fict.workinggroups.chess_puzzles.web.rest;
 
 import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
+import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
 import com.fict.workinggroups.chess_puzzles.model.dto.FenSolutionDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
@@ -61,11 +62,12 @@ public class FenRestController {
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/addSolution/{id}")
-    public ResponseEntity<Fen> addFenSolution(@PathVariable String id, @RequestParam String solution) {
+    public ResponseEntity<FenDto> addFenSolution(@PathVariable String id, @RequestParam String solution) {
 
 
         return this.fenService.addFenSolution(id, solution)
-                .map(fen -> ResponseEntity.ok().body(fen))
+                .map(fen -> ResponseEntity.ok().body(new FenDto(fen.getId(), fen.getFen(), fen.getDescription(),
+                        fen.getMaxPoints(), fen.getStatus())))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
 
 
