@@ -6,6 +6,7 @@ import com.fict.workinggroups.chess_puzzles.service.LeaderboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -20,4 +21,8 @@ public class LeaderBoardServiceImpl implements LeaderboardService {
         return this.leaderboardRepository.findAllByTournamentId(id);
 
     }
+
+    @Override
+    public List<Leaderboard> getAllPlayers(){ return leaderboardRepository.findAll();}
+
 }

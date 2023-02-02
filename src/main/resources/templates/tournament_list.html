@@ -39,6 +39,7 @@
             </th:block>
 
             <th>Tournament Details</th>
+            <th>Leaderboard</th>
 
         </tr>
         </thead>
@@ -85,6 +86,13 @@
                     </button>
                 </form>
 
+            </td>
+            <td>
+                <form th:action="@{'/viewLeaderBoard/{id}'(id=${tournament.id})}" th:method="GET">
+                    <button type="submit" class="btn btn-primary">
+                        Leaderboard
+                    </button>
+                </form>
             </td>
 
         </tr>
