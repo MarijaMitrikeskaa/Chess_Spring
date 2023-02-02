@@ -3,7 +3,6 @@ package com.fict.workinggroups.chess_puzzles.web.controller;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidUsernameException;
 import com.fict.workinggroups.chess_puzzles.exception.PlayerNotFound;
 import com.fict.workinggroups.chess_puzzles.model.dto.PlayerDto;
-import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.model.entity.Player;
 import com.fict.workinggroups.chess_puzzles.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +24,13 @@ public class PlayerController {
         return "player_list";
 
     }
+
     @GetMapping("/addPlayers")
     public String addPlayers(Model model) {
-            Player player=new Player();
-            model.addAttribute("player", player);
-            return "add_player";
-        }
+        Player player = new Player();
+        model.addAttribute("player", player);
+        return "add_player";
+    }
 
     @PostMapping("/savePlayer")
     public String savePlayer(PlayerDto playerDto, @RequestParam String id) {
@@ -66,14 +66,11 @@ public class PlayerController {
     }
 
     @PostMapping("/savePlayers")
-    public String savePlayers(@ModelAttribute("player") Player player, Model model)
-    {
+    public String savePlayers(@ModelAttribute("player") Player player, Model model) {
         try {
             playerService.savePlayer(player.getUsername());
             return "redirect:/viewPlayers";
-        }
-        catch (PlayerNotFound e)
-        {
+        } catch (PlayerNotFound e) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", e.getMessage());
             return "add_player";

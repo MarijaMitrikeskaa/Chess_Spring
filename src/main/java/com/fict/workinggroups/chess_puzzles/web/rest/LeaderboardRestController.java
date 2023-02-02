@@ -26,18 +26,17 @@ public class LeaderboardRestController {
     @GetMapping("/list/{tournamentId}")
     public ResponseEntity getLeaderboard(@PathVariable String tournamentId) {
 
-            try {
-                Set<Leaderboard> leaderboard = this.leaderboardService.getLeaderboardByTournamentId(tournamentId);
-                if (!leaderboard.isEmpty()) {
-                    return ResponseEntity.ok().body(leaderboard);
-                } else {
-                    Set<Leaderboard>leaderboards=new HashSet<>();
-                    return ResponseEntity.status(422).body(leaderboards);
-                }
+        try {
+            Set<Leaderboard> leaderboard = this.leaderboardService.getLeaderboardByTournamentId(tournamentId);
+            if (!leaderboard.isEmpty()) {
+                return ResponseEntity.ok().body(leaderboard);
+            } else {
+                Set<Leaderboard> leaderboards = new HashSet<>();
+                return ResponseEntity.status(422).body(leaderboards);
             }
-            catch (LeaderBoardNotFoundException e) {
-                return ResponseEntity.status(422).body(e.getMessage());
-            }
+        } catch (LeaderBoardNotFoundException e) {
+            return ResponseEntity.status(422).body(e.getMessage());
+        }
 
     }
 

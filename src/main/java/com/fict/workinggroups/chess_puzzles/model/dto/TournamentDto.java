@@ -21,7 +21,7 @@ public class TournamentDto {
         this.name = name;
         this.tournamentActivated = tournamentActivated;
         this.date = date;
-        this.duration=duration;
+        this.duration = duration;
 
     }
 

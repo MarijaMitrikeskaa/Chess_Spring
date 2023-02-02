@@ -72,7 +72,7 @@ public class TournamentServiceImpl implements TournamentService {
         if (this.tournamentRepository.findByName(tournamentDto.getName()).isPresent()) {
             throw new InvalidTournament(tournamentDto.getName());
         }
-        Tournament tournament = new Tournament(tournamentDto.getName(), tournamentDto.isTournamentActivated(), tournamentDto.getDate(),tournamentDto.getDuration());
+        Tournament tournament = new Tournament(tournamentDto.getName(), tournamentDto.isTournamentActivated(), tournamentDto.getDate(), tournamentDto.getDuration());
         List<Fen> fens = this.fenRepository.findAll();
         Set<Fen> fenSet = new HashSet<>(fens);
 
@@ -103,7 +103,7 @@ public class TournamentServiceImpl implements TournamentService {
                 Set<FenDto> approvedFens = new HashSet<>();
                 for (Fen fen : fens) {
                     if (fen.getStatus().name().equals("PENDING")) {
-                        FenDto changedFen = new FenDto(fen.getId(),fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getStatus());
+                        FenDto changedFen = new FenDto(fen.getId(), fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getStatus());
                         approvedFens.add(changedFen);
 
                     }
@@ -125,7 +125,7 @@ public class TournamentServiceImpl implements TournamentService {
                 Set<FenDto> approvedFens = new HashSet<>();
                 for (Fen fen : fens) {
                     if (fen.getStatus().name().equals("PENDING")) {
-                        FenDto changedFen = new FenDto(fen.getId(),fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getStatus());
+                        FenDto changedFen = new FenDto(fen.getId(), fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getStatus());
                         approvedFens.add(changedFen);
 
                     }
@@ -165,7 +165,7 @@ public class TournamentServiceImpl implements TournamentService {
         if (this.tournamentRepository.findByName(tournament.getName()).isPresent()) {
             throw new InvalidTournament(tournament.getName());
         }
-        Tournament tournament1 = new Tournament(tournament.getName(), tournament.isTournamentActive(), tournament.getDate(),tournament.getDuration());
+        Tournament tournament1 = new Tournament(tournament.getName(), tournament.isTournamentActive(), tournament.getDate(), tournament.getDuration());
         List<Fen> fens = this.fenRepository.findAll();
         Set<Fen> fenSet = new HashSet<>(fens);
 

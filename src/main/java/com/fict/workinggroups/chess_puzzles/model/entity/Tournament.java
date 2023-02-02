@@ -51,7 +51,7 @@ public class Tournament {
         this.name = name;
         this.date = tournamentDate;
         this.tournamentActive = tournamentActive;
-        this.duration=duration;
+        this.duration = duration;
 
 
     }

@@ -14,7 +14,7 @@
 <body>
 <div align="center" class="container my-2">
 
-  <h1>PlayedFen</h1>
+  <h1>Tournament Leaderboard</h1>
   <form action="/logout" method="GET">
     <button type="submit" class="btn btn-danger position-relative top-5 start-50 translate-middle">Logout</button>
   </form>
@@ -23,18 +23,19 @@
   <table border="1" class="table table-striped table-responsive-md">
     <thead>
     <tr>
-      <th>Points</th>
       <th>Player</th>
+      <th>Points</th>
+
 
 
 
     </tr>
     </thead>
     <tbody>
-    <tr th:each="leaderboard : ${leaderBoard}">
-      <td th:text="${leaderboard.nickname}">
+    <tr th:each="lead : ${leaderBoard}">
+      <td th:text="${lead.nickname}">
       </td>
-      <td th:text="${leaderboard.points}">
+      <td th:text="${lead.points}">
       </td>
     </tr>
     </tbody>

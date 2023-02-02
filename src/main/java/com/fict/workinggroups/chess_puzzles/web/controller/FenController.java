@@ -28,16 +28,21 @@ public class FenController {
     }
 
     @PostMapping("/saveFen")
-    public String saveFen(@ModelAttribute("fen") Fen fen, Model model) {
+    public String saveFen(@ModelAttribute("fen") Fen fen, Model model, @RequestParam(required = false) String id) {
 
         try {
-            fenService.saveFen(fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getSolution());
+            if (id != null) {
+                fenService.edit(id, fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getSolution());
+            } else {
+                fenService.saveFen(fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getSolution());
+
+            }
             return "redirect:/viewFens";
 
         } catch (InvalidFenException e) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", e.getMessage());
-            return "add_fen";
+            return "redirect:/add_fen?error=" + e.getMessage();
         }
 
 

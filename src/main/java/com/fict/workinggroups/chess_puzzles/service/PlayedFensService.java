@@ -22,4 +22,8 @@ public interface PlayedFensService {
 
     List<PlayedFen> getAllPlayedFens();
 
+    boolean checkSolution(PlayedFen playedFen);
+
+    void updateLeaderboard(PlayedFen playedFens);
+
 }

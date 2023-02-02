@@ -39,24 +39,28 @@
 
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <td th:text="${fen.solution}"></td>
-                <th:block/>
-                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <td>
-                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                            <form th:action="@{'/updateForm/{id}'(id=${fen.id})}" th:method="PUT">
-                                <button class="btn btn-primary">Update</button>
-                            </form>
-                        </th:block>
-                </th:block>
-                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            </th:block>
+
+
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <td>
+                    <form th:action="@{'/updateForm/{id}'(id=${fen.id})}" th:method="PUT">
+                        <button class="btn btn-primary">Update</button>
+                    </form>
+                </td>
+            </th:block>
+
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <td>
                     <form th:action="@{'/deleteFenID/{id}'(id=${fen.id})}" th:method="DELETE">
                         <button type="submit" class="btn btn-danger">
                             Delete
                         </button>
                     </form>
-                </th:block>
                 </td>
             </th:block>
+
+
         </tr>
         </tbody>
     </table>

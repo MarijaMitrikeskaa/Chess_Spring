@@ -15,7 +15,7 @@ public class LeaderboardDto {
     }
 
     public LeaderboardDto(String playerName, Integer points) {
-        this.playerName=playerName;
+        this.playerName = playerName;
         this.points = points;
     }
 }

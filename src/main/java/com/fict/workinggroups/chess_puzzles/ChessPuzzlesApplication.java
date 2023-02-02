@@ -1,7 +1,6 @@
 package com.fict.workinggroups.chess_puzzles;
 
 
-import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

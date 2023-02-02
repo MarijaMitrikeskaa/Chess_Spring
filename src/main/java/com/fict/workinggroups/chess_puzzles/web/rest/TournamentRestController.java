@@ -12,7 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @RequestMapping("/api/tournament")
 @RestController
@@ -25,17 +28,17 @@ public class TournamentRestController {
     public ResponseEntity<TournamentPuzzlesDto> getTournamentPuzzlesById(@PathVariable String id) {
         try {
             Optional<Tournament> tournament = tournamentService.getTournamentById(id);
-            if(tournament.get().isTournamentActive()){
-                TournamentPuzzlesDto tournamentPuzzlesDto=new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
+            if (tournament.get().isTournamentActive()) {
+                TournamentPuzzlesDto tournamentPuzzlesDto = new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
                         tournament.get().isTournamentActive(),
-                        tournament.get().getDate(),this.tournamentService.listFensInTournament(id),tournament.get().getDuration());
+                        tournament.get().getDate(), this.tournamentService.listFensInTournament(id), tournament.get().getDuration());
 
                 return ResponseEntity.ok().body(tournamentPuzzlesDto);
             } else {
-                Set<FenDto> fenDtos=new HashSet<>();
+                Set<FenDto> fenDtos = new HashSet<>();
                 TournamentPuzzlesDto tournamentInfo = new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
                         tournament.get().isTournamentActive(),
-                        tournament.get().getDate(),fenDtos,tournament.get().getDuration());
+                        tournament.get().getDate(), fenDtos, tournament.get().getDuration());
                 return ResponseEntity.ok().body(tournamentInfo);
 
 
@@ -49,17 +52,17 @@ public class TournamentRestController {
     public ResponseEntity<TournamentPuzzlesDto> getTournamentPuzzlesByName(@RequestParam String name) {
         try {
             Optional<Tournament> tournament = Optional.ofNullable(tournamentService.findTournamentByName(name));
-            if(tournament.get().isTournamentActive()){
-                TournamentPuzzlesDto tournamentPuzzlesDto=new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
+            if (tournament.get().isTournamentActive()) {
+                TournamentPuzzlesDto tournamentPuzzlesDto = new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
                         tournament.get().isTournamentActive(),
-                        tournament.get().getDate(),this.tournamentService.listFensByTournamentName(tournament.get().getName()),tournament.get().getDuration());
+                        tournament.get().getDate(), this.tournamentService.listFensByTournamentName(tournament.get().getName()), tournament.get().getDuration());
 
                 return ResponseEntity.ok().body(tournamentPuzzlesDto);
             } else {
-                Set<FenDto> fenDtos=new HashSet<>();
+                Set<FenDto> fenDtos = new HashSet<>();
                 TournamentPuzzlesDto tournamentInfo = new TournamentPuzzlesDto(tournament.get().getId(), tournament.get().getName(),
                         tournament.get().isTournamentActive(),
-                        tournament.get().getDate(),fenDtos,tournament.get().getDuration());
+                        tournament.get().getDate(), fenDtos, tournament.get().getDuration());
                 return ResponseEntity.ok().body(tournamentInfo);
 
 

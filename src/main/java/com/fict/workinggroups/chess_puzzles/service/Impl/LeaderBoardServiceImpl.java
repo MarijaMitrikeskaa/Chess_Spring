@@ -23,6 +23,8 @@ public class LeaderBoardServiceImpl implements LeaderboardService {
     }
 
     @Override
-    public List<Leaderboard> getAllPlayers(){ return leaderboardRepository.findAll();}
+    public List<Leaderboard> getAllPlayers() {
+        return leaderboardRepository.findAll();
+    }
 
 }
