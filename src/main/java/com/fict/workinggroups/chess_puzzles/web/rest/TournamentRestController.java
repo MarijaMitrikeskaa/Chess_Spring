@@ -88,7 +88,7 @@ public class TournamentRestController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity saveTournament(@ModelAttribute TournamentDto tournamentDto) {
+    public ResponseEntity saveTournament(@RequestBody TournamentDto tournamentDto) {
         try {
             tournamentService.saveTournament(tournamentDto);
             return ResponseEntity.ok().body(tournamentDto);

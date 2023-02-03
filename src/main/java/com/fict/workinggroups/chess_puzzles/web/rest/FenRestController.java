@@ -45,7 +45,7 @@ public class FenRestController {
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<Fen> saveFen(@ModelAttribute FenSolutionDto fenSolutionDto) {
+    public ResponseEntity<Fen> saveFen(@RequestBody FenSolutionDto fenSolutionDto) {
         return this.fenService.save(fenSolutionDto)
                 .map(fen -> ResponseEntity.ok().body(fen))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
