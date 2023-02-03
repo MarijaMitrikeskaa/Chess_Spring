@@ -148,6 +148,7 @@ public class PlayedFenServiceImpl implements PlayedFensService {
             PlayedFen playedFen1 = new PlayedFen(playedFen.getFenId(), playedFen.getPlayerId(), playedFen.getTournamentId(), playedFen.getActualPoints(), playedFen.getPlayedSolution());
             return Optional.of(this.playedFensRepository.save(playedFen1));
 
+
         } else {
             throw new InvalidArgumentsException();
 
@@ -191,39 +192,44 @@ public class PlayedFenServiceImpl implements PlayedFensService {
 
         Integer numberOfIncorrectPlayedPuzzles = 0;
 
+
         Leaderboard leaderboard = this.leaderboardRepository.findLeaderboardByNicknameAndTournamentId(player.get().getUsername(), playedFens.getTournamentId().getId());
-        if (leaderboard != null) {
-            if (checkSolution(playedFens)) {
-                Integer leadPoints = leaderboard.getPoints();
-                leadPoints += playedFens.getActualPoints();
-                leaderboard.setPoints(leadPoints);
-                leaderboard.setNumberOfPlayedPuzzles(leaderboard.getNumberOfPlayedPuzzles() + 1);
-                leaderboard.setNumberOfCorrectPlayedPuzzles(leaderboard.getNumberOfCorrectPlayedPuzzles() + 1);
-                this.leaderboardRepository.save(leaderboard);
-            } else {
-                leaderboard.setNumberOfPlayedPuzzles(leaderboard.getNumberOfPlayedPuzzles() + 1);
-                leaderboard.setNumberOfIncorrectPlayedPuzzles(leaderboard.getNumberOfPlayedPuzzles() - leaderboard.getNumberOfCorrectPlayedPuzzles());
-                this.leaderboardRepository.save(leaderboard);
-            }
-        } else {
-            if (checkSolution(playedFens)) {
-                numberOfPlayedPuzzles++;
-                numberOfCorrectPlayedPuzzles++;
-                Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), playedFens.getActualPoints(), playedFens.getTournamentId().getId()
-                        , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);
-                this.leaderboardRepository.save(leaderboard1);
+        List<PlayedFen> playedFen = this.playedFensRepository.findAllByFenIdAndPlayerIdAndTournamentId(playedFens.getFenId(), playedFens.getPlayerId(), playedFens.getTournamentId());
+        if (playedFen.size() == 1) {
 
-            } else {
-                numberOfPlayedPuzzles++;
-                numberOfIncorrectPlayedPuzzles++;
-                Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), 0, playedFens.getTournamentId().getId()
-                        , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);
-                this.leaderboardRepository.save(leaderboard1);
+            if (leaderboard != null) {
 
+                if (checkSolution(playedFens)) {
+                    Integer leadPoints = leaderboard.getPoints();
+                    leadPoints += playedFens.getActualPoints();
+                    leaderboard.setPoints(leadPoints);
+                    leaderboard.setNumberOfPlayedPuzzles(leaderboard.getNumberOfPlayedPuzzles() + 1);
+                    leaderboard.setNumberOfCorrectPlayedPuzzles(leaderboard.getNumberOfCorrectPlayedPuzzles() + 1);
+                    this.leaderboardRepository.save(leaderboard);
+
+                } else {
+                    leaderboard.setNumberOfPlayedPuzzles(leaderboard.getNumberOfPlayedPuzzles() + 1);
+                    leaderboard.setNumberOfIncorrectPlayedPuzzles(leaderboard.getNumberOfPlayedPuzzles() - leaderboard.getNumberOfCorrectPlayedPuzzles());
+                    this.leaderboardRepository.save(leaderboard);
+                }
+            } else {
+                if (checkSolution(playedFens)) {
+                    numberOfPlayedPuzzles++;
+                    numberOfCorrectPlayedPuzzles++;
+                    Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), playedFens.getActualPoints(), playedFens.getTournamentId().getId()
+                            , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);
+                    this.leaderboardRepository.save(leaderboard1);
+
+                } else {
+                    numberOfPlayedPuzzles++;
+                    numberOfIncorrectPlayedPuzzles++;
+                    Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), 0, playedFens.getTournamentId().getId()
+                            , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);
+                    this.leaderboardRepository.save(leaderboard1);
+
+                }
             }
         }
-
-
     }
 
 

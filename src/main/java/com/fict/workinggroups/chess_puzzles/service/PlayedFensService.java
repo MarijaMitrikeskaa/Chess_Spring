@@ -18,7 +18,7 @@ public interface PlayedFensService {
 
     List<String> findTournamentByPlayer(String playerId);
 
-    Optional<PlayedFen> savePlayedFen(PlayedFen playedFen);
+    Optional<PlayedFen>savePlayedFen(PlayedFen playedFen);
 
     List<PlayedFen> getAllPlayedFens();
 

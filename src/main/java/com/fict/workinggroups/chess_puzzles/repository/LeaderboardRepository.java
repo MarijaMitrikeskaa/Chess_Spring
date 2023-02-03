@@ -14,4 +14,5 @@ public interface LeaderboardRepository extends JpaRepository<Leaderboard, String
 
     Leaderboard findLeaderboardByNicknameAndTournamentId(String nickname, String tournamentId);
 
+
 }
