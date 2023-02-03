@@ -12,11 +12,12 @@ public class PlayedFenDto {
     Integer actualPoints;
     String username;
 
-    public PlayedFenDto(String fenId, String playedSolution, String tournamentId, Integer actualPoints) {
+    public PlayedFenDto(String fenId, String playedSolution, String tournamentId, Integer actualPoints, String username) {
         this.fenId = fenId;
         this.playedSolution = playedSolution;
         this.tournamentId = tournamentId;
         this.actualPoints = actualPoints;
+        this.username=username;
     }
 
     public PlayedFenDto() {
