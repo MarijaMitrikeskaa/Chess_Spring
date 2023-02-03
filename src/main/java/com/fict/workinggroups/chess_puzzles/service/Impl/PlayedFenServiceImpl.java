@@ -63,7 +63,7 @@ public class PlayedFenServiceImpl implements PlayedFensService {
 
         Integer numberOfIncorrectPlayedPuzzles = 0;
 
-        Leaderboard leaderboard = this.leaderboardRepository.findLeaderboardByNicknameAndTournamentId(player.get().getUsername(), playedFenDto.getTournamentId());
+        Leaderboard leaderboard = this.leaderboardRepository.findLeaderboardByNicknameAndTournamentId(playedFenDto.getUsername(), playedFenDto.getTournamentId());
         if (playedFen.size() == 1) {
             if (leaderboard != null) {
                 if (checkSolution(playedFenDto)) {
@@ -82,14 +82,14 @@ public class PlayedFenServiceImpl implements PlayedFensService {
                 if (checkSolution(playedFenDto)) {
                     numberOfPlayedPuzzles++;
                     numberOfCorrectPlayedPuzzles++;
-                    Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), playedFenDto.getActualPoints(), playedFenDto.getTournamentId()
+                    Leaderboard leaderboard1 = new Leaderboard(playedFenDto.getUsername(), playedFenDto.getActualPoints(), playedFenDto.getTournamentId()
                             , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);
                     this.leaderboardRepository.save(leaderboard1);
 
                 } else {
                     numberOfPlayedPuzzles++;
                     numberOfIncorrectPlayedPuzzles++;
-                    Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), 0, playedFenDto.getTournamentId()
+                    Leaderboard leaderboard1 = new Leaderboard(playedFenDto.getUsername(), 0, playedFenDto.getTournamentId()
                             , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);
                     this.leaderboardRepository.save(leaderboard1);
 
