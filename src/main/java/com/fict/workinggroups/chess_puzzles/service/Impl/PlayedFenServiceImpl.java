@@ -1,5 +1,6 @@
 package com.fict.workinggroups.chess_puzzles.service.Impl;
 
+import com.fict.workinggroups.chess_puzzles.exception.InvalidArgumentsException;
 import com.fict.workinggroups.chess_puzzles.model.dto.PlayedFenDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.*;
 import com.fict.workinggroups.chess_puzzles.repository.*;
@@ -80,7 +81,7 @@ public class PlayedFenServiceImpl implements PlayedFensService {
                 this.leaderboardRepository.save(leaderboard1);
 
             } else {
-                numberOfCorrectPlayedPuzzles++;
+                numberOfPlayedPuzzles++;
                 numberOfIncorrectPlayedPuzzles++;
                 Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), 0, playedFenDto.getTournamentId()
                         , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);
@@ -140,10 +141,19 @@ public class PlayedFenServiceImpl implements PlayedFensService {
     @Override
     public Optional<PlayedFen> savePlayedFen(PlayedFen playedFen) {
 
-        PlayedFen playedFen1 = new PlayedFen(playedFen.getFenId(), playedFen.getPlayerId(), playedFen.getTournamentId(), playedFen.getActualPoints(), playedFen.getPlayedSolution());
+
+        if (this.fenRepository.findById(playedFen.getFenId().getId()).isPresent() && this.playerRepository.findById(playedFen.getPlayerId().getId()).isPresent() &&
+                this.tournamentRepository.findById(playedFen.getTournamentId().getId()).isPresent()) {
+
+            PlayedFen playedFen1 = new PlayedFen(playedFen.getFenId(), playedFen.getPlayerId(), playedFen.getTournamentId(), playedFen.getActualPoints(), playedFen.getPlayedSolution());
+            return Optional.of(this.playedFensRepository.save(playedFen1));
+
+        } else {
+            throw new InvalidArgumentsException();
 
 
-        return Optional.of(this.playedFensRepository.save(playedFen1));
+        }
+
     }
 
 
@@ -204,7 +214,7 @@ public class PlayedFenServiceImpl implements PlayedFensService {
                 this.leaderboardRepository.save(leaderboard1);
 
             } else {
-                numberOfCorrectPlayedPuzzles++;
+                numberOfPlayedPuzzles++;
                 numberOfIncorrectPlayedPuzzles++;
                 Leaderboard leaderboard1 = new Leaderboard(player.get().getUsername(), 0, playedFens.getTournamentId().getId()
                         , numberOfPlayedPuzzles, numberOfCorrectPlayedPuzzles, numberOfIncorrectPlayedPuzzles);

@@ -18,7 +18,7 @@ public class PlayedFenRestController {
     @Autowired
     private PlayedFensService playedFensService;
 
-    @PostMapping(value = "/makeAMove")
+    @PostMapping("/makeAMove")
     public ResponseEntity makeAMove(@ModelAttribute PlayedFenDto playedFenDto) {
         try {
             playedFensService.updateLeaderboard(playedFenDto);
