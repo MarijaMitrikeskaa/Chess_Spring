@@ -69,8 +69,8 @@ public class PlayerServiceImpl implements PlayerService {
         Player player = playerRepository.findById(playerId).get();
 
         String userId = user.getId();
-        String idPlayer = player.getUserId().getId();
-        return userId.equals(idPlayer);
+        //String idPlayer = player.getUserId().getId();
+        return false; //userId.equals(idPlayer);
 
 
     }

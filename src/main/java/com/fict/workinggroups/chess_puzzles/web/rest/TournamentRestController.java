@@ -7,6 +7,7 @@ import com.fict.workinggroups.chess_puzzles.model.dto.TournamentDto;
 import com.fict.workinggroups.chess_puzzles.model.dto.TournamentPuzzlesDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.service.TournamentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@Slf4j
 @RequestMapping("/api/tournament")
 @RestController
 public class TournamentRestController {
@@ -26,6 +28,7 @@ public class TournamentRestController {
 
     @GetMapping("/{id}/puzzles")
     public ResponseEntity<TournamentPuzzlesDto> getTournamentPuzzlesById(@PathVariable String id) {
+        log.debug("qqq getTournamentPuzzlesById");
         try {
             Optional<Tournament> tournament = tournamentService.getTournamentById(id);
             if (tournament.get().isTournamentActive()) {

@@ -17,9 +17,9 @@ public class Player {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "user_id")
-    private User userId;
+//    @OneToOne(cascade = {CascadeType.ALL})
+//    @JoinColumn(name = "user_id")
+//    private User userId;
 
     private String username;
 

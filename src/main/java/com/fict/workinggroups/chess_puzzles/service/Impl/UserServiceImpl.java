@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
             throw new UsernameAlreadyExistsException(guest.getUsername());
         }
         Player player = new Player(guest.getUsername());
-        player.setUserId(guest);
+        //player.setUserId(guest);
         this.playerRepository.save(player);
 
         return this.userRepository.save(guest);
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
         User user = new User(username, passwordEncoder.encode(password), role);
 
         Player player = new Player(username);
-        player.setUserId(user);
+        //player.setUserId(user);
         this.playerRepository.save(player);
 
         return userRepository.save(user);
