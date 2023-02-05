@@ -102,7 +102,7 @@ public class TournamentServiceImpl implements TournamentService {
                 Set<Fen> fens = this.tournamentRepository.findById(tournamentId).get().getFens();
                 Set<FenDto> approvedFens = new HashSet<>();
                 for (Fen fen : fens) {
-                    if (fen.getStatus().name().equals("PENDING")) {
+                    if (fen.getStatus().name().equals("PENDING")) { //todo change to APPROVED
                         FenDto changedFen = new FenDto(fen.getId(), fen.getFen(), fen.getDescription(), fen.getMaxPoints(), fen.getStatus());
                         approvedFens.add(changedFen);
 
