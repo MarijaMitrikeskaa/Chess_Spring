@@ -51,7 +51,6 @@ public class FenRestController {
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/edit/{id}")
     public ResponseEntity<Fen> editFen(@PathVariable String id, @ModelAttribute FenSolutionDto fenSolutionDto) {
@@ -84,6 +83,12 @@ public class FenRestController {
 
             return ResponseEntity.status(422).body(e.getMessage());
         }
+    }
+
+    //hacks for import export of fen data
+    @GetMapping("/allfens")
+    public List<Fen> getAllFen() {
+        return this.fenService.getAllFens();
     }
 }
 
