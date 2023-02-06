@@ -25,6 +25,7 @@ public class FenServiceImpl implements FenService {
     @Override
     public List<Fen> getAllFens() {
         List<Fen> fens = this.fenRepo.findAll();
+        //hacks List<Fen> fens = this.fenRepo.findBySolutionIsNull();
         List<Fen> noSolutionFens = new ArrayList<>();
         for (Fen fen : fens) {
             Fen fen1 = new Fen(fen.getId(), fen.getFen(), fen.getDescription(), fen.getMaxPoints());
@@ -33,6 +34,11 @@ public class FenServiceImpl implements FenService {
 
 
         return noSolutionFens;
+    }
+
+    @Override
+    public List<Fen> getAllFensWithSolution() {
+        return fenRepo.findAll();
     }
 
     @Override
@@ -62,12 +68,12 @@ public class FenServiceImpl implements FenService {
     }
 
     @Override
-    public Optional<Fen> deleteFen(String id) {
+    public String deleteFen(String id) {
         if (!fenRepo.findById(id).isEmpty()) {
             this.fenRepo.deleteById(id);
-            return fenRepo.findById(id);
+            return "daleted";//fenRepo.findById(id);
         } else {
-            throw new FenNotFound();
+            return "not deleted";
         }
 
     }

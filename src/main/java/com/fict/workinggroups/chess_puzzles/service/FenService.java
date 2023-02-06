@@ -10,11 +10,13 @@ import java.util.Optional;
 public interface FenService {
     List<Fen> getAllFens();
 
+    List<Fen> getAllFensWithSolution();
+
     Optional<Fen> saveFen(String fen, String description, Integer maxPoints, String solution);
 
     Optional<Fen> getFenById(String id);
 
-    Optional deleteFen(String id);
+    String deleteFen(String id);
 
     Optional<Fen> edit(String id, String fen, String description, Integer maxPoints, String solution);
 

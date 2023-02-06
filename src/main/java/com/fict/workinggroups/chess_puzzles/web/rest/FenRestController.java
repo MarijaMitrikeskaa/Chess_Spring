@@ -73,7 +73,7 @@ public class FenRestController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteFen(@PathVariable String id) {
         try {
@@ -88,7 +88,7 @@ public class FenRestController {
     //hacks for import export of fen data
     @GetMapping("/allfens")
     public List<Fen> getAllFen() {
-        return this.fenService.getAllFens();
+        return this.fenService.getAllFensWithSolution();
     }
 }
 

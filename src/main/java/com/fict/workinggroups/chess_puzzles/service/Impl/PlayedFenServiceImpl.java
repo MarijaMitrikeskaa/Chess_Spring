@@ -37,17 +37,22 @@ public class PlayedFenServiceImpl implements PlayedFensService {
         Optional<Fen> fen = this.fenRepository.findById(playedFenDto.getFenId());
         Optional<Tournament> tournament = this.tournamentRepository.findById(playedFenDto.getTournamentId());
 
+        Boolean playerAnsweredAccurate = checkSolution(playedFenDto);
+        int actualPoints = 0;
+        if(playerAnsweredAccurate){
+            actualPoints = playedFenDto.getActualPoints();
+        }
         Optional<Player> player = this.playerRepository.findByUsername(playedFenDto.getUsername());
         if (player.isPresent()) {
             PlayedFen playedFen = new PlayedFen(fen.get(), player.get(),
-                    tournament.get(), playedFenDto.getActualPoints(), playedFenDto.getPlayedSolution());
+                    tournament.get(), actualPoints, playedFenDto.getPlayedSolution());
             this.playedFensRepository.save(playedFen);
 
         } else {
             Player player1 = new Player(playedFenDto.getUsername());
             this.playerRepository.save(player1);
             PlayedFen playedFen = new PlayedFen(fen.get(), player1,
-                    tournament.get(), playedFenDto.getActualPoints(), playedFenDto.getPlayedSolution());
+                    tournament.get(), actualPoints, playedFenDto.getPlayedSolution());
             this.playedFensRepository.save(playedFen);
         }
 
@@ -66,7 +71,7 @@ public class PlayedFenServiceImpl implements PlayedFensService {
         Leaderboard leaderboard = this.leaderboardRepository.findLeaderboardByNicknameAndTournamentId(playedFenDto.getUsername(), playedFenDto.getTournamentId());
         if (playedFen.size() == 1) {
             if (leaderboard != null) {
-                if (checkSolution(playedFenDto)) {
+                if (playerAnsweredAccurate) {
                     Integer leadPoints = leaderboard.getPoints();
                     leadPoints += playedFenDto.getActualPoints();
                     leaderboard.setPoints(leadPoints);
@@ -79,7 +84,7 @@ public class PlayedFenServiceImpl implements PlayedFensService {
                     this.leaderboardRepository.save(leaderboard);
                 }
             } else {
-                if (checkSolution(playedFenDto)) {
+                if (playerAnsweredAccurate) {
                     numberOfPlayedPuzzles++;
                     numberOfCorrectPlayedPuzzles++;
                     Leaderboard leaderboard1 = new Leaderboard(playedFenDto.getUsername(), playedFenDto.getActualPoints(), playedFenDto.getTournamentId()

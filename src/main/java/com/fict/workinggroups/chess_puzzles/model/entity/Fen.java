@@ -36,7 +36,8 @@ public class Fen {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE
+                    CascadeType.MERGE,
+                    CascadeType.REMOVE
             },
             mappedBy = "fens")
     private Set<Tournament> tournaments;
