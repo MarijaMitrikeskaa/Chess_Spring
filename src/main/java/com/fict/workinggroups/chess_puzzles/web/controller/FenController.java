@@ -59,7 +59,7 @@ public class FenController {
 
 
     @DeleteMapping("/deleteFenID/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteFenId(@PathVariable(value = "id") String id) {
         this.fenService.deleteFen(id);
         return "redirect:/viewFens";

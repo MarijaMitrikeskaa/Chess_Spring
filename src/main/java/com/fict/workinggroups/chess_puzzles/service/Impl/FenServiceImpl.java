@@ -4,23 +4,34 @@ import com.fict.workinggroups.chess_puzzles.exception.FenNotFound;
 import com.fict.workinggroups.chess_puzzles.exception.InvalidFenException;
 import com.fict.workinggroups.chess_puzzles.model.dto.FenSolutionDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
+import com.fict.workinggroups.chess_puzzles.model.entity.Tournament;
 import com.fict.workinggroups.chess_puzzles.model.enums.Status;
 import com.fict.workinggroups.chess_puzzles.repository.FenRepository;
+import com.fict.workinggroups.chess_puzzles.repository.TournamentRepository;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+@Slf4j
 @Service
 public class FenServiceImpl implements FenService {
 
     @Autowired
     private FenRepository fenRepo;
+
+    @Autowired
+    private TournamentRepository tournamentRepository;
+
 
     @Override
     public List<Fen> getAllFens() {
@@ -69,10 +80,30 @@ public class FenServiceImpl implements FenService {
 
     @Override
     public String deleteFen(String id) {
+        //todo
+        List<Tournament> tournaments = tournamentRepository.findAll();
+        for (Tournament t : tournaments) {
+            log.debug("deleteFen fen id "+id);
+            log.debug("deleteFen tournamentID "+t.getId());
+            List<Fen> forRemove = t.getFens().stream().filter(it -> it.getId() == id).collect(Collectors.toList());
+            log.debug("deleteFen forRemove "+forRemove);
+            if (forRemove != null && forRemove.size() > 0) {
+                Set<Fen> allFensPerTournament = t.getFens();
+                log.debug("deleteFen forRemove.get(0)"+forRemove.get(0));
+                allFensPerTournament.remove(forRemove.get(0));
+                t.setFens(allFensPerTournament);
+                tournamentRepository.save(t);
+                log.debug("deleteFen tournamentRepository.save(t);");
+            }
+        }
+
+
         if (!fenRepo.findById(id).isEmpty()) {
             this.fenRepo.deleteById(id);
+            log.debug("deleteFen deleted");
             return "deleted";//fenRepo.findById(id);
         } else {
+            log.debug("deleteFen notDeleted");
             return "not deleted";
         }
 
@@ -128,6 +159,22 @@ public class FenServiceImpl implements FenService {
     public Optional<Fen> addFenSolution(String id, String solution) {
         Fen fen = this.fenRepo.findById(id).orElseThrow(InvalidFenException::new);
         fen.setSolution(solution);
+
+        return Optional.of(this.fenRepo.save(fen));
+    }
+
+    @Override
+    public Optional<Fen> changeStatusToApproved(String id) {
+        Fen fen = this.fenRepo.findById(id).orElseThrow(InvalidFenException::new);
+        fen.setStatus(Status.APPROVED);
+
+        return Optional.of(this.fenRepo.save(fen));
+    }
+
+    @Override
+    public Optional<Fen> changeStatusToDeclined(String id) {
+        Fen fen = this.fenRepo.findById(id).orElseThrow(InvalidFenException::new);
+        fen.setStatus(Status.DECLINED);
 
         return Optional.of(this.fenRepo.save(fen));
     }

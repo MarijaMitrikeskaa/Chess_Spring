@@ -30,4 +30,7 @@ public interface FenService {
 
     Optional<Fen> addFenSolution(String id, String solution);
 
+    Optional<Fen> changeStatusToApproved(String id);
+
+    Optional<Fen> changeStatusToDeclined(String id);
 }

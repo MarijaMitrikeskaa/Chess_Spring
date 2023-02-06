@@ -32,12 +32,12 @@ public class Fen {
     private Integer maxPoints;
 
     private String solution;
+
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE,
-                    CascadeType.REMOVE
+                    CascadeType.MERGE
             },
             mappedBy = "fens")
     private Set<Tournament> tournaments;

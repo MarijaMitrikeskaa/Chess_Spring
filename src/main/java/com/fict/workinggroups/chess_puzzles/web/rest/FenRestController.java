@@ -5,6 +5,7 @@ import com.fict.workinggroups.chess_puzzles.model.dto.FenDto;
 import com.fict.workinggroups.chess_puzzles.model.dto.FenSolutionDto;
 import com.fict.workinggroups.chess_puzzles.model.entity.Fen;
 import com.fict.workinggroups.chess_puzzles.service.FenService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RequestMapping("/api/fens")
 @RestController
 public class FenRestController {
@@ -77,11 +79,15 @@ public class FenRestController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteFen(@PathVariable String id) {
         try {
+            log.debug("deleteFen "+id);
             fenService.deleteFen(id);
             return ResponseEntity.ok().body(id);
         } catch (FenNotFound e) {
 
             return ResponseEntity.status(422).body(e.getMessage());
+        } catch (Exception e){
+            log.error("qqq An ERROR Message "+e.getMessage());
+            return ResponseEntity.status(500).body(null);
         }
     }
 
@@ -89,6 +95,22 @@ public class FenRestController {
     @GetMapping("/allfens")
     public List<Fen> getAllFen() {
         return this.fenService.getAllFensWithSolution();
+    }
+
+    @PutMapping("/approve/{id}")
+    public ResponseEntity<Fen> approve(@PathVariable String id) {
+        log.debug("update fen approve "+id);
+        return this.fenService.changeStatusToApproved(id)
+                .map(fen -> ResponseEntity.ok().body(fen))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    @PutMapping("/decline/{id}")
+    public ResponseEntity<Fen> decline(@PathVariable String id) {
+        log.debug("update fen decline "+id);
+        return this.fenService.changeStatusToDeclined(id)
+                .map(fen -> ResponseEntity.ok().body(fen))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 }
 
