@@ -16,7 +16,7 @@ public class FenController {
 
     @GetMapping("/viewFens")
     public String viewHomePage(Model model) {
-        model.addAttribute("fenList", fenService.getAllFens());
+        model.addAttribute("fenList", fenService.getAllFensWithSolution());
         return "fen_list";
     }
 
