@@ -75,7 +75,7 @@ public class FenRestController {
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteFen(@PathVariable String id) {
+    public ResponseEntity<String> deleteFen(@PathVariable String id) {
         try {
             fenService.deleteFen(id);
             return ResponseEntity.ok().body(id);
